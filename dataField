@@ -16,4 +16,7 @@ lastName : 20 char ,
 borrowHistory : Book[] ,
 
 >>User_Librarian
+id : 8 digit ,
+name : 20 char ,
+lastname : 20 char ,
 
