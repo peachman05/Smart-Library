@@ -1,6 +1,5 @@
 myvenv/
 db.sqlite3
-smart_library/__pycache__
 *.pyc
 local_settings.py
 staticfiles
