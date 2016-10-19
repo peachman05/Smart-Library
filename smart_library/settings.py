@@ -52,22 +52,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'smart_library.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = 'smart_library.wsgi.application'
 
 # Password validation
@@ -141,14 +125,14 @@ DATABASES = {
 }
 
 # For Heroku
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+# import dj_database_url
+# DATABASES['default'] = dj_database_url.config()
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
-DEBUG = False
+# DEBUG = False
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -164,7 +148,7 @@ DEBUG = False
         #     }
         # }
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
