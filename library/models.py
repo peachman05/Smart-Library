@@ -26,6 +26,7 @@ class Book(models.Model):
 	isbn = models.CharField(max_length=20)
 	catagory = models.ForeignKey(BookCatagories)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
+	student = models.ForeignKey(Student)
 
 
 ######### Transaction ##############
