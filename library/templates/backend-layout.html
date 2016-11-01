@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}Backend</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-pink.min.css" />
+  <link rel="stylesheet" type="text/css" href="{% static 'library/css/backend-layout.css' %}">
+  <style type="text/css">
+    #dashboard{
+      background-color: white !important;
+       color: #6f8591 !important;
+    }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Smart Library</span>
+          <div class="mdl-layout-spacer"></div>
+          <div id="hello-there">Hi, Guest&nbsp&nbsp</div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item"><a href="/logout">Log out</a></li>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <!-- Head NavSide -->
+            <img src="{% static 'library/images/avatar.png' %}" width="150" height="150" class="img-circle" style="margin-left:37px; margin-bottom: 0px; margin-top: 0px;">
+
+          <div class="nav-name">
+            Anonymous<br>
+            <span class="mdl-chip score"><span class="mdl-chip__text">Hello</span></span>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link nav-menu" id="dashboard" href="/backend"><i class="menu material-icons" role="presentation">home</i>&nbsp&nbsp&nbsp Home</a>
+          <a class="mdl-navigation__link nav-menu" id="testa" href="/backend/testa"><i class="menu material-icons" role="presentation">class</i>&nbsp&nbsp&nbsp TestA</a>
+          <a class="mdl-navigation__link nav-menu" id="testb" href="/backend/testb"><i class="menu material-icons" role="presentation">collections_bookmark</i>&nbsp&nbsp&nbsp TestB</a>
+          <a class="mdl-navigation__link nav-menu" id="setting" href="/backend/setting"><i class="menu material-icons" role="presentation">build</i>&nbsp&nbsp&nbsp Setting</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+        &nbsp&nbsp&nbsp{% block content %}{% endblock %}
+      </main>
+    </div>
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>

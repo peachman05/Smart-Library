@@ -6,3 +6,8 @@ from django.contrib.auth.decorators import login_required
 def home(request):
 	appname = "Smart Library"
 	return render(request, 'home.html', {'appname': appname})
+
+
+def backend(request):
+	appname = "Smart Library"
+	return render(request, 'backend-layout.html', {})

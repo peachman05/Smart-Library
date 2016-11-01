@@ -20,4 +20,5 @@ from library import views
 urlpatterns = [
 	# url(r'^$', views.home, name="home"),
 	url(r'^$', views.home),
+	url(r'^admin-portal', views.backend),
 ]
