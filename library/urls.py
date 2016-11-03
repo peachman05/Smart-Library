@@ -20,6 +20,7 @@ from library import views
 urlpatterns = [
 	# url(r'^$', views.home, name="home"),
 	url(r'^$', views.home),
+    url(r'^profile', views.profile),
 
     url(r'^librarian/$', views.backend_home),
     url(r'^librarian/backend_addbook', views.backend_addbook),

@@ -3,8 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 def home(request):
-	appname = "Smart Library"
-	return render(request, 'home.html', {'appname': appname})
+	return render(request, 'homepage.html', {})
+
+def profile(request):
+	return render(request, 'homepage.html', {})
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
