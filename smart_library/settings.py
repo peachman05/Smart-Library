@@ -103,7 +103,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'templates',
-            'library/templates'
+            'library/templates',
+            'library/admin-templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {

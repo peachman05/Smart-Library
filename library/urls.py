@@ -20,5 +20,9 @@ from library import views
 urlpatterns = [
 	# url(r'^$', views.home, name="home"),
 	url(r'^$', views.home),
-	url(r'^admin-portal', views.backend),
+
+    url(r'^librarian/$', views.backend_home),
+    url(r'^librarian/backend_addbook', views.backend_addbook),
+    url(r'^librarian/backend_user', views.backend_user),
+    url(r'^librarian/backend_setting', views.backend_setting),
 ]

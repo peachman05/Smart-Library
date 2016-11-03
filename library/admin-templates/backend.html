@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-pink.min.css" />
   <link rel="stylesheet" type="text/css" href="{% static 'library/css/backend-layout.css' %}">
   <style type="text/css">
-    #dashboard{
+    #{{page}}{
       background-color: white !important;
        color: #6f8591 !important;
     }
@@ -41,10 +41,10 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link nav-menu" id="dashboard" href="/backend"><i class="menu material-icons" role="presentation">home</i>&nbsp&nbsp&nbsp Home</a>
-          <a class="mdl-navigation__link nav-menu" id="testa" href="/backend/testa"><i class="menu material-icons" role="presentation">class</i>&nbsp&nbsp&nbsp TestA</a>
-          <a class="mdl-navigation__link nav-menu" id="testb" href="/backend/testb"><i class="menu material-icons" role="presentation">collections_bookmark</i>&nbsp&nbsp&nbsp TestB</a>
-          <a class="mdl-navigation__link nav-menu" id="setting" href="/backend/setting"><i class="menu material-icons" role="presentation">build</i>&nbsp&nbsp&nbsp Setting</a>
+          <a class="mdl-navigation__link nav-menu" id="Dashboard" href="/lib/librarian/"><i class="menu material-icons" role="presentation">dashboard</i>&nbsp&nbsp&nbsp Home</a>
+          <a class="mdl-navigation__link nav-menu" id="BookManager" href="/lib/librarian/backend_addbook"><i class="menu material-icons" role="presentation">chrome_reader_mode</i>&nbsp&nbsp&nbsp Add Book</a>
+          <a class="mdl-navigation__link nav-menu" id="UserManager" href="/lib/librarian/backend_user"><i class="menu material-icons" role="presentation">group</i>&nbsp&nbsp&nbsp User</a>
+          <a class="mdl-navigation__link nav-menu" id="Setting" href="/lib/librarian/backend_setting"><i class="menu material-icons" role="presentation">settings</i>&nbsp&nbsp&nbsp Setting</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
