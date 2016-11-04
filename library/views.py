@@ -5,6 +5,8 @@ from .models import Student, BookCatagories, Book, Transaction
 from django.contrib.auth.models import User
 import string
 import random
+from django.core.mail import send_mail
+from django.conf import settings
 
 def home(request):
 	return render(request, 'homepage.html', {})
@@ -92,6 +94,14 @@ def backend_user(request):
 				user.first_name = fname
 				user.last_name = lname
 				user.save()
+				mail_message = 'Dear '+fname+' '+lname+'\n\n\n\t Your Account is all done!\n\t So your password is: '+passwd+'\n\n\nThank, \nSmart-Library Teams.' 
+				send_mail(
+					'Your Registration is Successfull!',
+					mail_message,
+					settings.EMAIL_HOST_USER,
+					[email],
+					fail_silently=True,
+				)
 			except:
 				user = User.objects.get(username=s_id)
 
