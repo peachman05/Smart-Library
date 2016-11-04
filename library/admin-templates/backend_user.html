@@ -1,13 +1,118 @@
 {% extends "backend.html" %}
 {% block title %}User{% endblock %}
 
-{% block content %}
+{% block content %}	
 <div class="mdl-grid">
-	<h2>User</h2>
+	<div class="mdl-cell mdl-cell--12-col">
+		<h2>User</h2>
+	</div>
+	<div class="mdl-cell mdl-cell--12-col">
+		<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Student</button>
+		<button id="show-dialog2" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:rgb(244,67,54);">Delete Selected</button>
+	</div>
 	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in varius quam, sed posuere magna. Donec eu pellentesque erat. Aenean interdum maximus libero, a tempor lectus posuere a. Donec cursus ut sem vel elementum. Ut aliquam, odio ac tempus viverra, magna dolor pulvinar orci, ut commodo erat augue sed nunc. Maecenas tristique massa augue. Donec ut ex eget magna porta hendrerit. Vivamus non sem in lacus laoreet auctor nec interdum dui. Donec lorem arcu, sagittis eget ex et, rutrum porta risus.
-
-		Nam vulputate congue bibendum. Vestibulum non lacus nec justo bibendum porttitor. In sit amet eleifend ex, vitae luctus tortor. Phasellus odio felis, facilisis in tempus accumsan, porttitor a nunc. Nulla convallis, magna nec cursus pretium, massa libero varius mauris, at tristique tortor elit quis tellus. Etiam porttitor tempus lobortis. Nam eros leo, mattis quis feugiat eu, faucibus quis sapien. Sed eget volutpat mauris. Praesent felis erat, fermentum in erat at, tincidunt cursus dui. Cras cursus quis elit a ullamcorper. Nam ac sollicitudin eros. Curabitur non semper lacus.
+		<form id="studentform" action='/lib/librarian/backend_user/' method="post">
+			{% csrf_token %}
+			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			  <thead>
+			    <tr>
+			    	<th>#</th>
+			    	<th style="text-align: center;">Student ID</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Name</th>
+			    	<th>Quantity</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for student, q in student_list_q %}
+			    <tr name="studentTable" value="{{student.user.username}}" id="{{student.user.username}}">
+			    	<td>
+			    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{student.user.username}}">
+			    			<input name="studentTable" type="checkbox" id="checkbox-{{student.user.username}}" value="checkbox-{{student.user.username}}" class="mdl-checkbox__input">
+			    		</label>
+			    	</td>
+			    	<td style="text-align: center;">{{student.student_ID}}</td>
+					<td class="mdl-data-table__cell--non-numeric">{{student.user.first_name}} {{student.user.last_name}}</td>
+					<td>{{q}}</td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+		</form>
 	</div>
 </div>
+
+<dialog class="mdl-dialog" id="addStudentDialog">
+<h4 class="mdl-dialog__title">Add Student</h4>
+<div class="mdl-dialog__content">
+<!-- #########Form -->
+	<form action='/lib/librarian/backend_user/' class="well" method="post">
+		{% csrf_token %}
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label for="student_ID" class="mdl-textfield__label">Student id</label>
+			<input id="student_ID" type="text" class="mdl-textfield__input" name="student_ID" maxlength="100" required />
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label for="firstname" class="mdl-textfield__label">Firstname</label>
+			<input id="firstname" type="text" class="mdl-textfield__input" name="firstname" maxlength="100" required />
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label for="lastname" class="mdl-textfield__label">Lastname</label>
+			<input id="lastname" type="text" class="mdl-textfield__input" name="lastname" maxlength="100" required />
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label for="email" class="mdl-textfield__label">Email</label>
+			<input id="email" type="email" class="mdl-textfield__input" name="email" maxlength="100" required />
+		</div>
+		<div class="mdl-dialog__actions">
+			<button type="button" class="mdl-button close">Close</button>
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_user">Add</button>
+		</div>
+	</form>
+<!-- #########Form -->
+</div>
+</dialog>
+
+
+<dialog class="mdl-dialog" id="deleteStudentDialog">
+    <h4 class="mdl-dialog__title">Warning!</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        Are you really want to delete the selected user?
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+		<button type="button" class="mdl-button close">No</button>
+		<button type="submit" form="studentform" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="delete_user" style="background-color:rgb(244,67,54);">Yes!</button>
+    </div>
+ </dialog>
+
+
+{% endblock %}
+{% block script %}
+  <script>
+    var dialog = document.querySelector('#addStudentDialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+
+    var dialog2 = document.querySelector('#deleteStudentDialog');
+    var showDialogButton2 = document.querySelector('#show-dialog2');
+    if (! dialog2.showModal) {
+      dialogPolyfill.registerDialog(dialog2);
+    }
+    showDialogButton2.addEventListener('click', function() {
+      dialog2.showModal();
+    });
+    dialog2.querySelector('.close').addEventListener('click', function() {
+      dialog2.close();
+    });
+  </script>
 {% endblock %}

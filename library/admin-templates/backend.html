@@ -20,9 +20,16 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Smart Library</span>
+          <span class="mdl-layout-title">Smart Library </span>
           <div class="mdl-layout-spacer"></div>
-          <div id="hello-there">Hi, Guest&nbsp&nbsp</div>
+          <div id="hello-there">Hi, 
+            {% if user.username %}
+              {{user.username}}
+            {% else %}
+              Guest
+            {% endif %}
+            &nbsp&nbsp
+          </div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>
@@ -36,8 +43,9 @@
             <img src="{% static 'library/images/avatar.png' %}" width="150" height="150" class="img-circle" style="margin-left:37px; margin-bottom: 0px; margin-top: 0px;">
 
           <div class="nav-name">
-            Anonymous<br>
-            <span class="mdl-chip score"><span class="mdl-chip__text">Hello</span></span>
+            {% if user.first_name and user.last_name %}{{user.first_name}}<br>{{user.last_name}}{% else %}Anonymous{% endif %}
+            <br>
+            <span class="mdl-chip score"><span class="mdl-chip__text">Librarian</span></span>
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">

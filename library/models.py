@@ -7,6 +7,8 @@ class Student(models.Model):
 	student_ID = models.CharField(max_length=20)
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	is_librarian = models.BooleanField(default=False)
+	def __str__(self):
+		return self.student_ID + ':  ' + self.user.first_name + " " + self.user.last_name
 
 
 
@@ -40,4 +42,3 @@ class Transaction(models.Model):
 	status = models.CharField(max_length=2, choices=TRANSACTION_STATUS, default='RT')
 	student = models.ForeignKey(Student)
 	book = models.ForeignKey(Book)
-# Create your models here.
