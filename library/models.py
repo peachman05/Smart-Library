@@ -15,6 +15,8 @@ class Student(models.Model):
 ############ Book ######################
 class BookCatagories(models.Model):
 	name = models.CharField(max_length=20)
+	def __str__(self):
+		return self.name
 
 class Book(models.Model):
 	BOOK_STATUS = (
@@ -24,7 +26,7 @@ class Book(models.Model):
 	name = models.CharField(max_length=70)
 	author = models.CharField(max_length=50)
 	code = models.CharField(max_length=20)
-	date = models.DateTimeField('date published')
+	date = models.CharField(max_length=50)
 	isbn = models.CharField(max_length=20)
 	catagory = models.ForeignKey(BookCatagories)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')

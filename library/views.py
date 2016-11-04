@@ -23,6 +23,56 @@ def backend_home(request):
 def backend_addbook(request):
 	data = {'page': 'BookManager'}
 	data['user'] = request.user
+	if request.method == 'POST':
+		if 'book_search' in request.POST:
+			s_status = request.POST.get('status', False)
+			s_catagory = request.POST.get('catagory_name', False)
+			book_list = Book.objects.all()
+			if s_status != 'all':
+				book_list = book_list.filter(status = s_status)
+			if s_catagory != 'all':
+				cata = BookCatagories.objects.get(name = s_catagory)
+				book_list = book_list.filter(catagory = cata)
+			data['book_list'] = book_list
+			data['catagories_list'] = BookCatagories.objects.all()
+			return render(request, 'backend_addbook.html', data)
+		elif 'add_catagory' in request.POST:
+			cata_name = request.POST.get('catagory_name')
+			try:
+				BookCatagories.objects.get(name = cata_name)
+			except:
+				cata = BookCatagories(name = cata_name)
+				cata.save()
+		elif 'delete_catagory' in request.POST:
+			cata_name = request.POST.get('catagory_name')
+			cata = BookCatagories.objects.get(name = cata_name)
+			books = Book.objects.all().filter(catagory = cata)
+			for book in books:
+				book.delete()
+			cata.delete
+		elif 'add_book' in request.POST:
+			ab_name = request.POST.get('add_name', False)
+			ab_author = request.POST.get('add_author', False)
+			ab_code = request.POST.get('add_code', False)
+			ab_date = request.POST.get('add_date', False)
+			ab_isbn = request.POST.get('add_isbn', False)
+			post_catagory = request.POST.get('ab_catagory', False)
+			ab_catagory = BookCatagories.objects.get(name = post_catagory)
+			ab_student = Student.objects.get(student_ID = 'libraryStore')
+			new_book = Book(name = ab_name, author = ab_author,
+							code = ab_code, date = ab_date, student = ab_student,
+							isbn = ab_isbn, catagory = ab_catagory)
+			new_book.save()
+		elif 'delete_book' in request.POST:
+			for book_selected in request.POST.getlist('bookTable'):
+				try:
+					b = Book.objects.get(pk = book_selected[9:])
+					b.delete()
+				except:
+					print("Can't Delete Book")
+		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
+	data['book_list'] = Book.objects.all()
+	data['catagories_list'] = BookCatagories.objects.all()
 	return render(request, 'backend_addbook.html', data)
 
 
@@ -48,7 +98,7 @@ def backend_user(request):
 			student = Student(student_ID = s_id, user=user)
 			student.save()
 			print(':   :  ' + s_id + ":" + fname + ":" + lname + ":" + email + " Password : " + passwd)
-		else:
+		elif 'delete_user' in request.POST:
 			for student_selected in request.POST.getlist('studentTable'):
 				try:
 					u = User.objects.get(username = (student_selected[9:]))
@@ -57,6 +107,7 @@ def backend_user(request):
 					s.delete()
 				except :
 					print('Can\'t find ' + student_selected[9:]	)
+		return HttpResponseRedirect("/lib/librarian/backend_user/")
 	student_list = Student.objects.all()
 	quantity = []
 	for student in student_list:
