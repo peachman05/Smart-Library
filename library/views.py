@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Student, BookCatagories, Book, Transaction
 from django.contrib.auth.models import User
+from django.db.models import Q
 import string
 import random
 from django.core.mail import send_mail
@@ -19,6 +20,7 @@ def profile(request):
 def backend_home(request):
 	data = {'page': 'Dashboard'}
 	data['user'] = request.user
+	data['transactions'] = Transaction.objects.all()[:50]
 	return render(request, 'backend_home.html', data)
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
@@ -51,7 +53,7 @@ def backend_addbook(request):
 			books = Book.objects.all().filter(catagory = cata)
 			for book in books:
 				book.delete()
-			cata.delete
+			cata.delete()
 		elif 'add_book' in request.POST:
 			ab_name = request.POST.get('add_name', False)
 			ab_author = request.POST.get('add_author', False)
@@ -104,6 +106,7 @@ def backend_user(request):
 				)
 			except:
 				user = User.objects.get(username=s_id)
+				print('That user is exist')
 
 			student = Student(student_ID = s_id, user=user)
 			student.save()
@@ -116,9 +119,10 @@ def backend_user(request):
 					u.delete()
 					s.delete()
 				except :
-					print('Can\'t find ' + student_selected[9:]	)
+					print('Can\'t find ' + student_selected[9:])
 		return HttpResponseRedirect("/lib/librarian/backend_user/")
-	student_list = Student.objects.all()
+	#Ignore 'libraryStore'
+	student_list = Student.objects.all().filter(~Q(student_ID = 'libraryStore'))
 	quantity = []
 	for student in student_list:
 		quantity.append(len(Book.objects.all().filter(student = student)))
@@ -131,5 +135,38 @@ def backend_user(request):
 def backend_setting(request):
 	data = {'page': 'Setting'}
 	data['user'] = request.user
-
+	if request.method == 'POST':
+		user = request.user
+		if 'general' in request.POST:
+			fname = request.POST.get('fname')
+			lname = request.POST.get('lname')
+			email = request.POST.get('email')
+			user.first_name = fname
+			user.last_name = lname
+			user.email = email
+			user.save()
+		elif 'password-changed' in request.POST:
+			oldpass = request.POST.get('old-pass')
+			newpass1 = request.POST.get('new-pass1')
+			newpass2 = request.POST.get('new-pass2')
+			if user.check_password(oldpass) == True:
+				if newpass1 == newpass2:
+					user.set_password(newpass1)
+					user.save()
+					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.' 
+					send_mail(
+						'Your Password Is Changed!',
+						mail_message,
+						settings.EMAIL_HOST_USER,
+						[user.email],
+						fail_silently=True,
+					)
+					return HttpResponseRedirect('/login/')
+				else:
+					data['error_message'] = 'New password isn\'t match'
+					return render(request, 'backend_setting.html', data)
+			else:
+				data['error_message'] = 'Your old password is not correct'
+				return render(request, 'backend_setting.html', data)
+		return HttpResponseRedirect("/lib/librarian/backend_setting")
 	return render(request, 'backend_setting.html', data)

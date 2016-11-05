@@ -44,3 +44,5 @@ class Transaction(models.Model):
 	status = models.CharField(max_length=2, choices=TRANSACTION_STATUS, default='RT')
 	student = models.ForeignKey(Student)
 	book = models.ForeignKey(Book)
+	class Meta:
+		ordering = ['date']

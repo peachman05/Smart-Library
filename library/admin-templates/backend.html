@@ -59,7 +59,32 @@
         &nbsp&nbsp&nbsp{% block content %}{% endblock %}
       </main>
     </div>
+
+<dialog class="mdl-dialog" id="error_message">
+    <h4 class="mdl-dialog__title">Error!</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        {{error_message}}
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">No</button>
+    </div>
+</dialog>
+
     <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     {% block script %}{% endblock %}
+    <script type="text/javascript">
+      {% if error_message %}
+        var dialog0 = document.querySelector('#error_message');
+        dialog0.showModal();
+        if (! dialog0.showModal) {
+          dialogPolyfill.registerDialog(dialog0);
+        }
+        dialog0.querySelector('.close').addEventListener('click', function() {
+          dialog0.close();
+        });
+      {% endif %}
+    </script>
 </body>
 </html>
