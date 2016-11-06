@@ -30,7 +30,7 @@ class Book(models.Model):
 	isbn = models.CharField(max_length=20)
 	address = models.CharField(max_length=20)
 	catagory = models.ForeignKey(BookCatagories)
-	borrow_date = models.DateField('borrow', null=True, blank=True)
+	borrow_date = models.DateTimeField('borrow', null=True, blank=True)
 	picture = models.FileField(upload_to='library/bookpic/', blank=True)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
 	student = models.ForeignKey(Student)

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Borrow Books{% endblock %}
+
+{% block content %}
+<div class="mdl-grid">
+	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--1-offset-desktop mdl-grid">
+		<h2 style="margin-left:30px;">Borrow Book</h2>
+		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+		<form id="searchForm" action='/lib/borrow/' method="post">
+			{% csrf_token %}
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-left:20px;">
+				<label for="search_book" class="mdl-textfield__label">Book ID</label>
+				<input id="search_book" type="text" class="mdl-textfield__input" name="search_book" required />
+			</div>
+			<button type="submit" style="margin-left:20px;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="submit_borrow">Borrow</button>
+		</form>
+		</div>
+		<div class="mdl-cell mdl-cell--11-col mdl-grid">
+		<form id="studentform" action='/lib/librarian/backend_returnbook/' method="post">
+			{% csrf_token %}
+			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			  <thead>
+			    <tr>
+			    	<th>#</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Name</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Return Date</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for book in book_list %}
+				<tr name="studentTable" value="{{student.user.username}}" id="{{student.user.username}}">
+					<td>
+						{{forloop.counter}}
+					</td>
+					<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
+					<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
+					<td class="mdl-data-table__cell--non-numeric">{{book.borrow_date|date}}</td>
+				</tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+		</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+    var dialog = document.querySelector('#addStudentDialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+	</script>
+	{% if confirm_borrow %}
+		dialog.showModal();
+	{% endif %}
+{% endblock %}

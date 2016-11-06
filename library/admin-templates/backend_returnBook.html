@@ -1,6 +1,6 @@
 {% extends "backend.html" %}
+{% load staticfiles %}
 {% block title %}Return Book{% endblock %}
-
 {% block content %}
 <div class="mdl-grid">
 	<h2>Return Book</h2>
@@ -16,32 +16,41 @@
 		<div class="mdl-cell mdl-cell--11-col mdl-grid">
 		<form id="studentform" action='/lib/librarian/backend_returnbook/' method="post">
 			{% csrf_token %}
+			{% if student %}
+				<div class="mdl-cell mdl-cell--12-col mdl-grid">
+				Student ID: <input type="text" style="width:50%;margin-left:15px;" class="mdl-textfield__input" name="student_return" value="{{student.student_ID}}" required readonly>
+				Student: &nbsp;&nbsp;&nbsp;&nbsp;{{student.user.first_name}} {{student.user.last_name}}
+				</div>
+			{% endif %}
 			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 			  <thead>
 			    <tr>
 			    	<th>#</th>
-			    	<th style="text-align: center;">Name</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Name</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Due Date</th>
 			    	<th>Price</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	{% for book, price in book_list %}
-				<tr name="studentTable" value="{{student.user.username}}" id="{{student.user.username}}">
+				<tr name="bookTable" value="{{book.code}}" id="{{book.code}}">
 					<td>
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{student.user.username}}">
-							<input name="studentTable" type="checkbox" id="checkbox-{{student.user.username}}" value="checkbox-{{student.user.username}}" class="mdl-checkbox__input">
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{book.code}}">
+							<input name="bookTable" type="checkbox" id="checkbox-{{book.code}}" value="checkbox-{{book.code}}" class="mdl-checkbox__input">
 						</label>
 					</td>
+					<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
 					<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
-					<td class="mdl-data-table__cell--non-numeric">{{book.borrow_date}}</td>
+					<td class="mdl-data-table__cell--non-numeric">{{book.borrow_date|date}}</td>
 					<td class="mdl-data-table__cell--non-numeric">{{price}}</td>
 				</tr>
 			    {% endfor %}
 			    <tr name="totalprice" id="totalprice" style="background-color: #d9dde8;">
 			    	<td></td>
-			    	<td><b>Total Price</b></td>
 			    	<td></td>
+			    	<td><button type="submit" style="margin-left:20px; background-color:rgb(33,150,243);" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="return_book">Return!</button></td>
+			    	<td><b>Total Price</b></td>
 			    	<td></td>
 			    </tr>
 			  </tbody>
