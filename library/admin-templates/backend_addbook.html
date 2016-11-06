@@ -72,7 +72,7 @@
 <h4 class="mdl-dialog__title">Add Book</h4>
 <div class="mdl-dialog__content">
 <!-- #########Form -->
-	<form action='/lib/librarian/backend_addbook/' class="well" method="post">
+	<form action='/lib/librarian/backend_addbook/' class="well" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -95,6 +95,15 @@
 			<label for="add_isbn" class="mdl-textfield__label">ISBN</label>
 			<input id="add_isbn" type="text" class="mdl-textfield__input" name="add_isbn" maxlength="100" required />
 		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<label for="add_address" class="mdl-textfield__label">Address</label>
+			<input id="add_address" type="text" class="mdl-textfield__input" name="add_address" maxlength="100" required />
+		</div>
+		<p>{{ form.non_field_errors }}</p>
+			<p style="text-align: left; font-weight: bold;">{{ form.book_image.label_tag }} (Ex. book.png)
+			{{ form.book_image.help_text }}
+			</p>
+			<p>{{ form.book_image.errors }} {{ form.book_image }} </p>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label>Catagory</label>
 			<select name="ab_catagory" id="ab_catagory" >
