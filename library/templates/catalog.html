@@ -1,15 +1,55 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
 <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.indigo-pink.min.css">
-<link rel="stylesheet" href="../static/catalog/css/styles.css">
+<link rel="stylesheet" href="{% static 'library/css/catalog.css' %}">
 <!-- <link rel="stylesheet" href="CatalogMenu.js"> -->
 
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<style type="text/css">
+.search_Tab_ForHomePage{
+  height: 300px;
+  size:100% 100%;
+  background:url("{% static 'library/images/bg_1.jpg' %}") center;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center center;
+}
 
+.search_Tab_ForCatalogPage{
+  height: 100px;
+  size:100% 100%;
+  background:url("{% static 'library/images/bg_1.jpg' %}") center;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center center;
+}
+.titleNav{
+  background:url("{% static 'library/images/bg_2.png' %}") center;
+  background-size:cover;
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center center;
+}
+input.searchBox[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url("{% static 'library/images/searchicon.png' %}");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+</style>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header mdl-shadow--6dp">
     <div class="mdl-layout__header-row">
@@ -78,7 +118,7 @@
                 <div class="mdl-grid">
                   <div class="mdl-cell mdl-cell--3-col-desktop" style="padding:auto;">
                     <center>
-                      <img src="../static/catalog/image/book_1.jpg">
+                      <img src="{% static 'library/images/book_1.jpg' %}">
                     </center>
                   </div>
                   <div class="mdl-cell mdl-cell--9-col-desktop">
