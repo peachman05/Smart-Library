@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from library import views
+from library import catalog_views
 
 urlpatterns = [
 	# url(r'^$', views.home, name="home"),
@@ -26,4 +27,6 @@ urlpatterns = [
     url(r'^librarian/backend_addbook', views.backend_addbook),
     url(r'^librarian/backend_user', views.backend_user),
     url(r'^librarian/backend_setting', views.backend_setting),
+
+    url(r'^catalog/$', catalog_views.index),
 ]

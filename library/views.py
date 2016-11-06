@@ -96,7 +96,7 @@ def backend_user(request):
 				user.first_name = fname
 				user.last_name = lname
 				user.save()
-				mail_message = 'Dear '+fname+' '+lname+'\n\n\n\t Your Account is all done!\n\t So your password is: '+passwd+'\n\n\nThank, \nSmart-Library Teams.' 
+				mail_message = 'Dear '+fname+' '+lname+'\n\n\n\t Your Account is all done!\n\t So your password is: '+passwd+'\n\n\nThank, \nSmart-Library Teams.'
 				send_mail(
 					'Your Registration is Successfull!',
 					mail_message,
@@ -153,7 +153,7 @@ def backend_setting(request):
 				if newpass1 == newpass2:
 					user.set_password(newpass1)
 					user.save()
-					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.' 
+					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.'
 					send_mail(
 						'Your Password Is Changed!',
 						mail_message,
