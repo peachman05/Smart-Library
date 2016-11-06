@@ -19,8 +19,8 @@ from library import views
 from library import catalog_views
 
 urlpatterns = [
-	# url(r'^$', views.home, name="home"),
-	url(r'^$', views.home),
+    # url(r'^$', views.home, name="home"),
+    url(r'^$', views.home),
     url(r'^profile', views.profile),
 
     url(r'^librarian/$', views.backend_home),
@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^librarian/backend_user', views.backend_user),
     url(r'^librarian/backend_setting', views.backend_setting),
 
-    url(r'^catalog/$', catalog_views.index),
+    url(r'^catalog/$', catalog_views.index, name='catalog_home'),
+    url(r'^catalog/(?P<book_id>[0-9]+)/$', catalog_views.detail, name='detail')
 ]
