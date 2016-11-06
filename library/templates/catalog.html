@@ -114,9 +114,7 @@
                                 </form>
                             </div>
                         </div>
-                        {% if all_books %}
-
-                        {% for book in all_books %}
+                        {% if all_books %} {% for book in all_books %}
                         <!-- For Show Book -->
                         <div class="demo-card-wide mdl-card mdl-shadow--4dp bookDetails_Card">
                             <div class="mdl-cell mdl-cell--12-col-desktop">
@@ -140,16 +138,13 @@
                                 </div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="left:85%;">Get More Detail</a>
+                                <a class="mdl-cell--10-offset-desktop mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get More Detail</a>
                             </div>
                         </div>
 
                         <!-- End For -->
-                        {% endfor %}
-
-                        {% else %}
-                        <h3>Do not have any books</h3>
-                        {% endif %}
+                        {% endfor %} {% else %}
+                        <h3>Do not have any books</h3> {% endif %}
 
                     </div>
                 </div>
