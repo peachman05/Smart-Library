@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.indigo-pink.min.css">
+<link rel="stylesheet" href="../static/catalog/css/styles.css">
+<!-- <link rel="stylesheet" href="CatalogMenu.js"> -->
+
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header mdl-shadow--6dp">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Smart Library</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation">
+        <a href="" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+        <a href="" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title titleNav" style="padding-top:70px;">Title</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+
+  <main class="mdl-layout__content">
+    <div class="page-content">
+
+      <div class="mdl-grid search_Tab_ForCatalogPage">
+        <div class="mdl-cell mdl-cell--12-col">
+          <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
+            <input class="searchBox" type="text" name="search" placeholder="Search...">
+          </div>
+        </div>
+      </div>
+
+      <div class="mdl-grid bodyWeb">
+        <!-- Add Content -->
+        <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-shadow--4dp filter_Bar">
+              <div style="margin:10px; text-align:right;">
+                <form action="#">
+                  <b style="font-size:18px; margin-right:5px;">Subject</b>
+                  <select name="Subject" style="width:200px;">
+                    <option value=""></option>
+                    <option value="Subject A">Subject A</option>
+                    <option value="Subject B">Subject B</option>
+                    <option value="Subject C">Subject C</option>
+                    <option value="Subject D">Subject D</option>
+                  </select>
+                  <b style="font-size:18px; margin-left:10px; margin-right:5px;">Sub-Subject</b>
+                  <select name="Subject" style="width:200px;">
+                    <option value=""></option>
+                    <option value="Subject A">Subject A</option>
+                    <option value="Subject B">Subject B</option>
+                    <option value="Subject C">Subject C</option>
+                    <option value="Subject D">Subject D</option>
+                  </select>
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" style="width:75px; margin-left: 10px;">Search</button>
+                </form>
+              </div>
+            </div>
+            <!-- For Show Book -->
+            <div class="demo-card-wide mdl-card mdl-shadow--4dp bookDetails_Card">
+              <div class="mdl-cell mdl-cell--12-col-desktop">
+                <div class="mdl-grid">
+                  <div class="mdl-cell mdl-cell--3-col-desktop" style="padding:auto;">
+                    <center>
+                      <img src="../static/catalog/image/book_1.jpg">
+                    </center>
+                  </div>
+                  <div class="mdl-cell mdl-cell--9-col-desktop">
+                    <div class="mdl-grid">
+                      <div class="mdl-cell mdl-cell--6-col-desktop">
+                        ISBN: 0071609229 <br>
+                        Title:  Math <br>
+                        Author / Creator: John J. Diehl. Level 1 <br>
+                        Published:  United States: McGraw-Hill USA ์ <br>
+                        Creation Date:  2009
+                      </div>
+                      <div class="mdl-cell mdl-cell--6-col-desktop">
+                        Book ID:  S10231468 <br>
+                        Position: Q34516, P15432 <br>
+                        Subject:  Mathematics <br>
+                        Status: On Shelf
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="left:85%;">
+                  Get More Detail
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <footer class="mdl-mini-footer footerWeb">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+          <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+          </ul>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+</html>
