@@ -8,6 +8,11 @@ import string
 import random
 from django.core.mail import send_mail
 from django.conf import settings
+from .forms import bookImgFileForm
+
+BOOK_DUE_DATE = 8
+
+
 
 def home(request):
 	return render(request, 'homepage.html', {})
@@ -60,12 +65,17 @@ def backend_addbook(request):
 			ab_code = request.POST.get('add_code', False)
 			ab_date = request.POST.get('add_date', False)
 			ab_isbn = request.POST.get('add_isbn', False)
+			ab_address = request.POST.get('add_address', False)
 			post_catagory = request.POST.get('ab_catagory', False)
 			ab_catagory = BookCatagories.objects.get(name = post_catagory)
 			ab_student = Student.objects.get(student_ID = 'libraryStore')
-			new_book = Book(name = ab_name, author = ab_author,
+			try:
+				upload_file = request.FILES['book_image']
+			except MultiValueDictKeyError:
+				upload_file = False
+			new_book = Book(name = ab_name, author = ab_author, address = ab_address,
 							code = ab_code, date = ab_date, student = ab_student,
-							isbn = ab_isbn, catagory = ab_catagory)
+							isbn = ab_isbn, catagory = ab_catagory, picture=upload_file)
 			new_book.save()
 		elif 'delete_book' in request.POST:
 			for book_selected in request.POST.getlist('bookTable'):
@@ -77,6 +87,7 @@ def backend_addbook(request):
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
 	data['book_list'] = Book.objects.all()
 	data['catagories_list'] = BookCatagories.objects.all()
+	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)
 
 
@@ -170,3 +181,27 @@ def backend_setting(request):
 				return render(request, 'backend_setting.html', data)
 		return HttpResponseRedirect("/lib/librarian/backend_setting")
 	return render(request, 'backend_setting.html', data)
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/login/')
+def backend_returnbook(request):
+	data = {'page': 'ReturnBook'}
+	data['user'] = request.user
+	if request.method == 'POST':
+		if 'submit_search' in request.POST:
+			search_student = request.POST.get('search_student')
+			try:
+				student = Student.objects.get(student_ID = search_student)
+				book_list = Book.objects.all().filter(student = student)
+				books = []
+				price = []
+				for book in book_list:
+					book.borrow_date += datetime.timedelta(days=BOOK_DUE_DATE)
+					books.append(book)
+					if(timezone.now.date()-book.borrow_date >0):
+						price.append(timezone.now.date()-book.borrow_date)
+					else:
+						price.append(0)
+				data['book_list'] = zip(books, price)
+			except:
+				data['error_message'] = 'Student_ID Not Found'
+	return render(request, 'backend_returnBook.html', data)
