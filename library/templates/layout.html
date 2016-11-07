@@ -4,9 +4,34 @@
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="{% static 'library/css/styles.css' %}">
     <title>{% block title %}{% endblock %}</title>
     {% block head%}{% endblock%}
+    <style type="text/css">
+        html {
+          height: 100%;
+          box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+          box-sizing: inherit;
+        }
+
+        body {
+          position: relative;
+          margin: 0;
+          min-height: 100%;
+        }
+
+        .footerWeb {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          padding: 1rem;
+        }
+    </style>
   </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
