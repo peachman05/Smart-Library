@@ -37,7 +37,7 @@ def home(request):
 		bookArr = Book.objects.filter(catagory__name = cataCountDict_Sort[index][0])
 
 		temp = {}
-		for bookObj in bookArr :
+		for bookObj in bookArr:
 			countValue = Transaction.booknameCount(bookObj.name)
 			temp[bookObj.name] = (countValue,bookObj)
 		
@@ -47,6 +47,9 @@ def home(request):
 
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
+
+
+
 		#tupleTemp = (cataCountDict_Sort[index][0],temp) 
 		#bookCount.insert(index,tupleTemp )
 
