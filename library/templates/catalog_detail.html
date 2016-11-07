@@ -76,20 +76,16 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation">
-                <a href="" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-                <a href="" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
+              {% if user.is_active %}
+              <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a>
+              {% else %}
+              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+              {% endif %}
             </nav>
         </div>
     </header>
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title titleNav" style="padding-top:70px;">Title</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-    </div>
 
     <div class="mdl-layout__content">
         <div class="page-content">
@@ -167,7 +163,11 @@
                                         <td>{% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</td>
                                     </tr>
                                 </table>
+                                {% if user.is_active %}
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button>
+                                {% else %}
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;" disabled>Borrow This Book</button>
+                                {% endif %}
                             </div>
                         </div>
                         <div style="padding-left:24px;">
