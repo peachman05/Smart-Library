@@ -34,7 +34,7 @@
     .titleNav {
         background:url("{% static 'library/images/bg_2.png' %}") center;
         background-size: cover;
-        background-attachment: auto;
+        background-attachment: fixed;
         background-repeat: no-repeat;
         background-position: center center;
     }
@@ -61,8 +61,9 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation">
-                <a href="" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-                <a href="" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
+              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
             </nav>
         </div>
     </header>
@@ -82,10 +83,7 @@
             <div class="mdl-grid search_Tab_ForCatalogPage">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
-                        <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked ="1">
-                          {% csrf_token %}
-                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
-                        </form>
+                        <input class="searchBox" type="text" name="search" placeholder="Search...">
                     </div>
                 </div>
             </div>
@@ -141,7 +139,7 @@
                                 </div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <a class="mdl-cell--10-offset-desktop mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get More Detail</a>
+                                <a class="mdl-cell mdl-cell--3-col-desktop mdl-cell--9-offset-desktop mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get More Detail</a>
                             </div>
                         </div>
 
@@ -157,8 +155,7 @@
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
                     <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Privacy & Terms</a></li>
+                        <li><a href="#">About Us</a></li>
                     </ul>
                 </div>
             </footer>
