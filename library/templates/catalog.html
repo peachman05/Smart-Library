@@ -82,7 +82,10 @@
             <div class="mdl-grid search_Tab_ForCatalogPage">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
-                        <input class="searchBox" type="text" name="search" placeholder="Search...">
+                        <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked ="1">
+                          {% csrf_token %}
+                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                        </form>
                     </div>
                 </div>
             </div>
