@@ -34,10 +34,16 @@
     .titleNav {
         background:url("{% static 'library/images/bg_2.png' %}") center;
         background-size: cover;
-        background-attachment: fixed;
+        background-attachment: auto;
         background-repeat: no-repeat;
         background-position: center center;
     }
+
+    .bodyWeb{
+			background-color: #BBDEFB;
+			min-height: 800px;
+			height: auto;
+		}
 
     input.searchBox[type=text] {
         width: 100%;
@@ -68,12 +74,12 @@
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title titleNav" style="padding-top:70px;">Title</span>
+        <span class="mdl-layout-title titleNav" style="padding-top:70px;">Smart Library</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="/lib/">Home</a>
+            <a class="mdl-navigation__link" href="/lib/catalog/">Catalog</a>
+            <a class="mdl-navigation__link" href="/login/">Log In</a>
+            <a class="mdl-navigation__link" href="">About</a>
         </nav>
     </div>
 
@@ -150,16 +156,6 @@
                     </div>
                 </div>
             </div>
-
-            <footer class="mdl-mini-footer footerWeb">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-                        <li><a href="#">About Us</a></li>
-                    </ul>
-                </div>
-            </footer>
-
         </div>
     </main>
 </div>
