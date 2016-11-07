@@ -12,7 +12,7 @@ from django.conf import settings
 from .forms import bookImgFileForm
 import datetime
 
-BOOK_DUE_DATE = 5		
+BOOK_DUE_DATE = 5
 BOOK_LIMIT = 5
 FINE_RATE = 3
 
@@ -20,13 +20,13 @@ def home(request):
 
 	cataAll = BookCatagories.objects.all()
 	cataCountDict = {} # key is catagory name
-	for cataObj in cataAll:   		
+	for cataObj in cataAll:
 		cataCountDict[cataObj.name] = Transaction.catagoryCount(cataObj.name) #Transaction.objects.filter(book__catagory__name = cataObj.name ).count
 
 
-	
+
 	#x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
-	# sorted_x = sorted(x.items(), key=operator.itemgetter(1))	
+	# sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 
 
@@ -40,21 +40,22 @@ def home(request):
 		for bookObj in bookArr:
 			countValue = Transaction.booknameCount(bookObj.name)
 			temp[bookObj.name] = (countValue,bookObj)
-		
+
 		#temp_sort = sorted(temp.items(), key= operator.itemgetter(1) ,reverse=True)
 		temp_sort = list(temp.items())
 		temp_sort.sort(key=lambda x:x[1][0],reverse=True)
 
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
+		data['user'] = request.user
 
 
 
-		#tupleTemp = (cataCountDict_Sort[index][0],temp) 
+		#tupleTemp = (cataCountDict_Sort[index][0],temp)
 		#bookCount.insert(index,tupleTemp )
 
 		# testList = [(1,2,3),(4,5,6)]
-		
+
 
 
 	# testList = {'data1':(1,2,3),'data2':bookCount}
@@ -119,7 +120,7 @@ def backend_home(request):
 	data = {'page': 'Dashboard'}
 	data['user'] = request.user
 	try:
-		data['transactions'] = Transaction.objects.order_by('-date')[:30]	
+		data['transactions'] = Transaction.objects.order_by('-date')[:30]
 	except:
 		data['transactions'] = []
 	return render(request, 'backend_home.html', data)
@@ -199,7 +200,7 @@ def backend_addbook(request):
 					except:
 						del_cata = BookCatagories(name = 'DeleteCat')
 						del_cata.save()
-					
+
 					libStudent = Student.objects.get(student_ID = 'libraryStore')
 					new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
 											  student = libStudent, book=b)

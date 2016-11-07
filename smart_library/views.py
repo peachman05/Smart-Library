@@ -8,6 +8,7 @@ def home(request):
 	return HttpResponseRedirect('/lib/')
 
 def login(request):
+    data= {}
     if request.user.is_authenticated():
         return HttpResponseRedirect('/lib/')
     context = RequestContext(request)
@@ -22,15 +23,16 @@ def login(request):
                 return HttpResponseRedirect('/')
             else:
                 # Account if disabled
-                return HttpResponse('Your account is disabled')
+                data['error_message'] = "Your account is disabled"
+                return render(request, "login.html", data)
         else:
             # Invalid login
-            print("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse('Invalid login' )
+            data['error_message'] = "Invalid login"
+            return render(request, "login.html", data)
     else:
         return render(request, "login.html", {})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/')
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('/')
