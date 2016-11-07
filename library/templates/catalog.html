@@ -39,11 +39,11 @@
         background-position: center center;
     }
 
-    .bodyWeb{
-			background-color: #BBDEFB;
-			min-height: 800px;
-			height: auto;
-		}
+    .bodyWeb {
+        background-color: #BBDEFB;
+        min-height: 800px;
+        height: auto;
+    }
 
     input.searchBox[type=text] {
         width: 100%;
@@ -67,9 +67,9 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation">
-              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
-              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+                <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
+                <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
             </nav>
         </div>
     </header>
@@ -89,10 +89,10 @@
             <div class="mdl-grid search_Tab_ForCatalogPage">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
-                      <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked ="1">
-                        {% csrf_token %}
-                          <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
-                      </form>
+                        <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                            {% csrf_token %}
+                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -104,20 +104,19 @@
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-shadow--4dp filter_Bar">
                             <div style="margin:10px; text-align:right;">
                                 <form action="#">
-                                    <b style="font-size:18px; margin-right:5px;">Subject</b>
-                                    <select name="Subject" style="width:200px;">
-                    <option value=""></option>
-                    <option value="Subject A">Subject A</option>
-                    <option value="Subject B">Subject B</option>
-                    <option value="Subject C">Subject C</option>
-                    <option value="Subject D">Subject D</option>
-                  </select>
+                                    <b style="font-size:18px; margin-right:5px;">Catagory</b>
+                                    <select name="catagory" style="width:200px;">
+                                      <option value="">--Select Catagory--</option>
+                                      {% if all_catagory %} {% for catagory in all_catagory %}
+                                      <option value="{{catagory.id}}">{{catagory.name}}</option>
+                                      {% endfor %}  {% endif %}
+                                    </select>
                                     <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
-                                    <select name="Subject" style="width:200px;">
-                    <option value=""></option>
-                    <option value="At Library">At Library</option>
-                    <option value="Bowrrowed">Bowrrowed</option>
-                  </select>
+                                    <select name="status" style="width:200px;">
+                                      <option value="">--Select Status--</option>
+                                      <option value="AL">At Library</option>
+                                      <option value="BW">Bowrrowed</option>
+                                    </select>
                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" style="width:75px; margin-left: 10px;">Search</button>
                                 </form>
                             </div>
@@ -131,8 +130,7 @@
                                         <center>
                                             <!-- <img src="{% static 'library/images/book_1.jpg' %}"> -->
                                             {% if book.picture %}
-                                            <img src="{{book.picture.url}}">
-                                            {% endif %}
+                                            <img src="{{book.picture.url}}"> {% else %}{% endif %}
                                         </center>
                                     </div>
                                     <div class="mdl-cell mdl-cell--9-col-desktop">
@@ -152,7 +150,7 @@
                                 </div>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <a class="mdl-cell mdl-cell--3-col-desktop mdl-cell--9-offset-desktop mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get More Detail</a>
+                                <a href="/lib/catalog/{{book.id}}" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--9-offset-desktop mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get More Detail</a>
                             </div>
                         </div>
 
