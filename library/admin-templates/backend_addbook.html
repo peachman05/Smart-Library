@@ -27,6 +27,7 @@
 					<option value="all">All</option>
 					<option value="AL">At Library</option>
 	                <option value="BW">Borrowed</option>
+	                <option value="DL">Deleted</option>
 	        	</select>
 	        <button type="submit" name="book_search" style="margin-left:10px;">Go!</button>
     	</form>
@@ -38,6 +39,7 @@
 			  <thead>
 			    <tr>
 			    	<th>#</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Title</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Author</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Catagories</th>
@@ -52,6 +54,7 @@
 			    			<input name="bookTable" type="checkbox" id="checkbox-{{book.pk}}" value="checkbox-{{book.pk}}" class="mdl-checkbox__input">
 			    		</label>
 			    	</td>
+			    	<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.catagory}}</td>
@@ -59,6 +62,8 @@
 			    		<td class="mdl-data-table__cell--non-numeric">At Library</td>
 			    	{% elif book.status == 'BW' %}
 			    		<td class="mdl-data-table__cell--non-numeric">Borrowed</td>
+			    	{% elif book.status == 'DL' %}
+			    		<td class="mdl-data-table__cell--non-numeric">Deleted</td>
 			    	{% endif %}
 			    </tr>
 			    {% endfor %}

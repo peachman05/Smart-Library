@@ -20,7 +20,7 @@
 			  	{% for transaction in transactions %}
 			    <tr>
 			    	<td>{{transaction.date}}</td>
-			    	<td class="mdl-data-table__cell--non-numeric">{{transaction.student.student_ID}} {{transaction.student.user.first_name}} </td>
+			    	<td class="mdl-data-table__cell--non-numeric"><b>{{transaction.student.student_ID}}</b> {{transaction.student.user.first_name}} </td>
 			    	<td>{{transaction.book.name}}</td>
 			    	<td>{{transaction.status}}</td>
 			    </tr>

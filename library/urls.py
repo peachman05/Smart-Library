@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^librarian/backend_user', views.backend_user),
     url(r'^librarian/backend_setting', views.backend_setting),
     url(r'^librarian/backend_returnbook', views.backend_returnbook),
-
+    url(r'^borrow/$', views.borrowBook),
     url(r'^catalog/$', catalog_views.index, name='catalog_home'),
     url(r'^catalog/(?P<book_id>[0-9]+)/$', catalog_views.detail, name='detail')
 ]
