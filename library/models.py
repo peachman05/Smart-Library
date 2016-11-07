@@ -22,6 +22,7 @@ class Book(models.Model):
 	BOOK_STATUS = (
 		('AL', 'At Library'),
 		('BW', 'Borrowed'),
+		('DL', 'Deleted'),
 	)	
 	name = models.CharField(max_length=70)
 	author = models.CharField(max_length=50)
@@ -30,7 +31,7 @@ class Book(models.Model):
 	isbn = models.CharField(max_length=20)
 	#address = models.CharField(max_length=20)
 	catagory = models.ForeignKey(BookCatagories)
-	borrow_date = models.DateField('borrow')
+	borrow_date = models.DateTimeField('borrow', null=True, blank=True)
 	picture = models.FileField(upload_to='library/bookpic/', blank=True)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
 	student = models.ForeignKey(Student)
@@ -45,6 +46,7 @@ class Transaction(models.Model):
 	TRANSACTION_STATUS = (
 		('BR', 'Borrow'),
 		('RT', 'Return'),
+		('DL', 'Delete'),
 	)
 	status = models.CharField(max_length=2, choices=TRANSACTION_STATUS, default='RT')
 	student = models.ForeignKey(Student)
