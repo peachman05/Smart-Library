@@ -80,12 +80,15 @@ def backend_addbook(request):
 		if 'book_search' in request.POST:
 			s_status = request.POST.get('status', False)
 			s_catagory = request.POST.get('catagory_name', False)
-			book_list = Book.objects.all()
+			del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+			book_list = Book.objects.all().filter(~Q(catagory = del_cata)) #ดัก del ไว้
 			if s_status != 'all':
 				book_list = book_list.filter(status = s_status)
 			if s_catagory != 'all':
 				cata = BookCatagories.objects.get(name = s_catagory)
 				book_list = book_list.filter(catagory = cata)
+			if s_catagory == 'DeleteCat' or s_status == 'DL':
+				book_list = Book.objects.all().filter	(catagory = del_cata)
 			data['book_list'] = book_list
 			data['catagories_list'] = BookCatagories.objects.all()
 			return render(request, 'backend_addbook.html', data)
@@ -101,7 +104,20 @@ def backend_addbook(request):
 			cata = BookCatagories.objects.get(name = cata_name)
 			books = Book.objects.all().filter(catagory = cata)
 			for book in books:
-				book.delete()
+				book.status = 'DL'
+				try:
+					del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+				except:
+					del_cata = BookCatagories(name = 'DeleteCat')
+					del_cata.save()
+
+				libStudent = Student.objects.get(student_ID = 'libraryStore')
+				new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
+											  student = libStudent, book=book)
+				new_Transaction.save()
+
+				book.catagory = del_cata
+				book.save()
 			cata.delete()
 		elif 'add_book' in request.POST:
 			ab_name = request.POST.get('add_name', False)
@@ -125,11 +141,25 @@ def backend_addbook(request):
 			for book_selected in request.POST.getlist('bookTable'):
 				try:
 					b = Book.objects.get(pk = book_selected[9:])
-					b.delete()
+					b.status = 'DL'
+					try:
+						del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+					except:
+						del_cata = BookCatagories(name = 'DeleteCat')
+						del_cata.save()
+					
+					libStudent = Student.objects.get(student_ID = 'libraryStore')
+					new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
+											  student = libStudent, book=b)
+					new_Transaction.save()
+
+					b.catagory = del_cata
+					b.save()
 				except:
 					print("Can't Delete Book")
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
-	data['book_list'] = Book.objects.all()
+	del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+	data['book_list'] = Book.objects.all().filter(~Q(catagory = del_cata))
 	data['catagories_list'] = BookCatagories.objects.all()
 	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)

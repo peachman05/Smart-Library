@@ -27,6 +27,7 @@
 					<option value="all">All</option>
 					<option value="AL">At Library</option>
 	                <option value="BW">Borrowed</option>
+	                <option value="DL">Deleted</option>
 	        	</select>
 	        <button type="submit" name="book_search" style="margin-left:10px;">Go!</button>
     	</form>
@@ -61,6 +62,8 @@
 			    		<td class="mdl-data-table__cell--non-numeric">At Library</td>
 			    	{% elif book.status == 'BW' %}
 			    		<td class="mdl-data-table__cell--non-numeric">Borrowed</td>
+			    	{% elif book.status == 'DL' %}
+			    		<td class="mdl-data-table__cell--non-numeric">Deleted</td>
 			    	{% endif %}
 			    </tr>
 			    {% endfor %}

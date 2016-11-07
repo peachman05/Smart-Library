@@ -22,6 +22,7 @@ class Book(models.Model):
 	BOOK_STATUS = (
 		('AL', 'At Library'),
 		('BW', 'Borrowed'),
+		('DL', 'Deleted'),
 	)	
 	name = models.CharField(max_length=70)
 	author = models.CharField(max_length=50)
@@ -43,6 +44,7 @@ class Transaction(models.Model):
 	TRANSACTION_STATUS = (
 		('BR', 'Borrow'),
 		('RT', 'Return'),
+		('DL', 'Delete'),
 	)
 	status = models.CharField(max_length=2, choices=TRANSACTION_STATUS, default='RT')
 	student = models.ForeignKey(Student)
