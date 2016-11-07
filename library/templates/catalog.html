@@ -89,7 +89,10 @@
             <div class="mdl-grid search_Tab_ForCatalogPage">
                 <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
-                        <input class="searchBox" type="text" name="search" placeholder="Search...">
+                      <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked ="1">
+                        {% csrf_token %}
+                          <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                      </form>
                     </div>
                 </div>
             </div>
@@ -127,7 +130,9 @@
                                     <div class="mdl-cell mdl-cell--3-col-desktop" style="padding:auto;">
                                         <center>
                                             <!-- <img src="{% static 'library/images/book_1.jpg' %}"> -->
+                                            {% if book.picture %}
                                             <img src="{{book.picture.url}}">
+                                            {% endif %}
                                         </center>
                                     </div>
                                     <div class="mdl-cell mdl-cell--9-col-desktop">
@@ -136,7 +141,11 @@
                                                 ISBN: {{book.isbn}} <br> Title: {{book.name}} <br> Author / Creator: {{book.author}} <br> Published: None <br> Creation Date: 2009<br>
                                             </div>
                                             <div class="mdl-cell mdl-cell--6-col-desktop">
-                                                Book ID: {{book.code}} <br> Position: {{book.address}} <br> Subject: {{book.catagory}} <br> Status: {{book.status}}
+                                                Book ID: {{book.code}} <br> Position: {{book.address}} <br> Subject: {{book.catagory}} <br> Status:
+                                                {% if book.status == 'AL' %} At Library
+                                                {% elif book.status == 'BW' %} Borrowed
+                                                {% elif book.status == 'DL' %} Deleted
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
