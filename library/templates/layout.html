@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="{% static 'library/css/styles.css' %}">
     <title>{% block title %}{% endblock %}</title>
     {% block head%}{% endblock%}
   </head>
@@ -17,12 +18,13 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation">
-            <a href="" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-            <a href="" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+            <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+            <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
+            <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
           </nav>
         </div>
       </header>
-      <div class="mdl-layout__drawer">
+      <!-- <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="">Link</a>
@@ -30,10 +32,18 @@
           <a class="mdl-navigation__link" href="">Link</a>
           <a class="mdl-navigation__link" href="">Link</a>
         </nav>
-      </div>
+      </div> -->
       <main class="mdl-layout__content">
         {% block content %}{% endblock %}
       </main>
+      <footer class="mdl-mini-footer footerWeb">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+          <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+            <li><a href="#">About Us</a></li>
+          </ul>
+        </div>
+      </footer>
     </div>
 <dialog class="mdl-dialog" id="error_message">
     <h4 class="mdl-dialog__title">Error!</h4>
