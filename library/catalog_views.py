@@ -1,17 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Book
+from .models import Book, BookCatagories
+from django.db.models import Q
 
 
 def index(request):
+
     if request.method == 'POST':
         search = request.POST['search']
-        # all_books = Book.objects.get(Book.name=search)
-        all_books = Book.objects.filter(name__icontains=search)
-        return render(request, 'catalog.html', {'all_books': all_books})
+        del_cata = BookCatagories.objects.get(name='DeleteCat')
+        book_list = Book.objects.all().filter(~Q(catagory=del_cata))
+        book_list = book_list.filter(name__icontains=search)
+        all_catagory = BookCatagories.objects.all().filter(~Q(name=del_cata.name))
+        return render(request, 'catalog.html', {'all_books': book_list , 'all_catagory': all_catagory})
     else:
-        all_books = Book.objects.all()
-        return render(request, 'catalog.html', {'all_books': all_books})
+        del_cata = BookCatagories.objects.get(name='DeleteCat')
+        book_list = Book.objects.all().filter(~Q(catagory=del_cata))
+        all_catagory = BookCatagories.objects.all().filter(~Q(name=del_cata.name))
+        return render(request, 'catalog.html', {'all_books': book_list , 'all_catagory': all_catagory})
 
 
 def detail(request, book_id):
