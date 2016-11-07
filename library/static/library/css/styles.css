@@ -43,7 +43,9 @@
 
 .cardRankHeader{
   color:#FFFFFF;
-  padding-bottom: 13%;
+  min-height: 60px;
+  margin:auto;
+  /*padding-bottom: 13%;*/
 }
 
 .cardNews{
