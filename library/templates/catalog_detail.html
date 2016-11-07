@@ -122,7 +122,7 @@
                             <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0">
                         </div>
                         <div class="mdl-cell mdl-cell--7-col mdl-card__supporting-text">
-                            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline" style="color:#1A1A1A;">The Art of the Film: Fantastic Beasts and Where to Find Them (Hardback)</h3>
+                            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline" style="color:#1A1A1A;">{{book.name}}</h3>
                             <div class="mdl-cell mdl-cell--12-col">
                                 <table class="mdl-data-table mdl-js-data-table" style="width:100%">
                                     <thead>
@@ -130,27 +130,27 @@
                                     <tbody>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">Book ID: </td>
-                                            <td>{{book.code}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.code}}</td>
                                         </tr>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">ISBN: </td>
-                                            <td>{{book.isbn}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.isbn}}</td>
                                         </tr>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">Title: </td>
-                                            <td>{{book.name}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
                                         </tr>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">Author / Creator: </td>
-                                            <td>{{book.author}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
                                         </tr>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">Subject: </td>
-                                            <td>{{book.catagory}}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.catagory}}</td>
                                         </tr>
                                         <tr>
                                             <td class="mdl-data-table__cell--non-numeric header">Published Year: </td>
-                                            <td>None</td>
+                                            <td class="mdl-data-table__cell--non-numeric">None</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -160,11 +160,11 @@
                                 <table>
                                     <tr>
                                         <td class="header">Position: </td>
-                                        <td>A0503{{book.address}}</td>
+                                        <td>{{book.address}}</td>
                                     </tr>
                                     <tr>
                                         <td class="header">Status: </td>
-                                        <td>At Library{% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</td>
+                                        <td>{% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</td>
                                     </tr>
                                 </table>
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button>

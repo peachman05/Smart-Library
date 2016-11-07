@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,Http404
 from .models import Book, BookCatagories
 from django.db.models import Q
 
@@ -21,5 +21,9 @@ def index(request):
 
 
 def detail(request, book_id):
+    try:
+        book = Book.objects.get(pk=book_id)
+    except Book.DoesNotExist:
+        raise Http404("Book does not exist")
     # return HttpResponse("<h3>Detail for book id : " + book_id + "</h3>")
-    return render(request, 'catalog_detail.html', {})
+    return render(request, 'catalog_detail.html', {'book':book})
