@@ -86,6 +86,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -121,13 +125,6 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # For Heroku
 # import dj_database_url
 # DATABASES['default'] = dj_database_url.config()
@@ -151,11 +148,6 @@ DATABASES = {
         #         'PORT': '5432',
         #     }
         # }
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
 
 # for gmail
 # EMAIL_USE_TLS = True

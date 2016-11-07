@@ -69,7 +69,10 @@ def borrowBook(request):
 def backend_home(request):
 	data = {'page': 'Dashboard'}
 	data['user'] = request.user
-	data['transactions'] = Transaction.objects.order_by('-date')[:30]	
+	try:
+		data['transactions'] = Transaction.objects.order_by('-date')[:30]	
+	except:
+		data['transactions'] = []
 	return render(request, 'backend_home.html', data)
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
@@ -158,7 +161,11 @@ def backend_addbook(request):
 				except:
 					print("Can't Delete Book")
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
-	del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+	try:
+		del_cata = BookCatagories.objects.get(name = 'DeleteCat')
+	except:
+		del_cata = BookCatagories(name = 'DeleteCat')
+		del_cata.save()
 	data['book_list'] = Book.objects.all().filter(~Q(catagory = del_cata))
 	data['catagories_list'] = BookCatagories.objects.all()
 	data['form'] = bookImgFileForm()
