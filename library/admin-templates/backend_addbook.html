@@ -9,17 +9,17 @@
 	<div class="mdl-cell mdl-cell--12-col">
 		<button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Book</button>
 		<button id="show-dialog2" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:rgb(244,67,54);">Delete Selected</button>
-		<button id="show-dialog3" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#4caf50;">Add Catagory</button>
-		<button id="show-dialog4" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:rgb(255, 152, 0);">Delete Catagory</button>
+		<button id="show-dialog3" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#4caf50;">Add category</button>
+		<button id="show-dialog4" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:rgb(255, 152, 0);">Delete category</button>
 	</div>
 	<div style="margin-left:20px;">
 		<form action='/lib/librarian/backend_addbook/' class="well" method="post">
 			{% csrf_token %}
-			<label>Catagory</label>
-				<select name="catagory_name">
+			<label>category</label>
+				<select name="category_name">
 					<option value="all">All</option>
-					{% for catagory in catagories_list %}
-	                <option value="{{catagory.name}}">{{catagory.name}}</option>
+					{% for category in Categories_list %}
+	                <option value="{{category.name}}">{{category.name}}</option>
 	                {% endfor %}
 	        	</select>
 	        <label style="margin-left:10px;">Status</label>
@@ -42,7 +42,7 @@
 			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Title</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Author</th>
-			    	<th class="mdl-data-table__cell--non-numeric">Catagories</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Categories</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Status</th>
 			    </tr>
 			  </thead>
@@ -57,7 +57,7 @@
 			    	<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
-			    	<td class="mdl-data-table__cell--non-numeric">{{book.catagory}}</td>
+			    	<td class="mdl-data-table__cell--non-numeric">{{book.category}}</td>
 			    	{% if book.status == 'AL' %}
 			    		<td class="mdl-data-table__cell--non-numeric">At Library</td>
 			    	{% elif book.status == 'BW' %}
@@ -110,10 +110,10 @@
 			</p>
 			<p>{{ form.book_image.errors }} {{ form.book_image }} </p>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label>Catagory</label>
-			<select name="ab_catagory" id="ab_catagory" >
-				{% for catagory in catagories_list %}
-                <option value="{{catagory.name}}">{{catagory.name}}</option>
+			<label>category</label>
+			<select name="ab_category" id="ab_category" >
+				{% for category in Categories_list %}
+                <option value="{{category.name}}">{{category.name}}</option>
                 {% endfor %}
         	</select>
 		</div>
@@ -140,40 +140,40 @@
     </div>
  </dialog>
 
-<dialog class="mdl-dialog" id="addCatagoryDialog">
-<h4 class="mdl-dialog__title">Add New Catagory</h4>
+<dialog class="mdl-dialog" id="addcategoryDialog">
+<h4 class="mdl-dialog__title">Add New category</h4>
 <div class="mdl-dialog__content">
 	<form action='/lib/librarian/backend_addbook/' class="well" method="post">
 		{% csrf_token %}
 
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="catagory_name" class="mdl-textfield__label">Name</label>
-			<input id="catagory_name" type="text" class="mdl-textfield__input" name="catagory_name" maxlength="100" required />
+			<label for="category_name" class="mdl-textfield__label">Name</label>
+			<input id="category_name" type="text" class="mdl-textfield__input" name="category_name" maxlength="100" required />
 		</div>
 		<div class="mdl-dialog__actions">
 			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_catagory">Add</button>
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_category">Add</button>
 		</div>
 	</form>
 </div>
 </dialog>
 
-<dialog class="mdl-dialog" id="deleteCatagoryDialog">
-<h4 class="mdl-dialog__title">Delete Catagory</h4>
+<dialog class="mdl-dialog" id="deletecategoryDialog">
+<h4 class="mdl-dialog__title">Delete category</h4>
 <div class="mdl-dialog__content">
 	<form action='/lib/librarian/backend_addbook/' class="well" method="post">
 		{% csrf_token %}
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label>Catagory</label>
-			<select name="catagory_name" id="catagory_name" >
-				{% for catagory in catagories_list %}
-                <option value="{{catagory.name}}">{{catagory.name}}</option>
+			<label>category</label>
+			<select name="category_name" id="category_name" >
+				{% for category in Categories_list %}
+                <option value="{{category.name}}">{{category.name}}</option>
                 {% endfor %}
         	</select>
 		</div>
 		<div class="mdl-dialog__actions">
 			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="delete_catagory">Delete</button>
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="delete_category">Delete</button>
 		</div>
 	</form>
 </div>
@@ -206,7 +206,7 @@
       dialog2.close();
     });
 
-    var dialog3 = document.querySelector('#addCatagoryDialog');
+    var dialog3 = document.querySelector('#addcategoryDialog');
     var showDialogButton3 = document.querySelector('#show-dialog3');
     if (! dialog3.showModal) {
       dialogPolyfill.registerDialog(dialog3);
@@ -218,7 +218,7 @@
       dialog3.close();
     });
 
-    var dialog4 = document.querySelector('#deleteCatagoryDialog');
+    var dialog4 = document.querySelector('#deletecategoryDialog');
     var showDialogButton4 = document.querySelector('#show-dialog4');
     if (! dialog4.showModal) {
       dialogPolyfill.registerDialog(dialog4);

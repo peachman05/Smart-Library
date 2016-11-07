@@ -46,18 +46,14 @@ def logout(request):
 def forgetpass(request):
     data = {}
     if request.method == 'POST':
-        print('OK')
         studentid = request.POST['studentid']
         email = request.POST['email']
         try:
-            print('OK2')
             studentx = Student.objects.get(student_ID = studentid)
         except:
-            print('OK3')
             data['error_message'] = 'Student ID Not Found'
             return render(request, "forgetp.html", {})
         if(studentx.user.email != email):
-            print('OK4')
             data['error_message'] = 'Student ID and email isn\'t match'
             return render(request, "forgetp.html", {})
         else:

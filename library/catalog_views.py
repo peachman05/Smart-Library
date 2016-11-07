@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
-from .models import Book, BookCatagories
+from .models import Book, BookCategories
 from django.db.models import Q
 
 
@@ -8,16 +8,16 @@ def index(request):
 
     if request.method == 'POST':
         search = request.POST['search']
-        del_cata = BookCatagories.objects.get(name='DeleteCat')
-        book_list = Book.objects.all().filter(~Q(catagory=del_cata))
+        del_cata = BookCategories.objects.get(name='DeleteCat')
+        book_list = Book.objects.all().filter(~Q(category=del_cata))
         book_list = book_list.filter(name__icontains=search)
-        all_catagory = BookCatagories.objects.all().filter(~Q(name=del_cata.name))
-        return render(request, 'catalog.html', {'all_books': book_list , 'all_catagory': all_catagory})
+        all_category = BookCategories.objects.all().filter(~Q(name=del_cata.name))
+        return render(request, 'catalog.html', {'all_books': book_list , 'all_category': all_category})
     else:
-        del_cata = BookCatagories.objects.get(name='DeleteCat')
-        book_list = Book.objects.all().filter(~Q(catagory=del_cata))
-        all_catagory = BookCatagories.objects.all().filter(~Q(name=del_cata.name))
-        return render(request, 'catalog.html', {'all_books': book_list , 'all_catagory': all_catagory})
+        del_cata = BookCategories.objects.get(name='DeleteCat')
+        book_list = Book.objects.all().filter(~Q(category=del_cata))
+        all_category = BookCategories.objects.all().filter(~Q(name=del_cata.name))
+        return render(request, 'catalog.html', {'all_books': book_list , 'all_category': all_category})
 
 
 def detail(request, book_id):

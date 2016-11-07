@@ -108,11 +108,11 @@
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-shadow--4dp filter_Bar">
                             <div style="margin:10px; text-align:right;">
                                 <form action="#">
-                                    <b style="font-size:18px; margin-right:5px;">Catagory</b>
-                                    <select name="catagory" style="width:200px;">
-                                      <option value="">--Select Catagory--</option>
-                                      {% if all_catagory %} {% for catagory in all_catagory %}
-                                      <option value="{{catagory.id}}">{{catagory.name}}</option>
+                                    <b style="font-size:18px; margin-right:5px;">category</b>
+                                    <select name="category" style="width:200px;">
+                                      <option value="">--Select category--</option>
+                                      {% if all_category %} {% for category in all_category %}
+                                      <option value="{{category.id}}">{{category.name}}</option>
                                       {% endfor %}  {% endif %}
                                     </select>
                                     <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
@@ -143,7 +143,7 @@
                                                 ISBN: {{book.isbn}} <br> Title: {{book.name}} <br> Author / Creator: {{book.author}} <br> Published: None <br> Creation Date: 2009<br>
                                             </div>
                                             <div class="mdl-cell mdl-cell--6-col-desktop">
-                                                Book ID: {{book.code}} <br> Position: {{book.address}} <br> Subject: {{book.catagory}} <br> Status:
+                                                Book ID: {{book.code}} <br> Position: {{book.address}} <br> Subject: {{book.category}} <br> Status:
                                                 {% if book.status == 'AL' %} At Library
                                                 {% elif book.status == 'BW' %} Borrowed
                                                 {% elif book.status == 'DL' %} Deleted
