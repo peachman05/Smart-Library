@@ -32,6 +32,20 @@
   height: 350px;
 }
 
+.cardRankBG{
+  background-size:cover;
+  background-attachment: fixed;
+  background-repeat:no-repeat;
+  background-position: center center;
+  height:auto;
+  min-height:140px;
+}
+
+.cardRankHeader{
+  color:#FFFFFF;
+  padding-bottom: 13%;
+}
+
 .cardNews{
   margin-top: 5%;
   width: 100%;
