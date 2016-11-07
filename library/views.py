@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 import string
 import random
+import operator
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -14,9 +15,54 @@ BOOK_DUE_DATE = 8
 
 
 def home(request):
-	return render(request, 'homepage.html', {})
+
+	cataAll = BookCatagories.objects.all()
+	cataCountDict = {} # key is catagory name
+	for cataObj in cataAll:   		
+		cataCountDict[cataObj.name] = Transaction.catagoryCount(cataObj.name) #Transaction.objects.filter(book__catagory__name = cataObj.name ).count
+
+
+	
+	#x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+	# sorted_x = sorted(x.items(), key=operator.itemgetter(1))	
+	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
+
+
+	data = {}
+
+	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
+
+		bookArr = Book.objects.filter(catagory__name = cataCountDict_Sort[index][0])
+
+		temp = {}
+		for bookObj in bookArr :
+			countValue = Transaction.booknameCount(bookObj.name)
+			temp[bookObj.name] = (countValue,bookObj)
+		
+		#temp_sort = sorted(temp.items(), key= operator.itemgetter(1) ,reverse=True)
+		temp_sort = list(temp.items())
+		temp_sort.sort(key=lambda x:x[1][0],reverse=True)
+
+		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
+		data['catValue'+str(index+1)] = temp_sort
+		#tupleTemp = (cataCountDict_Sort[index][0],temp) 
+		#bookCount.insert(index,tupleTemp )
+
+		# testList = [(1,2,3),(4,5,6)]
+		
+
+
+	# testList = {'data1':(1,2,3),'data2':bookCount}
+	# testList['catName1'] = bookCount[0][0]
+	# testList['catName2'] = bookCount[1][0]
+	# testList['size'] = len(bookCount);
+
+	return render(request, 'homepage.html', data )
+
 
 def profile(request):
+
+
 	return render(request, 'homepage.html', {})
 
 

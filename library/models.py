@@ -28,13 +28,15 @@ class Book(models.Model):
 	code = models.CharField(max_length=20)
 	date = models.CharField(max_length=50)
 	isbn = models.CharField(max_length=20)
-	address = models.CharField(max_length=20)
+	#address = models.CharField(max_length=20)
 	catagory = models.ForeignKey(BookCatagories)
 	borrow_date = models.DateField('borrow')
 	picture = models.FileField(upload_to='library/bookpic/', blank=True)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
 	student = models.ForeignKey(Student)
 
+	def __str__(self):
+		return self.name + ':  ' + self.author
 
 ######### Transaction ##############
 
@@ -47,5 +49,15 @@ class Transaction(models.Model):
 	status = models.CharField(max_length=2, choices=TRANSACTION_STATUS, default='RT')
 	student = models.ForeignKey(Student)
 	book = models.ForeignKey(Book)
+
+	def catagoryCount(catagory_name):
+            return Transaction.objects.filter(book__catagory__name = catagory_name).count()
+
+	def booknameCount(book_name):
+            return Transaction.objects.filter(book__name = book_name).count()
+
+	def __str__(self):
+		return self.book.name
 	class Meta:
 		ordering = ['date']
+
