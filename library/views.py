@@ -11,20 +11,20 @@ from django.conf import settings
 from .forms import bookImgFileForm
 import datetime
 
-BOOK_DUE_DATE = 8
+BOOK_DUE_DATE = 5		
 BOOK_LIMIT = 5
 FINE_RATE = 3
 
 def home(request):
 	return render(request, 'homepage.html', {})
 
-@login_required
+@login_required(login_url='/login/')
 def profile(request):
 	return render(request, 'homepage.html', {})
 
 
 
-@login_required
+@login_required(login_url='/login/')
 def borrowBook(request):
 	data = {}
 	user = request.user
@@ -39,7 +39,11 @@ def borrowBook(request):
 	if request.method == 'POST':
 		if 'submit_borrow' in request.POST:
 			book_code = request.POST.get('search_book', False)
-			book_borrow = Book.objects.get(code = book_code)
+			try:
+				book_borrow = Book.objects.get(code = book_code)
+			except:
+				data['error_message'] = 'Book Not Found!'
+				return render(request, 'borrowbook.html', data)
 			if book_borrow.status == 'BW':
 				data['error_message'] = 'Book is not available'
 				return render(request, 'borrowbook.html', data)
@@ -229,8 +233,11 @@ def backend_returnbook(request):
 	if request.method == 'POST':
 		if 'submit_search' in request.POST:
 			search_student = request.POST.get('search_student')
-			# try:
-			student = Student.objects.get(student_ID = search_student)
+			try:
+				student = Student.objects.get(student_ID = search_student)
+			except:
+				data['error_message'] = "Student ID Not Found"
+				return render(request, 'backend_returnBook.html', data)
 			book_list = Book.objects.all().filter(student = student)
 			books = []
 			price = []
