@@ -1,0 +1,197 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.indigo-pink.min.css">
+<link rel="stylesheet" href="{% static 'library/css/catalog.css' %}">
+<!-- <link rel="stylesheet" href="CatalogMenu.js"> -->
+
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<style type="text/css">
+    .search_Tab_ForHomePage {
+        height: 300px;
+        size: 100% 100%;
+        background:url("{% static 'library/images/bg_1.jpg' %}") center;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .search_Tab_ForCatalogPage {
+        height: 100px;
+        size: 100% 100%;
+        background:url("{% static 'library/images/bg_1.jpg' %}") center;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .titleNav {
+        background:url("{% static 'library/images/bg_2.png' %}") center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    input.searchBox[type=text] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 15px;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+    }
+
+    .page-max-width {
+        max-width: 920px;
+        margin: auto;
+        background-color: #FFF;
+    }
+
+    img.article-image {
+        width: 100%;
+        height: auto;
+    }
+
+    td.header {
+        font-weight: bold;
+    }
+</style>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-shadow--6dp">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Smart Library</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation">
+              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
+              {% if user.is_active %}
+              <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a>
+              {% else %}
+              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
+              {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <div class="mdl-layout__content">
+        <div class="page-content">
+
+            <div class="mdl-grid search_Tab_ForCatalogPage">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
+                        <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                            {% csrf_token %}
+                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdl-grid page-max-width">
+                <div class="mdl-cell mdl-cell--12-col mdl-card  mdl-shadow--4dp">
+                    <!-- <div class="mdl-card__title .card-amphawamarket">
+                        <h2 class="mdl-card__title-text" style="margin-top:10px">Book Details</h2>
+                    </div> -->
+                    <!-- <div class="mdl-card__supporting-text">
+                        <strong>Includes</strong>
+                        <span>Design, UX and Frontend Development</span>
+                    </div> -->
+                    <div class="mdl-grid article-content-width">
+                        <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-phone" style="padding-left:10px;padding-top:20px;">
+                            <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0">
+                        </div>
+                        <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-desktop">
+                            <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0">
+                        </div>
+                        <div class="mdl-cell mdl-cell--7-col mdl-card__supporting-text">
+                            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline" style="color:#1A1A1A;">{{book.name}}</h3>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <table class="mdl-data-table mdl-js-data-table" style="width:100%">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">Book ID: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.code}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">ISBN: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.isbn}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">Title: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">Author / Creator: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">Subject: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">{{book.category}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric header">Published Year: </td>
+                                            <td class="mdl-data-table__cell--non-numeric">None</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">เรื่องเล่าตลาดเก่า…สู่โลกใหม่</h3> -->
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <table>
+                                    <tr>
+                                        <td class="header">Position: </td>
+                                        <td>{{book.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="header">Status: </td>
+                                        <td>{% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</td>
+                                    </tr>
+                                </table>
+                                {% if user.is_active %}
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button>
+                                {% else %}
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;" disabled>Borrow This Book</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="padding-left:24px;">
+                            <h5 class="mdl-cell mdl-cell--12-col" style="margin-top:12px;">Book Location</h5></div>
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <img class="article-image" src="{% static 'library/images/bg_rankCard_1.jpg' %}" alt="" border="0">
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer class="mdl-mini-footer footerWeb">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+                <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Privacy & Terms</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+</div>
+
+</html>

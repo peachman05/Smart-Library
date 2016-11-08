@@ -13,7 +13,7 @@ class Student(models.Model):
 
 
 ############ Book ######################
-class BookCatagories(models.Model):
+class BookCategories(models.Model):
 	name = models.CharField(max_length=20)
 	def __str__(self):
 		return self.name
@@ -30,7 +30,7 @@ class Book(models.Model):
 	date = models.CharField(max_length=50)
 	isbn = models.CharField(max_length=20)
 	address = models.CharField(max_length=20)
-	catagory = models.ForeignKey(BookCatagories)
+	category = models.ForeignKey(BookCategories)
 	borrow_date = models.DateTimeField('borrow', null=True, blank=True)
 	picture = models.FileField(upload_to='library/bookpic/', blank=True)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
@@ -52,8 +52,9 @@ class Transaction(models.Model):
 	student = models.ForeignKey(Student)
 	book = models.ForeignKey(Book)
 
-	def catagoryCount(catagory_name):
-            return len(Transaction.objects.filter(book__catagory__name = catagory_name))
+
+	def categoryCount(category_name):
+            return len(Transaction.objects.filter(book__category__name = category_name))
 
 	def booknameCount(book_name):
             return len(Transaction.objects.filter(book__name = book_name))

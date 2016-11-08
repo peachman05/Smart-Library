@@ -25,7 +25,8 @@
 			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 			  <thead>
 			    <tr>
-			    	<th>#</th>
+					<th>#
+					</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Name</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Due Date</th>
@@ -36,28 +37,40 @@
 			  	{% for book, price in book_list %}
 				<tr name="bookTable" value="{{book.code}}" id="{{book.code}}">
 					<td>
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-{{book.code}}">
-							<input name="bookTable" type="checkbox" id="checkbox-{{book.code}}" value="checkbox-{{book.code}}" class="mdl-checkbox__input">
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							<input name="bookTable" class=" checkboxB box mdl-checkbox__input" type="checkbox" value="checkbox-{{book.code}}" class="mdl-checkbox__input" />
 						</label>
 					</td>
 					<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
 					<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
 					<td class="mdl-data-table__cell--non-numeric">{{book.borrow_date|date}}</td>
-					<td class="mdl-data-table__cell--non-numeric">{{price}}</td>
+					<td><span class="amount">{{price}}</span></td>
 				</tr>
 			    {% endfor %}
-			    <tr name="totalprice" id="totalprice" style="background-color: #d9dde8;">
+			    <tr style="background-color: #d9dde8;">
 			    	<td></td>
 			    	<td></td>
 			    	<td><button type="submit" style="margin-left:20px; background-color:rgb(33,150,243);" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="return_book">Return!</button></td>
 			    	<td><b>Total Price</b></td>
-			    	<td></td>
+			    	<td><div id="total">0</div></td>
 			    </tr>
 			  </tbody>
 			</table>
 		</form>
 		</div>
+
 	</div>
 </div>
 {% endblock %}
-{% block script %}{% endblock %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$('.box').change(function(){
+       var total = 0;
+       $('.box:checked').each(function(){
+            total+=parseFloat($(this).parent().parent().next('td').next('td').next('td').next('td').find('.amount').text());
+       });
+       $('#total').text(total);
+    });
+</script>
+{% endblock %}

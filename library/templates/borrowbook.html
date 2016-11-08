@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Borrow Books{% endblock %}
-
 {% block content %}
-<div class="mdl-grid">
+<div class="mdl-grid" style="min-height:870px;">
 	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--1-offset-desktop mdl-grid">
 		<h2 style="margin-left:30px;">Borrow Book</h2>
+		<div class="mdl-cell mdl-cell--12-col mdl-grid">
+			Student ID: <input type="text" style="width:200px;margin-left:15px;" class="mdl-textfield__input" name="student_return" value="{{student.student_ID}}" required readonly>
+			Student: &nbsp;&nbsp;&nbsp;&nbsp;{{student.user.first_name}} {{student.user.last_name}}
+		</div>
 		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
 		<form id="searchForm" action='/lib/borrow/' method="post">
 			{% csrf_token %}
@@ -47,20 +50,4 @@
 {% endblock %}
 
 {% block script %}
-	<script type="text/javascript">
-    var dialog = document.querySelector('#addStudentDialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    showDialogButton.addEventListener('click', function() {
-      dialog.showModal();
-    });
-    dialog.querySelector('.close').addEventListener('click', function() {
-      dialog.close();
-    });
-	</script>
-	{% if confirm_borrow %}
-		dialog.showModal();
-	{% endif %}
 {% endblock %}
