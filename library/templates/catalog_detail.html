@@ -166,9 +166,9 @@
                                     </tr>
                                 </table>
                                 {% if user.is_active %}
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button>
+                                <a href="#"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a>
                                 {% else %}
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;" disabled>Borrow This Book</button>
+                                <a href="/login/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a>
                                 {% endif %}
                             </div>
                         </div>
