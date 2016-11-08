@@ -1,103 +1,163 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <title>{% block title %}{% endblock %}</title>
     {% block head%}{% endblock%}
     <style type="text/css">
         html {
-          height: 100%;
-          box-sizing: border-box;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         *,
         *:before,
         *:after {
-          box-sizing: inherit;
+            box-sizing: inherit;
         }
 
         body {
-          position: relative;
-          margin: 0;
+            position: relative;
+            margin: 0;
         }
 
         .footerWeb {
-          background-color: #1565C0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          padding: 1rem;
+            background-color: #1565C0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+        }
+
+        .header-background {
+            background-image: url({% static 'library/images/bg_1.jpg' %});
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .search_Tab_Box {
+            /*background-color: red;*/
+            height: 300px;
+            width: 100%;
+        }
+
+        .search_Tab_Area {
+            background-color: green;
+            min-height: 100px;
+        }
+
+        .search_Tab_Header {
+            margin: 0px;
+            padding: 0px;
+            height: auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        .search_Tab {
+            margin: 0px;
+            padding: 0px;
+            min-width: 500px;
+            height: auto;
+            width: 100%;
+        }
+
+        .mdl-layout__header--waterfall.is-casting-shadow {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        }
+
+        .mdl-layout__header.is-compact {
+            max-height: 64px;
         }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header mdl-shadow--6dp">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Smart Library</span>
-          <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation. We hide it in small screens. -->
-          <nav class="mdl-navigation">
-            <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-            <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
-            {% if user.is_active %}
-            <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
-            <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a>
-            {% else %}
-            <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
-            {% endif %}
-          </nav>
-        </div>
-      </header>
-      <!-- <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-      </div> -->
-      <main class="mdl-layout__content">
-        {% block content %}{% endblock %}
-        <footer class="mdl-mini-footer footerWeb">
-          <div class="mdl-mini-footer__left-section">
-            <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-            <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-              <li><a href="#">About Us</a></li>
-            </ul>
-          </div>
-        </footer>
-      </main>
+        <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Smart Library</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation">
+                    <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                    <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
+                    <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
+                    <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
+                    <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
+                </nav>
+            </div>
+            <div class="mdl-layout__header-row search_Tab_Box">
+                <div class="mdl-grid search_Tab_Area">
+                    <!-- <input type="text" name="search" placeholder="Search..."> -->
+                    <div class="mde-cell mdl-cell--12-col search_Tab_Header" style="background-color: blue;">
+                        <h3>Add Speech Here</h3>
+                    </div>
+                    <div class="mde-cell mdl-cell--12-col search_Tab" style="background-color: red;">
+                      <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                          {% csrf_token %}
+                          <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                      </form>
+                    </div>
+                </div>
+                <!-- <div class="mdl-grid search_Tab">
+                    <input type="text" name="search" placeholder="Search...">
+                </div> -->
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            {% block content %}
+            <!-- ADD CONTENT HERE! -->
+            {% endblock %}
+            <footer class="mdl-mini-footer footerWeb">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
     </div>
+</body>
+
 <dialog class="mdl-dialog" id="error_message">
     <h4 class="mdl-dialog__title">Error!</h4>
     <div class="mdl-dialog__content">
-      <p>
-        {{error_message}}
-      </p>
+        <p>
+            {{error_message}}
+        </p>
     </div>
     <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button close">No</button>
+        <button type="button" class="mdl-button close">No</button>
     </div>
 </dialog>
 
-    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    {% block script %}{% endblock %}
-    <script type="text/javascript">
-      {% if error_message %}
-        var dialog0 = document.querySelector('#error_message');
-        dialog0.showModal();
-        if (! dialog0.showModal) {
-          dialogPolyfill.registerDialog(dialog0);
-        }
-        dialog0.querySelector('.close').addEventListener('click', function() {
-          dialog0.close();
-        });
-      {% endif %}
-    </script>
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+{% block script %}
+<!-- ADD BLOCK SCRIPT HERE! -->
+{% endblock %}
+<script type="text/javascript">
+    { %
+        if error_message %
+    }
+    var dialog0 = document.querySelector('#error_message');
+    dialog0.showModal();
+    if (!dialog0.showModal) {
+        dialogPolyfill.registerDialog(dialog0);
+    }
+    dialog0.querySelector('.close').addEventListener('click', function() {
+        dialog0.close();
+    }); { % endif %
+    }
+</script>
+
 </html>
