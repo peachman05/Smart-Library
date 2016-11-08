@@ -108,12 +108,18 @@
                     </div> -->
                     <div class="mdl-grid article-content-width">
                         <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-phone" style="padding-left:10px;padding-top:20px;">
-                            <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0">
+                            <!-- <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0"> -->
+                            {% if book.picture %}
+                            <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
+                            <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
                         </div>
                         <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-desktop">
-                            <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0">
+                            <!-- <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0"> -->
+                            {% if book.picture %}
+                            <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
+                            <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
                         </div>
-                        <div class="mdl-cell mdl-cell--7-col mdl-card__supporting-text">
+                        <div class="mdl-cell mdl-cell--7-col mdl-card__supporting-text" style="margin-top:26px;">
                             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline" style="color:#1A1A1A;">{{book.name}}</h3>
                             <div class="mdl-cell mdl-cell--12-col">
                                 <table class="mdl-data-table mdl-js-data-table" style="width:100%">
@@ -148,7 +154,7 @@
                                 </table>
                             </div>
                             <!-- <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">เรื่องเล่าตลาดเก่า…สู่โลกใหม่</h3> -->
-                            <div class="mdl-cell mdl-cell--12-col">
+                            <div class="mdl-cell mdl-cell--12-col" style="margin-top:34px;">
                                 <table>
                                     <tr>
                                         <td class="header">Position: </td>
@@ -166,7 +172,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div style="padding-left:24px;">
+                        <div style="padding-left:24px; margin-top:22px;">
                             <h5 class="mdl-cell mdl-cell--12-col" style="margin-top:12px;">Book Location</h5></div>
                         <div class="mdl-cell mdl-cell--12-col">
                             <img class="article-image" src="{% static 'library/images/bg_rankCard_1.jpg' %}" alt="" border="0">
