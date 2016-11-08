@@ -39,14 +39,14 @@
         background-position: center center;
     }
 
-    input.searchBox[type=text] {
+    /*input.searchBox[type=text] {
         width: 100%;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 15px;
         font-size: 16px;
         padding: 12px 20px 12px 40px;
-    }
+    }*/
 
     .page-max-width {
         max-width: 920px;
@@ -78,9 +78,71 @@
         margin-bottom: 40px;
         z-index: 900;
     }
+
+    .header-background {
+        background-image: url({% static 'library/images/bg_1.jpg' %});
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .search_Tab_Box {
+        /*background-color: red;*/
+        height: 70px;
+        width: 100%;
+    }
+
+    .search_Tab_Area {
+        /*min-height: 100px;*/
+    }
+
+    .search_Tab_Header {
+        margin: 0px;
+        padding: 0px;
+        height: auto;
+        width: 100%;
+        text-align: center;
+    }
+
+    .search_Tab {
+        margin: 0px;
+        padding: 0px;
+        min-width: 400px;
+        height: auto;
+        width: 85%;
+    }
+
+    .searchBox{
+      height: 35px;
+      border-top-left-radius: 10px !important;
+      border-bottom-left-radius: 10px !important;
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+      border: 2px solid !important;
+      border-color: #BDBDBD !important;
+      width: 100%;
+    }
+
+    .searchButton{
+      height: 37px;
+      border-top-right-radius: 10px !important;
+      border-bottom-right-radius: 10px !important;
+      border: 2px solid !important;
+      border-left:0 !important;
+      border-color: #BDBDBD !important;
+    }
+
+    .mdl-layout__header--waterfall.is-casting-shadow {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    }
+
+    .mdl-layout__header.is-compact {
+        max-height: 50px;
+    }
 </style>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header mdl-shadow--6dp">
+    <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
         <div class="mdl-layout__header-row">
             <!-- Title -->
             <span class="mdl-layout-title">Smart Library</span>
@@ -90,26 +152,29 @@
             <nav class="mdl-navigation">
                 <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
                 <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
+                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
                 <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
                 <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
             </nav>
+        </div>
+        <div class="mdl-layout__header-row search_Tab_Box">
+            <div class="mdl-grid search_Tab_Area">
+                <div class="mde-cell mdl-cell--10-col search_Tab">
+                    <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                        {% csrf_token %}
+                        <input class="searchBox" type="text" name="search" placeholder="  Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                    </form>
+                </div>
+                <div class="mde-cell mdl-cell--2-col mdl-cell--middle">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></a>
+                </div>
+            </div>
         </div>
     </header>
 
     <body>
         <div class="mdl-layout__content">
             <div class="page-content">
-
-                <div class="mdl-grid search_Tab_ForCatalogPage">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <div class="mdl-cell mdl-cell--middle mdl-cell--4-offset-desktop search_Bar_ForCatalogPage  ">
-                            <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
-                                {% csrf_token %}
-                                <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="mdl-grid page-max-width">
                     <div class="mdl-cell mdl-cell--12-col mdl-card  mdl-shadow--4dp">
@@ -182,7 +247,7 @@
                                 <h5 class="mdl-cell mdl-cell--12-col" style="margin-top:12px;">Book Location</h5></div>
                             <div class="mdl-cell mdl-cell--12-col" align="center">
 
-                                <img class="map-image" src="{% static "" %}library/images/map/{{ book_address }}.png" style="padding:0px;" alt="" border="0">
+                                <img class="map-image" src="{% static " " %}library/images/map/{{ book_address }}.png" style="padding:0px;" alt="" border="0">
                             </div>
                         </div>
                     </div>
@@ -190,15 +255,6 @@
                 </div>
 
             </div>
-            <footer class="mdl-mini-footer footerWeb">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Privacy & Terms</a></li>
-                    </ul>
-                </div>
-            </footer>
             <!-- <a href="/lib/catalog/" id="view-source" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
                 <i class="material-icons">arrow_back</i>
             </a> -->
