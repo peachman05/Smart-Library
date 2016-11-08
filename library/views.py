@@ -25,7 +25,7 @@ def home(request):
 	for cataObj in cataAll:
 		cataCountDict[cataObj.name] = Transaction.categoryCount(cataObj.name) #Transaction.objects.filter(book__category__name = cataObj.name ).count
 
-	
+
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
 	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
@@ -36,15 +36,16 @@ def home(request):
 				countValue = Transaction.booknameCount(bookObj.name)
 				if countValue > 0:
 					temp[bookObj.name] = (countValue,bookObj)
-			
+
 			temp_sort = list(temp.items()) # output: [('CategoryName',(countValue,BookObj) ),(...)]
 			temp_sort.sort(key=lambda x:x[1][0],reverse=True)
 			data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 			data['catValue'+str(index+1)] = temp_sort
 
-		
+
 
 	data['user'] = request.user
+
 	data['test'] = datetime.now() - timedelta(days=30)
 	return render(request, 'homepage.html', data )
 
