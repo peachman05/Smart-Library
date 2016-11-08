@@ -94,24 +94,24 @@
         width: 85%;
     }
 
-    .searchBox{
-      height: 35px;
-      border-top-left-radius: 10px !important;
-      border-bottom-left-radius: 10px !important;
-      border-top-right-radius: 0px !important;
-      border-bottom-right-radius: 0px !important;
-      border: 2px solid !important;
-      border-color: #BDBDBD !important;
-      width: 100%;
+    .searchBox {
+        height: 35px;
+        border-top-left-radius: 10px !important;
+        border-bottom-left-radius: 10px !important;
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+        border: 2px solid !important;
+        border-color: #BDBDBD !important;
+        width: 100%;
     }
 
-    .searchButton{
-      height: 37px;
-      border-top-right-radius: 10px !important;
-      border-bottom-right-radius: 10px !important;
-      border: 2px solid !important;
-      border-left:0 !important;
-      border-color: #BDBDBD !important;
+    .searchButton {
+        height: 37px;
+        border-top-right-radius: 10px !important;
+        border-bottom-right-radius: 10px !important;
+        border: 2px solid !important;
+        border-left: 0 !important;
+        border-color: #BDBDBD !important;
     }
 
     .mdl-layout__header--waterfall.is-casting-shadow {
@@ -122,36 +122,57 @@
         max-height: 50px;
     }
 </style>
+
+<script>
+    function filterFunction() {
+        var input1, input2, filter1, filter2, outerDiv, innerDiv, div, i;
+        input1 = document.getElementById("category");
+        input2 = document.getElementById("status");
+        filter1 = input1.value.toUpperCase();
+        filter2 = input2.value.toUpperCase();
+        outerDiv = document.getElementById("outerDiv");
+        innerDiv = outerDiv.getElementsByTagName("a");
+        for (i = 0; i < innerDiv.length; i++) {
+            div = innerDiv[i].getElementsByTagName("div")[0];
+            if (div.innerHTML.toUpperCase().indexOf(filter1) > -1 && div.innerHTML.toUpperCase().indexOf(filter2) > -1) {
+                innerDiv[i].style.display = "";
+            } else {
+                innerDiv[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
-      <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Smart Library</span>
-          <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation. We hide it in small screens. -->
-          <nav class="mdl-navigation">
-              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-              <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
-              <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
-              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
-          </nav>
-      </div>
-      <div class="mdl-layout__header-row search_Tab_Box">
-          <div class="mdl-grid search_Tab_Area">
-              <div class="mde-cell mdl-cell--10-col search_Tab">
-                  <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
-                      {% csrf_token %}
-                        <input class="searchBox" type="text" name="search" placeholder="  Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
-                  </form>
-              </div>
-              <div class="mde-cell mdl-cell--2-col mdl-cell--middle">
-                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></a>
-              </div>
-          </div>
-      </div>
-  </header>
+    <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Smart Library</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation">
+                <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
+                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
+                <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
+                <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
+            </nav>
+        </div>
+        <div class="mdl-layout__header-row search_Tab_Box">
+            <div class="mdl-grid search_Tab_Area">
+                <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                    <div class="mdl-cell mdl-cell--10-col search_Tab">
+                        {% csrf_token %}
+                        <input class="searchBox" type="text" name="search" placeholder="  Search..." value="{{search}}" tabindex="1" autocomplete="off" maxlength="240">
+                    </div>
+                    <div class="mdl-cell mdl-cell--2-col mdl-cell--middle">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
     <!-- <div class="mdl-layout__drawer">
         <span class="mdl-layout-title titleNav" style="padding-top:70px;">Smart Library</span>
         <nav class="mdl-navigation">
@@ -166,34 +187,34 @@
 
     <main class="mdl-layout__content">
         <div class="page-content">
-            <div class="mdl-grid bodyWeb page-max-width">
+            <div id="outerDiv" class="mdl-grid page-max-width">
 
                 <!-- Filter Bar -->
                 <div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp filter_Bar">
                     <div style="margin:10px; text-align:right;">
-                                <form action="#">
-                                    <b style="font-size:18px; margin-right:5px;">Category</b>
-                                    <select name="category" style="width:200px;">
+                        <b style="font-size:18px; margin-right:5px;">Category</b>
+                        <select id="category" name="category" style="width:200px;">
                                       <option value="">--Select category--</option>
                                       {% if all_category %} {% for category in all_category %}
-                                      <option value="{{category.id}}">{{category.name}}</option>
+                                      <option value="{{category.name}}">{{category.name}}</option>
                                       {% endfor %}  {% endif %}
                                     </select>
-                            <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
-                            <select name="status" style="width:200px;">
+                        <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
+                        <select id="status" name="status" style="width:200px;">
                                       <option value="">--Select Status--</option>
-                                      <option value="AL">At Library</option>
-                                      <option value="BW">Bowrrowed</option>
+                                      <option value="At Library">At Library</option>
+                                      <option value="Borrowed">Borrowed</option>
                                     </select>
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" style="width:75px; margin-left: 10px;">Search</button>
-                        </form>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:75px; margin-left: 10px;" onclick="filterFunction()">Search</button>
                     </div>
                 </div>
 
                 <!-- Show Card Content -->
+
+                <!-- <div id="outerDiv" class="mdl-grid"> -->
                 {% if all_books %} {% for book in all_books %}
 
-                <a href="/lib/catalog/{{book.id}}" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--12-phone mdl-card block-link " style="text-decoration: none;">
+                <a href="/lib/catalog/{{book.id}}" id="innerDiv" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--12-phone mdl-card block-link " style="text-decoration: none;">
                     <div class="mdl-grid" style="padding:0px;">
                         <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
                             <div align="center">
@@ -214,6 +235,7 @@
 
                 <!-- End For -->
                 {% endfor %} {% else %}
+                <!-- </div> -->
                 <h3>Do not have any books</h3> {% endif %}
 
             </div>

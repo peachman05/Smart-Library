@@ -12,7 +12,7 @@ def index(request):
         book_list = Book.objects.all().filter(~Q(category=del_cata))
         book_list = book_list.filter(name__icontains=search)
         all_category = BookCategories.objects.all().filter(~Q(name=del_cata.name))
-        return render(request, 'catalog.html', {'all_books': book_list, 'all_category': all_category})
+        return render(request, 'catalog.html', {'all_books': book_list, 'all_category': all_category, 'search': search})
     else:
         del_cata = BookCategories.objects.get(name='DeleteCat')
         book_list = Book.objects.all().filter(~Q(category=del_cata))
