@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .forms import bookImgFileForm
 import datetime
+from datetime import datetime, timedelta
 
 BOOK_DUE_DATE = 5
 BOOK_LIMIT = 5
@@ -24,27 +25,27 @@ def home(request):
 	for cataObj in cataAll:
 		cataCountDict[cataObj.name] = Transaction.categoryCount(cataObj.name) #Transaction.objects.filter(book__category__name = cataObj.name ).count
 
-	#x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
-	# sorted_x = sorted(x.items(), key=operator.itemgetter(1))
+	
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
 	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
-		bookArr = Book.objects.filter(category__name = cataCountDict_Sort[index][0])
-		temp = {}
-		for bookObj in bookArr:
-			countValue = Transaction.booknameCount(bookObj.name)
-			temp[bookObj.name] = (countValue,bookObj)
-		#temp_sort = sorted(temp.items(), key= operator.itemgetter(1) ,reverse=True)
-		temp_sort = list(temp.items())
-		temp_sort.sort(key=lambda x:x[1][0],reverse=True)
-		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
-		data['catValue'+str(index+1)] = temp_sort
+		if cataCountDict_Sort[index][0] !='DeleteCat': # ignore 'DeleteCat' category
+			bookArr = Book.objects.filter(category__name = cataCountDict_Sort[index][0]) # find bookAll from category
+			temp = {}
+			for bookObj in bookArr:
+				countValue = Transaction.booknameCount(bookObj.name)
+				if countValue > 0:
+					temp[bookObj.name] = (countValue,bookObj)
+			
+			temp_sort = list(temp.items()) # output: [('CategoryName',(countValue,BookObj) ),(...)]
+			temp_sort.sort(key=lambda x:x[1][0],reverse=True)
+			data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
+			data['catValue'+str(index+1)] = temp_sort
 
 		
 
 	data['user'] = request.user
-		
-	data['book'] = data['catValue1'][0][1][1]
+	data['test'] = datetime.now() - timedelta(days=30)
 	return render(request, 'homepage.html', data )
 
 @login_required(login_url='/login/')
