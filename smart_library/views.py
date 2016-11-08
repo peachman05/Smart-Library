@@ -35,10 +35,10 @@ def login(request):
     else:
         return render(request, "login.html", {})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/')
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/login/')
+    return HttpResponseRedirect('/')
 def forgetpass(request):
     data = {}
     if request.method == 'POST':

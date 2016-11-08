@@ -80,6 +80,7 @@
             <nav class="mdl-navigation">
                 <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
                 <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
+                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
                 <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
                 <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
             </nav>
@@ -90,6 +91,7 @@
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="/lib/">Home</a>
             <a class="mdl-navigation__link" href="/lib/catalog/">Catalog</a> {% if user.is_active %}
+            <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
             <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
             <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
             <a class="mdl-navigation__link" href="">About</a>
@@ -116,7 +118,7 @@
                 <div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp filter_Bar">
                     <div style="margin:10px; text-align:right;">
                                 <form action="#">
-                                    <b style="font-size:18px; margin-right:5px;">category</b>
+                                    <b style="font-size:18px; margin-right:5px;">Category</b>
                                     <select name="category" style="width:200px;">
                                       <option value="">--Select category--</option>
                                       {% if all_category %} {% for category in all_category %}
