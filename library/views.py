@@ -25,49 +25,68 @@ def home(request):
 	#x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 	# sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
-
-
 	data = {}
-
 	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
-
 		bookArr = Book.objects.filter(category__name = cataCountDict_Sort[index][0])
-
 		temp = {}
 		for bookObj in bookArr:
 			countValue = Transaction.booknameCount(bookObj.name)
 			temp[bookObj.name] = (countValue,bookObj)
-
 		#temp_sort = sorted(temp.items(), key= operator.itemgetter(1) ,reverse=True)
 		temp_sort = list(temp.items())
 		temp_sort.sort(key=lambda x:x[1][0],reverse=True)
-
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
 		data['user'] = request.user
-
-
-
 		#tupleTemp = (cataCountDict_Sort[index][0],temp)
 		#bookCount.insert(index,tupleTemp )
-
 		# testList = [(1,2,3),(4,5,6)]
-
-
-
 	# testList = {'data1':(1,2,3),'data2':bookCount}
 	# testList['catName1'] = bookCount[0][0]
 	# testList['catName2'] = bookCount[1][0]
 	# testList['size'] = len(bookCount);
-
 	return render(request, 'homepage.html', data )
 
-
 @login_required(login_url='/login/')
-def profile(request):
-
-
-	return render(request, 'homepage.html', {})
+def setting(request):
+	data = {'user': request.user}
+	student = Student.objects.get(user = request.user)
+	data['student'] = student
+	if request.method == 'POST':
+		user = request.user
+		if 'general' in request.POST:
+			fname = request.POST.get('fname')
+			lname = request.POST.get('lname')
+			email = request.POST.get('email')
+			user.first_name = fname
+			user.last_name = lname
+			user.email = email
+			user.save()
+		elif 'password-changed' in request.POST:
+			oldpass = request.POST.get('old-pass')
+			newpass1 = request.POST.get('new-pass1')
+			newpass2 = request.POST.get('new-pass2')
+			if user.check_password(oldpass) == True:
+				if newpass1 == newpass2:
+					user.set_password(newpass1)
+					user.save()
+					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.'
+					send_mail(
+						'Your Password Is Changed!',
+						mail_message,
+						settings.EMAIL_HOST_USER,
+						[user.email],
+						fail_silently=True,
+					)
+					return HttpResponseRedirect('/login/')
+				else:
+					data['error_message'] = 'New password isn\'t match'
+					return render(request, 'setting.html', data)
+			else:
+				data['error_message'] = 'Your old password is not correct'
+				return render(request, 'setting.html', data)
+		return HttpResponseRedirect("/lib/setting/")
+	return render(request, 'setting.html', data)
 
 
 
@@ -76,6 +95,7 @@ def borrowBook(request):
 	data = {}
 	user = request.user
 	student = Student.objects.get(user=user)
+	data['student'] = student
 	book_list = Book.objects.all().filter(student = student)
 	books = []
 	book_amount = len(book_list)
@@ -131,7 +151,7 @@ def backend_addbook(request):
 			s_status = request.POST.get('status', False)
 			s_category = request.POST.get('category_name', False)
 			del_cata = BookCategories.objects.get(name = 'DeleteCat')
-			book_list = Book.objects.all().filter(~Q(category = del_cata)) #ดัก del ไว้
+			book_list = Book.objects.all().filter(~Q(category = del_cata))
 			if s_status != 'all':
 				book_list = book_list.filter(status = s_status)
 			if s_category != 'all':
