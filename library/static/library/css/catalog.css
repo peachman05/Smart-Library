@@ -21,19 +21,17 @@
 
 .filter_Bar{
   /*padding: :10px;*/
-  margin:20px;
+  /*margin:20px;*/
+  height: auto;
   width: 100%;
-  height: 55px;
   background-color: #FFFFFF;
   border-radius: 2px;
 }
 
 .bookDetails_Card{
-  left: 2%;
-  width: 95%;
-  padding: auto;
+  width: 100%;
   height: auto;
-  margin: 5px;
+  margin: 8px;
 }
 
 .footerWeb{
