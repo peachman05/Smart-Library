@@ -20,7 +20,10 @@ def login(request):
             if user.is_active:
                 auth_login(request, user)
                 # Done!
-                return HttpResponseRedirect('/')
+                if user.is_superuser:
+                    return HttpResponseRedirect('/lib/librarian/')
+                else:
+                    return HttpResponseRedirect('/')
             else:
                 # Account if disabled
                 data['error_message'] = "Your account is disabled"
@@ -32,7 +35,7 @@ def login(request):
     else:
         return render(request, "login.html", {})
 
-@login_required(login_url='/')
+@login_required(login_url='/login/')
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/login/')

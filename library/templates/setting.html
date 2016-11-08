@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block title %}Borrow Books{% endblock %}
+{% block content %}
+<div class="mdl-grid" style="height:100%;">
+	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--1-offset-desktop mdl-grid">
+		<h2 style="margin-left:30px;">Setting</h2>
+		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+
+				<div class="mdl-cell mdl-cell--12-col mdl-grid">
+				Student ID: <input type="text" style="width:200px;margin-left:15px;" class="mdl-textfield__input" name="student_return" value="{{student.student_ID}}" required readonly>
+				Student: &nbsp;&nbsp;&nbsp;&nbsp;{{student.user.first_name}} {{student.user.last_name}}
+				</div>
+
+
+		<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--5-col" style="margin-bottom: 20px; margin-top: 10px;">
+			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+				<h2 class="mdl-card__title-text">General Setting</h2>
+			</div>
+			<div class="mdl-card__supporting-text" style="padding-left:10px;">
+				<form class="mdl-grid" action='/lib/setting/' method="post">
+					{% csrf_token %}
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="text" name="fname" required />
+						<label class="mdl-textfield__label">Firstname</label>
+					</div>
+					<hr>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="text" name="lname" required />
+						<label class="mdl-textfield__label">Lastname</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="text" name="email" required />
+						<label class="mdl-textfield__label">Email</label>
+					</div>	
+					<br><br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" style="margin-top:10px;">				
+						<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" type="submit" value="Submit" name="general"/>
+					</div>
+				</form>
+			</div>		
+		</div>
+		<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--5-col" style="margin-bottom: 20px; margin-top: 10px;">
+			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+				<h2 class="mdl-card__title-text">Change Password</h2>
+			</div>
+			<div class="mdl-card__supporting-text" style="padding-left:10px;">
+				<form class="mdl-grid" action='/lib/setting/' method="post">
+					{% csrf_token %}
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="password" name="old-pass" required />
+						<label class="mdl-textfield__label">Old Password</label>
+					</div>
+					<hr>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="password" name="new-pass1" required />
+						<label class="mdl-textfield__label">New Password</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+						<input class="mdl-textfield__input" type="password" name="new-pass2" required />
+						<label class="mdl-textfield__label">Re-type New Password</label>
+					</div>			
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" style="margin-top:10px;">		
+						<input class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" type="submit" value="Submit" name="password-changed"/>
+					</div>
+				</form>
+			</div>		
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<dialog class="mdl-dialog" id="error_message">
+    <h4 class="mdl-dialog__title">Error!</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        {{error_message}}
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">No</button>
+    </div>
+</dialog>
+
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script type="text/javascript">
+      {% if error_message %}
+        var dialog0 = document.querySelector('#error_message');
+        dialog0.showModal();
+        if (! dialog0.showModal) {
+          dialogPolyfill.registerDialog(dialog0);
+        }
+        dialog0.querySelector('.close').addEventListener('click', function() {
+          dialog0.close();
+        });
+      {% endif %}
+    </script>
+
+{% endblock %}
