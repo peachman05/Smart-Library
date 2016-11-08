@@ -37,13 +37,13 @@
   background-attachment: fixed;
   background-repeat:no-repeat;
   background-position: center center;
-  height:auto;
-  min-height:140px;
+  height:60px;
+  min-height:60px;
 }
 
 .cardRankHeader{
   color:#FFFFFF;
-  padding-bottom: 13%;
+  padding-bottom: 0%;
 }
 
 .cardNews{

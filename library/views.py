@@ -21,7 +21,7 @@ def home(request):
 	cataAll = BookCatagories.objects.all()
 	cataCountDict = {} # key is catagory name
 	for cataObj in cataAll:   		
-		cataCountDict[cataObj.name] = Transaction.catagoryCount(cataObj.name) #Transaction.objects.filter(book__catagory__name = cataObj.name ).count
+		cataCountDict[cataObj.name] = Transaction.catagoryCount(cataObj.name) 
 
 
 	
@@ -47,6 +47,7 @@ def home(request):
 
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
+		data['catCount'+ str(index+1)] = len(temp_sort)
 
 
 

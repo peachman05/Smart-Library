@@ -53,13 +53,14 @@ class Transaction(models.Model):
 	book = models.ForeignKey(Book)
 
 	def catagoryCount(catagory_name):
-            return Transaction.objects.filter(book__catagory__name = catagory_name).count()
+            return len(Transaction.objects.filter(book__catagory__name = catagory_name))
 
 	def booknameCount(book_name):
-            return Transaction.objects.filter(book__name = book_name).count()
+            return len(Transaction.objects.filter(book__name = book_name))
 
 	def __str__(self):
 		return self.book.name
+
 	class Meta:
 		ordering = ['date']
 

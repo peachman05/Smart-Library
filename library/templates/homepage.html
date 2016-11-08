@@ -3,8 +3,57 @@
 {% block title %}Homepage{% endblock %}
 {% block head %}
   <link rel="stylesheet" href="{% static 'library/css/styles.css' %}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <link rel="stylesheet"  href="{% static 'library/css/lightslider.css' %}"/>
+    <style>
+      ul{
+      list-style: none outside none;
+        padding-left: 0;
+            margin: 0;
+    }
+    .content-slider li{
+        background-color: #ed3020;
+        text-align: center;
+        color: #FFF;
+        height:100%;
+    }
+    .content-slider h3 {
+        margin: 0;
+        padding: 200px 0;
+    }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static 'library/js/lightslider.js' %}"></script> 
+    <script>
+       $(document).ready(function() {
+            $("#content-slider").lightSlider({
+                      auto:true,
+                      loop:true,
+                      keyPress:true,
+                    //  pauseOnHover: true,
+                  });
+             $("#content-slider1").lightSlider({
+                      auto:true,
+                      loop:true,
+                      keyPress:true,
+                     // pauseOnHover: true,
+                  });
+           
+      });
+    </script>
+
 {% endblock %}
 {% block content %}
+
+    
+
           <div class="page-content">
 
             <div class="mdl-grid search_Tab" style="background-image: url({% static 'library/images/bg_1.jpg' %});">
@@ -16,97 +65,91 @@
             </div>
 
             <div class="mdl-grid bodyWeb">
-              <div class="mdl-cell mdl-cell--8-col">
+              <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-grid">
                   <div class="mdl-cell mdl-cell--6-col">
                     <!-- Card_1 -->
                     <div class="mdl-card mdl-shadow--4dp cardRank">
 
                       <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
-                        <h2 class="mdl-card__title-text cardRankHeader">Rank_1</h2>
+                        <h2 class="mdl-card__title-text cardRankHeader">{{catName1}}</h2>
                       </div>
                       <div class="mdl-card__supporting-text" style="margin:6px;">
                         <div class="mdl-grid" style="width:100%; height:100%">
-                            <div class="mdl-cell mdl-cell--6-col-desktop">
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">1. Empty</a>
+
+
+                              <div class="item" style="width:100%; height:100% center;">
+                                    <ul id="content-slider1" class="content-slider">
+                                        {% for each in catValue1|slice:":10" %}
+                                            <li>
+                                                
+                                                <div>
+                                                    {{forloop.counter}}
+
+                                                    {% if forloop.counter == 1 %}
+                                                        st
+                                                    {% endif %}
+                                                    {% if forloop.counter == 2 %}
+                                                        nd
+                                                    {% endif %}
+                                                    {% if forloop.counter == 3 %}
+                                                        rd
+                                                    {% endif %}
+                                                    {% if forloop.counter > 3 %}
+                                                        th
+                                                    {% endif %}
+                                                    <br>
+                                                </div>
+                                               
+                                                <div>
+                                                    <img src="{{ each.1.1.picture.url }}" style="height:100px"><br>
+                                                </div>
+
+                                                <div align="left" style="font-size: 85%;  padding: 0px 10px;" padding>
+                                                    <div>
+                                                        <b>Name:</b><br> {{each.0}}<br> 
+                                                    </div>
+                                                    <div>
+                                                        <b>Author:</b><br> {{each.1.1.author}}<br>
+                                                    </div>
+                                                    <div>
+                                                        <b>Borrowed Time:</b> {{each.1.0}}<br>
+                                                    </div>
+                                                </div>
+
+
+                                            </li>
+                                        {% endfor %} 
+                                    </ul>
                               </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">3. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">5. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">7. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">9. Empty</a>
-                              </div>
-                            </div>
-                            <div class="mdl-cell mdl-cell--6-col-desktop">
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">2. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">4. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">6. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">8. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">10. Empty</a>
-                              </div>
-                            </div>
+                                    
+                                    
+
                         </div>
+
 
                       </div>
                     </div>
                     <!-- Card_2 -->
-                    <div class="mdl-card mdl-shadow--4dp cardRank">
+                    <div class="mdl-card mdl-shadow--4dp cardRank" style="width:100%; height:50%; ">
 
                       <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
                         <h2 class="mdl-card__title-text cardRankHeader">Rank_3</h2>
                       </div>
-                      <div class="mdl-card__supporting-text" style="margin:6px;">
-                        <div class="mdl-grid" style="width:100%; height:100%">
-                            <div class="mdl-cell mdl-cell--6-col-desktop">
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">1. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">3. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">5. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">7. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">9. Empty</a>
-                              </div>
-                            </div>
-                            <div class="mdl-cell mdl-cell--6-col-desktop">
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">2. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">4. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">6. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">8. Empty</a>
-                              </div>
-                              <div class="mdl-cell mdl-cell--12-col-desktop">
-                                <a style="color:black; text-decoration: none;" href="">10. Empty</a>
-                              </div>
-                            </div>
+                      <div class="" style="margin:20px 6px; ">
+                        <div class="mdl-grid" style="width:100%; height:160px center;">
+                               
+                               <div class="item" style="width:100%; height:100% center;">
+                                    <ul id="content-slider" class="content-slider">
+                                        {% for i in "xxxxxx" %}
+                                            <li>
+                                                <img src="{% static 'library/images/map/A01.png' %}" style="width:100%">
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                          
                         </div>
 
                       </div>
@@ -209,7 +252,7 @@
                 </div>
               </div>
 
-              <div class="mdl-cell mdl-cell--4-col">
+             <!-- <div class="mdl-cell mdl-cell--4-col">
                 <div class="mdl-cell mdl-cell--12-col">
                   <!-- Card_1 -->
                   <div class="mdl-card mdl-shadow--4dp cardNews">
