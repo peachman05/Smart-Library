@@ -3,6 +3,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet" href="{% static 'library/css/catalog.css' %}">
+
 
 
 <meta charset="utf-8">
@@ -17,7 +19,8 @@
     }
 
     .content-slider li {
-        background-color: #ed3020;
+        /*background-color: #ed3020;*/
+        background-color: #FFFFFF;
         text-align: center;
         color: #FFF;
         height: 100%;
@@ -44,175 +47,232 @@
             keyPress: true,
             // pauseOnHover: true,
         });
+        $("#content-slider2").lightSlider({
+            auto: true,
+            loop: true,
+            keyPress: true,
+            // pauseOnHover: true,
+        });
+        $("#content-slider3").lightSlider({
+            auto: true,
+            loop: true,
+            keyPress: true,
+            // pauseOnHover: true,
+        });
 
     });
 </script>
 
 {% endblock %} {% block content %}
+
 <div class="page-content">
     <div class="mdl-grid bodyWeb">
         <div class="mdl-cell mdl-cell--12-col">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--6-col">
-                    <!-- Card_1 -->
-                    <div class="mdl-card mdl-shadow--4dp cardRank">
-                        <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
-                            <h2 class="mdl-card__title-text cardRankHeader">{{catName1}}</h2>
-                        </div>
-                        <div class="mdl-card__supporting-text" style="margin:6px;">
-                            <div class="mdl-grid" style="width:100%; height:100%">
-                                <div class="item" style="width:100%; height:100% center;">
-                                    <ul id="content-slider1" class="content-slider">
-                                        {% for each in catValue1|slice:":10" %}
-                                        <li>
-
-                                            <div>
-                                                {{forloop.counter}} {% if forloop.counter == 1 %} st {% endif %} {% if forloop.counter == 2 %} nd {% endif %} {% if forloop.counter == 3 %} rd {% endif %} {% if forloop.counter > 3 %} th {% endif %}
-                                                <br>
-                                            </div>
-                                            <div>
-                                                <img src="{{ each.1.1.picture.url }}" style="height:100px"><br>
-                                            </div>
-                                            <div align="left" style="font-size: 85%;  padding: 0px 10px;" padding>
-                                                <div>
-                                                    <b>Name:</b><br> {{each.0}}<br>
-                                                </div>
-                                                <div>
-                                                    <b>Author:</b><br> {{each.1.1.author}}<br>
-                                                </div>
-                                                <div>
-                                                    <b>Borrowed Time:</b> {{each.1.0}}<br>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card_2 -->
-                    <div class="mdl-card mdl-shadow--4dp cardRank" style="width:100%; height:50%; ">
-
-                        <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
-                            <h2 class="mdl-card__title-text cardRankHeader">Rank_3</h2>
-                        </div>
-                        <div class="" style="margin:20px 6px; ">
-                            <div class="mdl-grid" style="width:100%; height:160px center;">
-
-                                <div class="item" style="width:100%; height:100% center;">
-                                    <ul id="content-slider" class="content-slider">
-                                        {% for i in "xxxxxx" %}
-                                        <li>
-                                            <img src="{% static 'library/images/map/A01.png' %}" style="width:100%">
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Card_1 -->
+            <div class="mdl-card mdl-shadow--4dp cardRank">
+                <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
+                    <h2 class="mdl-card__title-text cardRankHeader">{{catName1}}</h2>
                 </div>
-                <div class="mdl-cell mdl-cell--6-col">
-                    <!-- Card_3 -->
-                    <div class="mdl-card mdl-shadow--4dp cardRank">
-                        <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
-                            <h2 class="mdl-card__title-text cardRankHeader">Rank_2</h2>
-                        </div>
-                        <div class="mdl-card__supporting-text" style="margin:6px;">
-                            <div class="mdl-grid" style="width:100%; height:100%">
-                                <div class="mdl-cell mdl-cell--6-col-desktop">
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">1. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">3. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">5. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">7. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">9. Empty</a>
-                                    </div>
-                                </div>
-                                <div class="mdl-cell mdl-cell--6-col-desktop">
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">2. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">4. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">6. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">8. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">10. Empty</a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="mdl-card__supporting-text" style="margin:6px;">
+                    <div class="mdl-grid" style="width:100%; height:100%">
+                        <div class="item" style="width:100%; height:100% center;">
+                            <ul id="content-slider1" class="content-slider">
+                                {% for bookObj in catValue1|slice:":10" %}
+                                <li>
+                                    <div class="mdl-grid" style="padding:0px;">
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <b style="font-size: 20px; color:#008CBA;">
+                                                                  {{forloop.counter}}
 
-                        </div>
-                    </div>
-                    <!-- Card_4 -->
-                    <div class="mdl-card mdl-shadow--4dp cardRank">
+                                                                  {% if forloop.counter == 1 %}
+                                                                      st
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 2 %}
+                                                                      nd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 3 %}
+                                                                      rd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter > 3 %}
+                                                                      th
+                                                                  {% endif %}
+                                                                </b>
 
-                        <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
-                            <h2 class="mdl-card__title-text cardRankHeader">Rank_4</h2>
-                        </div>
-                        <div class="mdl-card__supporting-text" style="margin:6px;">
-                            <div class="mdl-grid" style="width:100%; height:100%">
-                                <div class="mdl-cell mdl-cell--6-col-desktop">
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">1. Empty</a>
+                                            <br>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <div align="center">
+                                                {% if bookObj.1.1.picture %}
+                                                <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="width:140px; "> {% else %}
+                                                <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                            <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">3. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">5. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">7. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">9. Empty</a>
-                                    </div>
-                                </div>
-                                <div class="mdl-cell mdl-cell--6-col-desktop">
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">2. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">4. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">6. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">8. Empty</a>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col-desktop">
-                                        <a style="color:black; text-decoration: none;" href="">10. Empty</a>
-                                    </div>
-                                </div>
-                            </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mdl-card mdl-shadow--4dp cardNews">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">**News**</h2>
+        <div class="mdl-cell mdl-cell--12-col">
+            <!-- Card_2 -->
+            <div class="mdl-card mdl-shadow--4dp cardRank">
+                <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
+                    <h2 class="mdl-card__title-text cardRankHeader">{{catName3}}</h2>
+                </div>
+                <div class="" style="margin:20px 6px; ">
+                    <div class="mdl-grid" style="width:100%; height:160px center;">
+                        <div class="item" style="width:100%; height:100% center;">
+                            <ul id="content-slider3" class="content-slider">
+                                {% for bookObj in catValue3|slice:":10" %}
+                                <li>
+                                    <div class="mdl-grid" style="padding:0px;">
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <b style="font-size: 20px; color:#008CBA;">
+                                                                  {{forloop.counter}}
+
+                                                                  {% if forloop.counter == 1 %}
+                                                                      st
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 2 %}
+                                                                      nd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 3 %}
+                                                                      rd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter > 3 %}
+                                                                      th
+                                                                  {% endif %}
+                                                                </b>
+                                            <br>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <div align="center">
+                                                {% if bookObj.1.1.picture %}
+                                                <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="width:140px; "> {% else %}
+                                                <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                            <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus eleifend lacinia...
+        </div>
+        <div class="mdl-cell mdl-cell--12-col">
+            <!-- Card_3 -->
+            <div class="mdl-card mdl-shadow--4dp cardRank">
+                <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
+                    <h2 class="mdl-card__title-text cardRankHeader">{{catName2}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text" style="margin:6px;">
+                    <div class="mdl-grid" style="width:100%; height:100%" align="center">
+                        <div class="item" style="width:100%; height:100% center;">
+                            <ul id="content-slider2" class="content-slider">
+                                {% for bookObj in catValue2|slice:":10" %}
+                                <li>
+                                    <div class="mdl-grid" style="padding:0px;">
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <b style="font-size: 20px; color:#008CBA;">
+                                                                  {{forloop.counter}}
+
+                                                                  {% if forloop.counter == 1 %}
+                                                                      st
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 2 %}
+                                                                      nd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 3 %}
+                                                                      rd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter > 3 %}
+                                                                      th
+                                                                  {% endif %}
+                                                                </b>
+
+                                            <br>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <div align="center">
+                                                {% if bookObj.1.1.picture %}
+                                                <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="width:140px; "> {% else %}
+                                                <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                            <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="mdl-cell mdl-cell--12-col">
+            <!-- Card_4 -->
+            <div class="mdl-card mdl-shadow--4dp cardRank">
+                <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
+                    <h2 class="mdl-card__title-text cardRankHeader">{{catName4}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text" style="margin:6px;">
+                    <div class="mdl-grid" style="width:100%; height:100%">
+                        <div class="item" style="width:100%; height:100% center;">
+                            <ul id="content-slider1" class="content-slider">
+                                {% for bookObj in catValue4|slice:":10" %}
+                                <li>
+                                    <div class="mdl-grid" style="padding:0px;">
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <b style="font-size: 20px; color:#008CBA;">
+                                                                  {{forloop.counter}}
+
+                                                                  {% if forloop.counter == 1 %}
+                                                                      st
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 2 %}
+                                                                      nd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter == 3 %}
+                                                                      rd
+                                                                  {% endif %}
+                                                                  {% if forloop.counter > 3 %}
+                                                                      th
+                                                                  {% endif %}
+                                                                </b>
+                                            <br>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                            <div align="center">
+                                                {% if bookObj.1.1.picture %}
+                                                <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="width:140px; "> {% else %}
+                                                <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                            <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

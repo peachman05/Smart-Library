@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -54,10 +55,13 @@ class Transaction(models.Model):
 
 
 	def categoryCount(category_name):
-            return len(Transaction.objects.filter(book__category__name = category_name))
+			dateThreshold = datetime.now() - timedelta(days=30) 
+			return len(Transaction.objects.filter(book__category__name = category_name , date__gte = dateThreshold  , status = 'BR'  ))
 
 	def booknameCount(book_name):
-            return len(Transaction.objects.filter(book__name = book_name))
+            dateThreshold = datetime.now() - timedelta(days=30) 
+            return len(Transaction.objects.filter(book__name = book_name , date__gte = dateThreshold  , status = 'BR'  ))
+            #return len(Transaction.objects.filter(book__name = book_name ))
 
 	def __str__(self):
 		return self.book.name
