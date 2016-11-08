@@ -67,23 +67,23 @@
             width: 85%;
         }
 
-        .searchBox{
-          height: 45px;
-          border-top-left-radius: 10px !important;
-          border-bottom-left-radius: 10px !important;
-          border-top-right-radius: 0px !important;
-          border-bottom-right-radius: 0px !important;
-          border: 2px solid !important;
-          border-color: #BDBDBD !important;
+        .searchBox {
+            height: 45px;
+            border-top-left-radius: 10px !important;
+            border-bottom-left-radius: 10px !important;
+            border-top-right-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+            border: 2px solid !important;
+            border-color: #BDBDBD !important;
         }
 
-        .searchButton{
-          height: 45px;
-          border-top-right-radius: 10px !important;
-          border-bottom-right-radius: 10px !important;
-          border: 2px solid !important;
-          border-left:0 !important;
-          border-color: #BDBDBD !important;
+        .searchButton {
+            height: 45px;
+            border-top-right-radius: 10px !important;
+            border-bottom-right-radius: 10px !important;
+            border: 2px solid !important;
+            border-left: 0 !important;
+            border-color: #BDBDBD !important;
         }
 
         .mdl-layout__header--waterfall.is-casting-shadow {
@@ -91,7 +91,7 @@
         }
 
         .mdl-layout__header.is-compact {
-            max-height: 64px;
+            max-height: 50px;
         }
     </style>
 </head>
@@ -121,11 +121,11 @@
                     <div class="mde-cell mdl-cell--10-col search_Tab">
                         <form id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
                             {% csrf_token %}
-                              <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
                         </form>
                     </div>
                     <div class="mde-cell mdl-cell--2-col mdl-cell--middle">
-                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></a>
                     </div>
                 </div>
             </div>
