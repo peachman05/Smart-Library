@@ -168,16 +168,10 @@
                                     </table>
                                 </div>
                                 <div class="mdl-cell mdl-cell--12-col" style="margin-top:34px;">
-                                    <table>
-                                        <tr>
-                                            <td class="header">Position: </td>
-                                            <td>{{book.address}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="header">Status: </td>
-                                            <td>{% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</td>
-                                        </tr>
-                                    </table>
+                                    <p>
+                                        <h5 class="header" style="font-size: 15px;">Position: {{book.address}}</h5>
+                                        <h5 class="header" style="font-size: 15px;">Status: {% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</h5>
+                                    </p>
                                     {% if user.is_active %}
                                     <a href="#"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% else %}
                                     <a href="/login/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% endif %}
