@@ -40,15 +40,11 @@ def home(request):
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
 
-		data['user'] = request.user
-		#tupleTemp = (cataCountDict_Sort[index][0],temp)
+		
 
-		#bookCount.insert(index,tupleTemp )
-		# testList = [(1,2,3),(4,5,6)]
-	# testList = {'data1':(1,2,3),'data2':bookCount}
-	# testList['catName1'] = bookCount[0][0]
-	# testList['catName2'] = bookCount[1][0]
-	# testList['size'] = len(bookCount);
+	data['user'] = request.user
+		
+	data['book'] = data['catValue1'][0][1][1]
 	return render(request, 'homepage.html', data )
 
 @login_required(login_url='/login/')

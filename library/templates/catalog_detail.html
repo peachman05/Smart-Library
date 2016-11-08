@@ -179,18 +179,16 @@
                                         </tr>
                                     </table>
                                     {% if user.is_active %}
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button> {% else %}
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;" disabled>Borrow This Book</button> {% endif %}
+                                    <a href="#"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% else %}
+                                    <a href="/login/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% endif %}
                                 </div>
                             </div>
+
                             <div style="padding-left:24px; margin-top:22px; margin-bottom:10px;">
                                 <h5 class="mdl-cell mdl-cell--12-col" style="margin-top:12px;">Book Location</h5></div>
                             <div class="mdl-cell mdl-cell--12-col" align="center">
                                 <img class="map-image" src="{% static 'library/images/map/A01.png' %}" style="padding:0px;" alt="" border="0">
                             </div>
-
-
-
                         </div>
                     </div>
 
