@@ -3,6 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.contrib.auth import authenticate, logout as auth_logout, login as auth_login
+from library.models import Student
+import string
+import random
+from django.core.mail import send_mail
+from django.conf import settings
 
 def home(request):
 	return HttpResponseRedirect('/lib/')
@@ -39,6 +44,7 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
+
 def forgetpass(request):
     data = {}
     if request.method == 'POST':
@@ -48,10 +54,10 @@ def forgetpass(request):
             studentx = Student.objects.get(student_ID = studentid)
         except:
             data['error_message'] = 'Student ID Not Found'
-            return render(request, "forgetp.html", {})
+            return render(request, "forgetp.html", data)
         if(studentx.user.email != email):
             data['error_message'] = 'Student ID and email isn\'t match'
-            return render(request, "forgetp.html", {})
+            return render(request, "forgetp.html", data)
         else:
             passwd = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(9))
             mail_message = 'Dear '+studentx.user.first_name+' '+studentx.user.last_name
@@ -66,5 +72,5 @@ def forgetpass(request):
             )
             studentx.user.set_password(passwd)
             studentx.user.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/login/')
     return render(request, "forgetp.html", {})
