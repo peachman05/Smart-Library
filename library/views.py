@@ -40,10 +40,10 @@ def home(request):
 		data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
 		data['catValue'+str(index+1)] = temp_sort
 
-		
+
 
 	data['user'] = request.user
-		
+
 	data['book'] = data['catValue1'][0][1][1]
 	return render(request, 'homepage.html', data )
 
