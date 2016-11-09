@@ -43,7 +43,7 @@
         }
 
         .search_Tab_Box {
-            height: 420px;
+            height: 250px;
             max-width: 100%;
         }
 
@@ -56,7 +56,7 @@
         }
 
         .searchBox {
-            height: 45px;
+            height: 35px;
             border-top-left-radius: 10px !important;
             border-bottom-left-radius: 10px !important;
             border-top-right-radius: 0px !important;
@@ -66,7 +66,7 @@
         }
 
         .searchButton {
-            height: 45px;
+            height: 35px;
             border-top-right-radius: 10px !important;
             border-bottom-right-radius: 10px !important;
             border: 2px solid !important;
@@ -104,17 +104,17 @@
             <div class="mdl-layout__header-row search_Tab_Box">
                 <div class="mdl-grid">
                     <div class="mde-cell mdl-cell--12-col search_Tab_Header">
-                        <h1 style="font-family: 'Handlee', cursive; margin-bottom:0px; margin-top:0px;">
+                        <h3 style="font-family: 'Handlee', cursive; margin-bottom:0px; margin-top:0px;">
                           “ Two things are infinite<br>
                           the universe and human stupidity<br>
                           and I'm not sure about the universe ”
-                        </h1>
-                        <h4 style="margin-top:0px; margin-bottom:30px;">
+                        </h3>
+                        <h5 style="margin-top:0px; margin-bottom:30px;">
                           - Albert Einstein -
-                        </h4>
+                        </h5>
                     </div>
                     <form class="search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
-                        <div style="float:left; width: 94%;">
+                        <div style="float:left; margin-left:13%; width: 65%;">
                             {% csrf_token %}
                             <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
                         </div>
