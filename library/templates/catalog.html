@@ -166,7 +166,7 @@
                 <form class="mdl-grid search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
                     <div style="float:left; width:85%;">
                         {% csrf_token %}
-                        <input class="searchBox" name="search" type="text" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                        <input class="searchBox" name="search" type="text" placeholder="Search..." value="{{search}}" tabindex="1" autocomplete="off" maxlength="240">
                     </div>
                     <div style="float:left;">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
