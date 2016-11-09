@@ -1,6 +1,12 @@
 from django.db import models
 from django.conf import settings
 from datetime import datetime, timedelta
+import string
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from datetime import datetime, timedelta
+
 
 # Create your models here.
 
@@ -10,9 +16,34 @@ class Student(models.Model):
 	is_librarian = models.BooleanField(default=False)
 	def __str__(self):
 		return self.student_ID + ':  ' + self.user.first_name + " " + self.user.last_name
-
-
-
+	def generateNewPassword(self):
+		passwd = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(9))
+		mail_message = 'Dear '+self.user.first_name+' '+self.user.last_name
+		mail_message += '\n\n\n\t Your password is reset!!\n\t So your new password is: '+passwd
+		mail_message += '\n\n\nThank, \nSmart-Library Teams.'
+		email = self.user.email
+		send_mail(
+			'Your Account\'s password is reset!',
+			mail_message,
+			settings.EMAIL_HOST_USER,
+			[email],
+			fail_silently=True,
+		)
+		self.user.set_password(passwd)
+		self.user.save()
+	def setNewPassword(self, passwd):
+		self.user.set_password(passwd)
+		self.user.save()
+		mail_message = 'Dear '+self.user.first_name+' '+self.user.last_name
+		mail_message += '\n\n\n\t Your Account\'s Password is Changed. (Account: '+self.user.username
+		mail_message += ')\n\n\nThank, \nSmart-Library Teams.'
+		send_mail(
+			'Your Password Is Changed!',
+			mail_message,
+			settings.EMAIL_HOST_USER,
+			[self.user.email],
+			fail_silently=True,
+		)
 ############ Book ######################
 class BookCategories(models.Model):
 	name = models.CharField(max_length=20)
@@ -36,9 +67,20 @@ class Book(models.Model):
 	picture = models.FileField(upload_to='library/bookpic/', blank=True)
 	status = models.CharField(max_length=2, choices=BOOK_STATUS, default='AL')
 	student = models.ForeignKey(Student)
-
 	def __str__(self):
 		return self.name + ':  ' + self.author
+	def deleteBook(self):
+		self.status = 'DL'
+		try:
+			del_cata = BookCategories.objects.get(name = 'DeleteCat')
+		except:
+			del_cata = BookCategories(name = 'DeleteCat')
+			del_cata.save()
+		libStudent = Student.objects.get(student_ID = 'libraryStore')
+		new_Transaction = Transaction(date = datetime.datetime.now(), status='DL', student = libStudent, book=self)
+		new_Transaction.save()
+		self.category = del_cata
+		self.save()
 
 ######### Transaction ##############
 

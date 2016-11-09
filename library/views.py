@@ -74,16 +74,7 @@ def setting(request):
 			newpass2 = request.POST.get('new-pass2')
 			if user.check_password(oldpass) == True:
 				if newpass1 == newpass2:
-					user.set_password(newpass1)
-					user.save()
-					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.'
-					send_mail(
-						'Your Password Is Changed!',
-						mail_message,
-						settings.EMAIL_HOST_USER,
-						[user.email],
-						fail_silently=True,
-					)
+					student.setNewPassword(newpass1)
 					return HttpResponseRedirect('/login/')
 				else:
 					data['error_message'] = 'New password isn\'t match'
@@ -180,20 +171,7 @@ def backend_addbook(request):
 			cata = BookCategories.objects.get(name = cata_name)
 			books = Book.objects.all().filter(category = cata)
 			for book in books:
-				book.status = 'DL'
-				try:
-					del_cata = BookCategories.objects.get(name = 'DeleteCat')
-				except:
-					del_cata = BookCategories(name = 'DeleteCat')
-					del_cata.save()
-
-				libStudent = Student.objects.get(student_ID = 'libraryStore')
-				new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
-											  student = libStudent, book=book)
-				new_Transaction.save()
-
-				book.category = del_cata
-				book.save()
+				book.deleteBook()
 			cata.delete()
 		elif 'add_book' in request.POST:
 			ab_name = request.POST.get('add_name', False)
@@ -217,20 +195,7 @@ def backend_addbook(request):
 			for book_selected in request.POST.getlist('bookTable'):
 				try:
 					b = Book.objects.get(pk = book_selected[9:])
-					b.status = 'DL'
-					try:
-						del_cata = BookCategories.objects.get(name = 'DeleteCat')
-					except:
-						del_cata = BookCategories(name = 'DeleteCat')
-						del_cata.save()
-
-					libStudent = Student.objects.get(student_ID = 'libraryStore')
-					new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
-											  student = libStudent, book=b)
-					new_Transaction.save()
-
-					b.category = del_cata
-					b.save()
+					b.deleteBook()
 				except:
 					print("Can't Delete Book")
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
