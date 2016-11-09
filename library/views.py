@@ -205,7 +205,7 @@ def backend_addbook(request):
 		del_cata = BookCategories(name = 'DeleteCat')
 		del_cata.save()
 	data['book_list'] = Book.objects.all().filter(~Q(category = del_cata))
-	data['Categories_list'] = BookCategories.objects.all()
+	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)
 

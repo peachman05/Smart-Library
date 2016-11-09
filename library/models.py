@@ -17,7 +17,7 @@ class Student(models.Model):
 	def __str__(self):
 		return self.student_ID + ':  ' + self.user.first_name + " " + self.user.last_name
 	def generateNewPassword(self):
-		passwd = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(9))
+		passwd = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(9))
 		mail_message = 'Dear '+self.user.first_name+' '+self.user.last_name
 		mail_message += '\n\n\n\t Your password is reset!!\n\t So your new password is: '+passwd
 		mail_message += '\n\n\nThank, \nSmart-Library Teams.'

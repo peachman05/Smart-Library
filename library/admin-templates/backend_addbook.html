@@ -119,7 +119,7 @@
 		</div>
 		<div class="mdl-dialog__actions">
 			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_book">Add</button>
+			<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_book">Add</button>
 		</div>
 	</form>
 <!-- #########Form -->
@@ -136,7 +136,7 @@
     </div>
     <div class="mdl-dialog__actions">
 		<button type="button" class="mdl-button close">No</button>
-		<button type="submit" form="bookform" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="delete_book" style="background-color:rgb(244,67,54);">Yes!</button>
+		<button type="submit" form="bookform" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="delete_book" style="background-color:rgb(244,67,54);">Yes!</button>
     </div>
  </dialog>
 
@@ -152,7 +152,7 @@
 		</div>
 		<div class="mdl-dialog__actions">
 			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_category">Add</button>
+			<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_category">Add</button>
 		</div>
 	</form>
 </div>
@@ -173,9 +173,17 @@
 		</div>
 		<div class="mdl-dialog__actions">
 			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="delete_category">Delete</button>
+			<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="delete_category">Delete</button>
 		</div>
 	</form>
+</div>
+</dialog>
+
+<dialog class="mdl-dialog" id="loadDialog">
+<h4 class="mdl-dialog__title">Loading</h4>
+<div class="mdl-dialog__content" style="text-align: center;">
+	<h2>Your request is in progress please wait...</h2><br>
+	<div class="mdl-spinner mdl-js-spinner is-active"></div>
 </div>
 </dialog>
 
@@ -228,6 +236,15 @@
     });
     dialog4.querySelector('.close').addEventListener('click', function() {
       dialog4.close();
+    });
+
+    var dialogLoad = document.querySelector('#loadDialog');
+    var showDialogButton4 = document.querySelector('.loading-dis');
+    if (! dialogLoad.showModal) {
+      dialogPolyfill.registerDialog(dialogLoad);
+    }
+    showDialogButton4.addEventListener('click', function() {
+		dialogLoad.showModal();
     });
   </script>
 {% endblock %}

@@ -59,18 +59,6 @@ def forgetpass(request):
             data['error_message'] = 'Student ID and email isn\'t match'
             return render(request, "forgetp.html", data)
         else:
-            passwd = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(9))
-            mail_message = 'Dear '+studentx.user.first_name+' '+studentx.user.last_name
-            mail_message += '\n\n\n\t Your password is reset!!\n\t So your new password is: '+passwd
-            mail_message += '\n\n\nThank, \nSmart-Library Teams.'
-            send_mail(
-                'Your Account\'s password is reset!',
-                mail_message,
-                settings.EMAIL_HOST_USER,
-                [email],
-                fail_silently=True,
-            )
-            studentx.user.set_password(passwd)
-            studentx.user.save()
+            studentx.generateNewPassword()
             return HttpResponseRedirect('/login/')
     return render(request, "forgetp.html", {})
