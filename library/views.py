@@ -28,6 +28,7 @@ def home(request):
 
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
+	listShow = []
 	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
 		if cataCountDict_Sort[index][0] !='DeleteCat': # ignore 'DeleteCat' category
 			bookArr = Book.objects.filter(category__name = cataCountDict_Sort[index][0]) # find bookAll from category
@@ -37,15 +38,18 @@ def home(request):
 				if countValue > 0:
 					temp[bookObj.name] = (countValue,bookObj)
 
-			temp_sort = list(temp.items()) # output: [('CategoryName',(countValue,BookObj) ),(...)]
+			temp_sort = list(temp.items()) # output: [('BookName',(countValue,BookObj) ),(...)]
 			temp_sort.sort(key=lambda x:x[1][0],reverse=True)
-			data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
-			data['catValue'+str(index+1)] = temp_sort
+			# data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
+			# data['catValue'+str(index+1)] = temp_sort
+			tempTuple = ( cataCountDict_Sort[index][0] ,temp_sort)
+			if len(temp) > 0:
+				listShow.append( tempTuple ) #output:[('CategoryName', temp_sort),(...)]
 
 
 
 	data['user'] = request.user
-
+	data['listShow'] = listShow
 	data['test'] = datetime.now() - timedelta(days=30)
 	return render(request, 'homepage.html', data )
 
