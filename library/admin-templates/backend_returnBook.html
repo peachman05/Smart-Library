@@ -63,8 +63,30 @@
 </div>
 {% endblock %}
 {% block script %}
+
+<dialog class="mdl-dialog" id="loadDialog">
+<h4 class="mdl-dialog__title">Loading..</h4>
+<div class="mdl-dialog__content" style="text-align: center;">
+	<p>Your request is in progress please wait...</p><br>
+	<div class="mdl-spinner mdl-js-spinner is-active"></div>
+</div>
+</dialog>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
+    var dialogLoad = document.querySelector('#loadDialog');
+    var showDialogButton4 = document.querySelector('.loading-dis');
+    if (! dialogLoad.showModal) {
+      dialogPolyfill.registerDialog(dialogLoad);
+    }
+    showDialogButton4.addEventListener('click', function() {
+    	dialogLoad.showModal();
+    	dialog.close();
+    	dialog2.close();
+    	dialog3.close();
+    	dialog4.close();
+    });
+
 	$('.box').change(function(){
        var total = 0;
        $('.box:checked').each(function(){

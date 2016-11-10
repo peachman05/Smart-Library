@@ -69,3 +69,15 @@ input[type=text] {
     background-repeat: no-repeat;
     padding: 4px 20px 4px 40px;
 }
+
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.page-max-width {
+        max-width: 920px;
+        margin: auto;
+        background-color: #FFF;
+    }

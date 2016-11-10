@@ -154,7 +154,8 @@
             <nav class="mdl-navigation">
                 <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
                 <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
+                {% if not user.is_superuser %}
+                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
                 <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
                 <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
             </nav>
@@ -240,7 +241,7 @@
                                         <h5 class="header" style="font-size: 15px;">Status: {% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %} Deleted {% endif %}</h5>
                                     </p>
                                     {% if user.is_active %}
-                                    <a href="#"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% else %}
+                                    <a href="/lib/borrow"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% else %}
                                     <a href="/login/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="position: absolute;right: 20px;">Borrow This Book</button></a> {% endif %}
                                 </div>
                             </div>
