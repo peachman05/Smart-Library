@@ -26,14 +26,17 @@
             position: relative;
             margin: 0;
         }
-        html,body {
-           margin:0;
-           padding:0;
-           height:100%;
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
+
         .footerWeb {
-          background-color: #1565C0;
-          /*padding:10px;*/
+            background-color: #1565C0;
+            /*padding:10px;*/
         }
 
         .header-background {
@@ -45,8 +48,9 @@
         }
 
         .search_Tab_Box {
-            height: 250px;
+            height: 400px;
             max-width: 100%;
+            margin-top: 30px;
         }
 
         .search_Tab_Header {
@@ -83,67 +87,130 @@
         .mdl-layout__header.is-compact {
             max-height: 50px;
         }
+
+        #snow {
+            background: none;
+            font-family: Androgyne;
+            background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            -webkit-animation: snow 10s linear infinite;
+            -moz-animation: snow 10s linear infinite;
+            -ms-animation: snow 10s linear infinite;
+            animation: snow 10s linear infinite;
+        }
+
+        @keyframes snow {
+            0% {
+                background-position: 0px 0px, 0px 0px, 0px 0px;
+            }
+            50% {
+                background-position: 500px 500px, 100px 200px, -100px 150px;
+            }
+            100% {
+                background-position: 500px 1000px, 200px 400px, -100px 300px;
+            }
+        }
+
+        @-moz-keyframes snow {
+            0% {
+                background-position: 0px 0px, 0px 0px, 0px 0px;
+            }
+            50% {
+                background-position: 500px 500px, 100px 200px, -100px 150px;
+            }
+            100% {
+                background-position: 400px 1000px, 200px 400px, 100px 300px;
+            }
+        }
+
+        @-webkit-keyframes snow {
+            0% {
+                background-position: 0px 0px, 0px 0px, 0px 0px;
+            }
+            50% {
+                background-position: 500px 500px, 100px 200px, -100px 150px;
+            }
+            100% {
+                background-position: 500px 1000px, 200px 400px, -100px 300px;
+            }
+        }
+
+        @-ms-keyframes snow {
+            0% {
+                background-position: 0px 0px, 0px 0px, 0px 0px;
+            }
+            50% {
+                background-position: 500px 500px, 100px 200px, -100px 150px;
+            }
+            100% {
+                background-position: 500px 1000px, 200px 400px, -100px 300px;
+            }
+        }
     </style>
+
 </head>
 
 <body>
-  <div class="mdl-layout__container has-scrolling-header">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title">Smart Library</span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation">
-                    <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-                    <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-                    {% if not user.is_superuser %}
-                    <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
-                    <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
-                    <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
-                </nav>
-            </div>
-            <div class="mdl-layout__header-row search_Tab_Box">
-                <div class="mdl-grid">
-                    <div class="mde-cell mdl-cell--12-col search_Tab_Header">
-                        <h3 style="font-family: 'Handlee', cursive; margin-bottom:0px; margin-top:0px;">
+    <div class="mdl-layout__container has-scrolling-header">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
+                <div id="snow">
+                    <div class="mdl-layout__header-row">
+                        <!-- Title -->
+                        <span class="mdl-layout-title">Smart Library</span>
+                        <!-- Add spacer, to align navigation to the right -->
+                        <div class="mdl-layout-spacer"></div>
+                        <!-- Navigation. We hide it in small screens. -->
+                        <nav class="mdl-navigation">
+                            <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                            <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %} {% if not user.is_superuser %}
+                            <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
+                            <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
+                            <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
+                        </nav>
+                    </div>
+                    <div class="mdl-layout__header-row search_Tab_Box">
+                        <div class="mdl-grid">
+                            <div class="mde-cell mdl-cell--12-col search_Tab_Header">
+                                <h2 style="font-family: 'Handlee', cursive; margin-bottom:0px; margin-top:0px;">
                           “ Two things are infinite<br>
                           the universe and human stupidity<br>
                           and I'm not sure about the universe ”
-                        </h3>
-                        <h5 style="margin-top:0px; margin-bottom:30px;">
+                        </h2>
+                                <h5 style="margin-top:10px; margin-bottom:30px;">
                           <i>- Albert Einstein -</i>
                         </h5>
+                            </div>
+                            <form class="search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                                <div style="float:left; margin-left:13%; width: 65%;">
+                                    {% csrf_token %}
+                                    <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
+                                </div>
+                                <div style="float:left;">
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <form class="search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
-                        <div style="float:left; margin-left:13%; width: 65%;">
-                            {% csrf_token %}
-                            <input class="searchBox" type="text" name="search" placeholder="Search..." value="" tabindex="1" autocomplete="off" maxlength="240">
-                        </div>
-                        <div style="float:left;">
-                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
-                        </div>
-                    </form>
                 </div>
-            </div>
-        </header>
-        <main class="mdl-layout__content">
-            {% block content %}
-            <!-- ADD CONTENT HERE! -->
-            {% endblock %}
-        </main>
-        <footer class="mdl-mini-footer footerWeb">
-            <div class="mdl-mini-footer__left-section">
-                <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-                <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </footer>
+            </header>
+            <main class="mdl-layout__content">
+                {% block content %}
+                <!-- ADD CONTENT HERE! -->
+                {% endblock %}
+            </main>
+            <footer class="mdl-mini-footer footerWeb">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
     </div>
-  </div>
 </body>
 
 <dialog class="mdl-dialog" id="error_message">
