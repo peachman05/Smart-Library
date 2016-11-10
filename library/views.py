@@ -10,7 +10,6 @@ import operator
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import bookImgFileForm
-import datetime
 from datetime import datetime, timedelta
 
 BOOK_DUE_DATE = 5
@@ -121,9 +120,9 @@ def borrowBook(request):
 			else:
 				book_borrow.student = student
 				book_borrow.status = 'BW'
-				book_borrow.borrow_date = datetime.datetime.now()
+				book_borrow.borrow_date = datetime.now()
 				book_borrow.save()
-				new_transaction = Transaction(date = datetime.datetime.now(), status='BR',
+				new_transaction = Transaction(date = datetime.now(), status='BR',
 											  student = student, book=book_borrow)
 				new_transaction.save()
 		return HttpResponseRedirect("/lib/borrow/")
@@ -250,6 +249,9 @@ def backend_user(request):
 				try:
 					u = User.objects.get(username = (student_selected[9:]))
 					s = Student.objects.get(user = u)
+					b = Book.objects.all().filter(student = s)
+					for book in b:
+						book.deleteBook()
 					u.delete()
 					s.delete()
 				except :
