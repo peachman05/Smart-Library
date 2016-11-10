@@ -15,20 +15,18 @@
         position: relative;
         margin: 0;
     }
-    html,body {
-       margin:0;
-       padding:0;
-       height:100%;
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
     }
+
     .footerWeb {
-      background-color: #1565C0;
-      position:absolute;
-      width:100%;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      padding: 1rem;
+        background-color: #1565C0;
     }
+
     .search_Tab_ForHomePage {
         height: 300px;
         size: 100% 100%;
@@ -162,107 +160,101 @@
         }
     }
 </script>
+<div class="mdl-layout__container">
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">Smart Library</span>
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <!-- Navigation. We hide it in small screens. -->
-            <nav class="mdl-navigation">
-                <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-                <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-                {% if not user.is_superuser %}
-                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
-                <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
-                <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
-            </nav>
-        </div>
-        <div class="mdl-layout__header-row search_Tab_Box">
-            <!-- <div class="mdl-grid search_Tab_Area"> -->
-                <form class="mdl-grid search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
-                    <div style="float:left; width:85%;">
-                        {% csrf_token %}
-                        <input class="searchBox" name="search" type="text" placeholder="Search..." value="{{search}}" tabindex="1" autocomplete="off" maxlength="240">
-                    </div>
-                    <div style="float:left;">
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
-                    </div>
-                </form>
-            <!-- </div> -->
-        </div>
-    </header>
-    <!-- <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title titleNav" style="padding-top:70px;">Smart Library</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="/lib/">Home</a>
-            <a class="mdl-navigation__link" href="/lib/catalog/">Catalog</a> {% if user.is_active %}
-            <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
-            <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
-            <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
-            <a class="mdl-navigation__link" href="">About</a>
-        </nav>
-    </div> -->
+    <div class="mdl-layout__container has-scrolling-header">
 
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div id="outerDiv" class="mdl-grid page-max-width">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-                <!-- Filter Bar -->
-                <div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp filter_Bar">
-                    <div style="margin:10px; text-align:right;">
-                        <b style="font-size:18px; margin-right:5px;">Category</b>
-                        <select id="category" name="category" style="width:200px;">
+            <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">Smart Library</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation. We hide it in small screens. -->
+                    <nav class="mdl-navigation">
+                        <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                        <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %} {% if not user.is_superuser %}
+                        <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
+                        <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
+                        <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
+                    </nav>
+                </div>
+                <div class="mdl-layout__header-row search_Tab_Box">
+                    <!-- <div class="mdl-grid search_Tab_Area"> -->
+                    <form class="mdl-grid search_Tab_Header" id="search" action="/lib/catalog/" method="POST" autocomplete="off" _lpchecked="1">
+                        <div style="float:left; width:85%;">
+                            {% csrf_token %}
+                            <input class="searchBox" name="search" type="text" placeholder="Search..." value="{{search}}" tabindex="1" autocomplete="off" maxlength="240">
+                        </div>
+                        <div style="float:left;">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent searchButton" type="submit" name="general" /><i class="material-icons">search</i></button>
+                        </div>
+                    </form>
+                    <!-- </div> -->
+                </div>
+            </header>
+
+            <main class="mdl-layout__content">
+                <div class="page-max-width">
+                    <!-- Filter Bar -->
+                    <div class="mdl-grid ">
+
+                        <div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp filter_Bar">
+                            <div style="margin:10px; text-align:right;">
+                                <b style="font-size:18px; margin-right:5px;">Category</b>
+                                <select id="category" name="category" style="width:200px;">
                                       <option value="">--Select category--</option>
                                       {% if all_category %} {% for category in all_category %}
                                       <option value="{{category.name}}">{{category.name}}</option>
                                       {% endfor %}  {% endif %}
                                     </select>
-                        <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
-                        <select id="status" name="status" style="width:200px;">
+                                <b style="font-size:18px; margin-left:10px; margin-right:5px;">Status</b>
+                                <select id="status" name="status" style="width:200px;">
                                       <option value="">--Select Status--</option>
                                       <option value="At Library">At Library</option>
                                       <option value="Borrowed">Borrowed</option>
                                     </select>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:75px; margin-left: 10px;" onclick="filterFunction()">Search</button>
-                    </div>
-                </div>
-
-                <!-- Show Card Content -->
-
-                <!-- <div id="outerDiv" class="mdl-grid"> -->
-                {% if all_books %} {% for book in all_books %}
-
-                <a href="/lib/catalog/{{book.id}}" id="innerDiv" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--12-phone mdl-card block-link " style="text-decoration: none;">
-                    <div class="mdl-grid" style="padding:0px;">
-                        <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
-                            <div align="center">
-                                {% if book.picture %}
-                                <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
-                                <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:75px; margin-left: 10px;" onclick="filterFunction()">Search</button>
                             </div>
                         </div>
-                        <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
-                            <h1 style="font-size: 14px;color:#008CBA; margin:0px;">{{book.name}}</h1> {{book.author}}
-                            <br> {{book.category}}
-                            <br> Status: {% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %}Deleted {% endif %}
-                        </div>
-                        <!-- <div class="mdl-grid mdl-cell mdl-cel--12-col"> -->
-
                     </div>
-                </a>
 
-                <!-- End For -->
-                {% endfor %} {% else %}
-                <!-- </div> -->
-                <h3>Do not have any books</h3> {% endif %}
+                    <!-- Show Card Content -->
+                    {% if all_books %}
+                    <div id="outerDiv" class="mdl-grid">
+                        {% for book in all_books %}
 
-            </div>
-        </div>
-    </main>
-                <footer class="mdl-mini-footer footerWeb">
+                        <a href="/lib/catalog/{{book.id}}" id="innerDiv" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--2-phone mdl-card block-link " style="text-decoration: none;">
+                            <div class="mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col">
+                                <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                    <div align="center">
+                                        {% if book.picture %}
+                                        <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
+                                        <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                    <h1 style="font-size: 14px;color:#008CBA; margin:0px;">{{book.name}}</h1> {{book.author}}
+                                    <br> {{book.category}}
+                                    <br> Status: {% if book.status == 'AL' %} At Library {% elif book.status == 'BW' %} Borrowed {% elif book.status == 'DL' %}Deleted {% endif %}
+                                </div>
+
+                            </div>
+                        </a>
+
+                        <!-- End For -->
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="mdl-grid mdl-cell mdl-cell--12-col">
+                        <h3>Do not have any books</h3>
+                    </div>
+                    {% endif %}
+                </div>
+            </main>
+            <footer class="mdl-mini-footer footerWeb">
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
                     <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
@@ -270,6 +262,8 @@
                     </ul>
                 </div>
             </footer>
+        </div>
+    </div>
 </div>
 
 </html>
