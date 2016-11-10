@@ -40,63 +40,64 @@
 		</form>
 	</div>
 </div>
-
-<dialog class="mdl-dialog" id="addStudentDialog">
-<h4 class="mdl-dialog__title">Add Student</h4>
-<div class="mdl-dialog__content">
-<!-- #########Form -->
-	<form action='/lib/librarian/backend_user/' class="well" method="post">
-		{% csrf_token %}
-
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="student_ID" class="mdl-textfield__label">Student id</label>
-			<input id="student_ID" type="text" class="mdl-textfield__input" name="student_ID" maxlength="100" required />
-		</div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="firstname" class="mdl-textfield__label">Firstname</label>
-			<input id="firstname" type="text" class="mdl-textfield__input" name="firstname" maxlength="100" required />
-		</div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="lastname" class="mdl-textfield__label">Lastname</label>
-			<input id="lastname" type="text" class="mdl-textfield__input" name="lastname" maxlength="100" required />
-		</div>
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			<label for="email" class="mdl-textfield__label">Email</label>
-			<input id="email" type="email" class="mdl-textfield__input" name="email" maxlength="100" required />
-		</div>
-		<div class="mdl-dialog__actions">
-			<button type="button" class="mdl-button close">Close</button>
-			<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_user">Add</button>
-		</div>
-	</form>
-<!-- #########Form -->
-</div>
-</dialog>
-
-
-<dialog class="mdl-dialog" id="deleteStudentDialog">
-    <h4 class="mdl-dialog__title">Warning!</h4>
-    <div class="mdl-dialog__content">
-      <p>
-        Are you really want to delete the selected user?
-      </p>
-    </div>
-    <div class="mdl-dialog__actions">
-		<button type="button" class="mdl-button close">No</button>
-		<button type="submit" form="studentform" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="delete_user" style="background-color:rgb(244,67,54);">Yes!</button>
-    </div>
- </dialog>
-
-<dialog class="mdl-dialog" id="loadDialog">
-<h4 class="mdl-dialog__title">Loading..</h4>
-<div class="mdl-dialog__content" style="text-align: center;">
-	<p>Your request is in progress please wait...</p><br>
-	<div class="mdl-spinner mdl-js-spinner is-active"></div>
-</div>
-</dialog>
-
 {% endblock %}
 {% block script %}
+
+	<dialog class="mdl-dialog" id="addStudentDialog">
+	<h4 class="mdl-dialog__title">Add Student</h4>
+	<div class="mdl-dialog__content">
+	<!-- #########Form -->
+		<form action='/lib/librarian/backend_user/' class="well" method="post">
+			{% csrf_token %}
+
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label for="student_ID" class="mdl-textfield__label">Student id</label>
+				<input id="student_ID" type="text" class="mdl-textfield__input" name="student_ID" maxlength="100" required />
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label for="firstname" class="mdl-textfield__label">Firstname</label>
+				<input id="firstname" type="text" class="mdl-textfield__input" name="firstname" maxlength="100" required />
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label for="lastname" class="mdl-textfield__label">Lastname</label>
+				<input id="lastname" type="text" class="mdl-textfield__input" name="lastname" maxlength="100" required />
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<label for="email" class="mdl-textfield__label">Email</label>
+				<input id="email" type="email" class="mdl-textfield__input" name="email" maxlength="100" required />
+			</div>
+			<div class="mdl-dialog__actions">
+				<button type="button" class="mdl-button close">Close</button>
+				<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add_user">Add</button>
+			</div>
+		</form>
+	<!-- #########Form -->
+	</div>
+	</dialog>
+
+
+	<dialog class="mdl-dialog" id="deleteStudentDialog">
+	    <h4 class="mdl-dialog__title">Warning!</h4>
+	    <div class="mdl-dialog__content">
+	      <p>
+	        Are you really want to delete the selected user?
+	      </p>
+	    </div>
+	    <div class="mdl-dialog__actions">
+			<button type="button" class="mdl-button close">No</button>
+			<button type="submit" form="studentform" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="delete_user" style="background-color:rgb(244,67,54);">Yes!</button>
+	    </div>
+	 </dialog>
+
+	<dialog class="mdl-dialog" id="loadDialog">
+	<h4 class="mdl-dialog__title">Loading..</h4>
+	<div class="mdl-dialog__content" style="text-align: center;">
+		<p>Your request is in progress please wait...</p><br>
+		<div class="mdl-spinner mdl-js-spinner is-active"></div>
+	</div>
+	</dialog>
+
+
   <script>
     var dialog = document.querySelector('#addStudentDialog');
     var showDialogButton = document.querySelector('#show-dialog');
