@@ -54,7 +54,7 @@
 			    			<input name="bookTable" type="checkbox" id="checkbox-{{book.pk}}" value="checkbox-{{book.pk}}" class="mdl-checkbox__input">
 			    		</label>
 			    	</td>
-			    	<td class="mdl-data-table__cell--non-numeric"><b>{{book.code}}</b></td>
+			    	<td class="mdl-data-table__cell--non-numeric"><a href="/lib/librarian/backend_addbook/edit/{{book.pk}}/"><b>{{book.code}}</b></a></td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.category}}</td>

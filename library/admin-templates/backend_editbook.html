@@ -1,0 +1,59 @@
+{% extends "backend.html" %}
+{% block title %}Add Book{% endblock %}
+
+{% block content %}	
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--12-col">
+		<h2>Edit Book</h2>
+		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid" style="padding:30px;">
+			<form action='/lib/librarian/backend_addbook/edit/{{book.pk}}/' class="well" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_name" class="mdl-textfield__label">Title</label>
+					<input id="add_name" type="text" class="mdl-textfield__input" name="add_name" value="{{book.name}}" required />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_author" class="mdl-textfield__label">Author</label>
+					<input id="add_author" type="text" class="mdl-textfield__input" name="add_author" value="{{book.author}}" required />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_code" class="mdl-textfield__label">Code</label>
+					<input id="add_code" type="text" class="mdl-textfield__input" name="add_code" value="{{book.code}}" required />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_date" class="mdl-textfield__label">Date Published</label>
+					<input id="add_date" type="text" class="mdl-textfield__input" name="add_date" value="{{book.date}}"  />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_isbn" class="mdl-textfield__label">ISBN</label>
+					<input id="add_isbn" type="text" class="mdl-textfield__input" name="add_isbn" value="{{book.isbn}}"  required />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label for="add_address" class="mdl-textfield__label">Address</label>
+					<input id="add_address" type="text" class="mdl-textfield__input" name="add_address" value="{{book.address}}" required />
+				</div>
+				<p>{{ form.non_field_errors }}</p>
+					<p style="text-align: left; font-weight: bold;">{{ form.book_image.label_tag }} (Ex. book.png)
+					{{ form.book_image.help_text }}
+					</p>
+					<p>{{ form.book_image.errors }} {{ form.book_image }} </p>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<label>category</label>
+					<select name="ab_category" id="ab_category" >
+						{% for category in Categories_list %}
+		                <option value="{{category.name}}">{{category.name}}</option>
+		                {% endfor %}
+		        	</select>
+				</div>
+				<div class="mdl-dialog__actions">
+					<button type="button" class="mdl-button close">Close</button>
+					<button type="submit" class="loading-dis mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="edit_book">Edit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

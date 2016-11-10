@@ -212,6 +212,33 @@ def backend_addbook(request):
 	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)
 
+@user_passes_test(lambda u: u.is_superuser, login_url='/login/')
+def backend_editBook(request, book_id):
+	data = {'page': 'BookManager'}
+	data['book'] = Book.objects.get(pk = book_id)
+	data['form'] = bookImgFileForm()
+	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
+	if request.method == 'POST':
+		if 'edit_book' in request.POST:
+			book_edit = Book.objects.get(pk = book_id)
+			book_edit.name = request.POST.get('add_name', False)
+			book_edit.author = request.POST.get('add_author', False)
+			book_edit.code = request.POST.get('add_code', False)
+			book_edit.date = request.POST.get('add_date', False)
+			book_edit.isbn = request.POST.get('add_isbn', False)
+			book_edit.address = request.POST.get('add_address', False)
+			post_category = request.POST.get('ab_category', False)
+			book_editcategory = BookCategories.objects.get(name = post_category)
+			book_edit.student = Student.objects.get(student_ID = 'libraryStore')
+			try:
+				upload_file = request.FILES['book_image']
+			except:
+				upload_file = False
+			book_edit.picture = upload_file
+			book_edit.save()
+		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
+	return render(request, 'backend_editbook.html', data)	
+
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
 def backend_user(request):

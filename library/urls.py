@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', views.home), 
 
     url(r'^librarian/$', views.backend_home),
+    url(r'^librarian/backend_addbook/edit/(?P<book_id>[0-9]+)/$', views.backend_editBook),
     url(r'^librarian/backend_addbook', views.backend_addbook),
     url(r'^librarian/backend_user', views.backend_user),
     url(r'^librarian/backend_setting', views.backend_setting),
