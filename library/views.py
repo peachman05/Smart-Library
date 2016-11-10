@@ -100,7 +100,7 @@ def borrowBook(request):
 	books = []
 	book_amount = len(book_list)
 	for book in book_list:
-		book.borrow_date += datetime.timedelta(days=BOOK_DUE_DATE)
+		book.borrow_date += timedelta(days=BOOK_DUE_DATE)
 		books.append(book)
 	data['book_list'] = books
 	if request.method == 'POST':
@@ -136,6 +136,7 @@ def borrowBook(request):
 def backend_home(request):
 	data = {'page': 'Dashboard'}
 	data['user'] = request.user
+	transactions = Transaction.objects.all().filter(~Q(status = 'DL'))
 	try:
 		data['transactions'] = Transaction.objects.order_by('-date')[:30]
 	except:
@@ -351,9 +352,9 @@ def backend_returnbook(request):
 			price = []
 			data['student'] = student
 			for book in book_list:
-				book.borrow_date += datetime.timedelta(days=BOOK_DUE_DATE)
+				book.borrow_date += timedelta(days=BOOK_DUE_DATE)
 				books.append(book)
-				over = datetime.datetime.now().date()-book.borrow_date.date()
+				over = datetime.now().date()-book.borrow_date.date()
 				if(over.days > 0):
 					price.append(over.days*FINE_RATE)
 				else:
@@ -369,7 +370,7 @@ def backend_returnbook(request):
 				b.student = store
 				b.save()
 				student = Student.objects.get(student_ID = student_return)
-				new_transaction = Transaction(date = datetime.datetime.now(), status='RT',
+				new_transaction = Transaction(date = datetime.now(), status='RT',
 											  student = student, book=b)
 				new_transaction.save()
 		return HttpResponseRedirect("/lib/librarian/backend_returnbook/")
