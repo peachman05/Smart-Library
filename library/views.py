@@ -56,10 +56,12 @@ def home(request):
 @login_required(login_url='/login/')
 def setting(request):
 	data = {'user': request.user}
+	user = request.user
+	if user.is_superuser:
+		return HttpResponseRedirect("/lib/")
 	student = Student.objects.get(user = request.user)
 	data['student'] = student
 	if request.method == 'POST':
-		user = request.user
 		if 'general' in request.POST:
 			fname = request.POST.get('fname')
 			lname = request.POST.get('lname')
@@ -91,6 +93,8 @@ def setting(request):
 def borrowBook(request):
 	data = {}
 	user = request.user
+	if user.is_superuser:
+		return HttpResponseRedirect("/lib/")
 	student = Student.objects.get(user=user)
 	data['student'] = student
 	book_list = Book.objects.all().filter(student = student)
