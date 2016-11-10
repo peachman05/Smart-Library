@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'library/css/style.css' %}"> -->
     <title>{% block title %}{% endblock %}</title>
     {% block head%}{% endblock%}
     <style type="text/css">
@@ -32,12 +33,7 @@
         }
         .footerWeb {
           background-color: #1565C0;
-          position:absolute;
-          width:100%;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          padding: 1rem;
+          /*padding:10px;*/
         }
 
         .header-background {
@@ -91,6 +87,7 @@
 </head>
 
 <body>
+  <div class="mdl-layout__container has-scrolling-header">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header mdl-layout__header--waterfall header-background">
             <div class="mdl-layout__header-row">
@@ -136,16 +133,17 @@
             {% block content %}
             <!-- ADD CONTENT HERE! -->
             {% endblock %}
-            <footer class="mdl-mini-footer footerWeb">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-                        <li><a href="#">About Us</a></li>
-                    </ul>
-                </div>
-            </footer>
         </main>
+        <footer class="mdl-mini-footer footerWeb">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+                <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+        </footer>
     </div>
+  </div>
 </body>
 
 <dialog class="mdl-dialog" id="error_message">

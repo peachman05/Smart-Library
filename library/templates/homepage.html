@@ -27,8 +27,7 @@
         height: 100%;
     }
 
-    .content-slider{
-      
+    .content-slider {
         height: 300px;
     }
 
@@ -49,7 +48,7 @@
             //  pauseOnHover: true,
         });
         $("#content-slider1").lightSlider({
-             slideMargin:4,
+            slideMargin: 4,
             auto: true,
             loop: true,
             keyPress: true,
@@ -75,36 +74,37 @@
 
 <div class="page-content">
     <div class="mdl-grid page-max-width ">
-        <div  class="mdl-grid" style="width:100%; height:100%; padding-top: 30px">
-                                <h2 style=" color:#006EA1">
-                                    Poppular Books of the Month
-                                </h2>
+        <div class="mdl-grid" style="width:100%; height:100%; padding-top: 30px">
+            <h2 style=" color:#006EA1">
+              Poppular Books of the Month
+            </h2>
         </div>
         {% for categorylist in listShow %}
-              <div class="mdl-cell mdl-cell--12-col"> <!-- start for -- >
+        <div class="mdl-cell mdl-cell--12-col">
+            <!-- start for -- >
                   <!-- Card_1 -->
-                  <div class="mdl-card cardRank">
-                      <!-- <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
+            <div class="mdl-card cardRank">
+                <!-- <div class="mdl-card__title cardRankBG" style="background:url('../static/library/images/bg_rankCard_1.jpg') center;">
                           <h2 class="mdl-card__title-text cardRankHeader">{{catName1}}</h2>
                       </div> -->
 
-                          <div class="mdl-grid" style="width:100%; height:100%; margin:5px">
-                              <div class="mdl-cell mdl-cell--1-col" >
+                <div class="mdl-grid" style="width:100%; height:100%; margin:5px">
+                    <div class="mdl-cell mdl-cell--1-col">
 
-                              </div>
-                              <div class="mdl-cell mdl-cell--11-col" align="left" >
-                                    <h3 style=" color:#A5AACB !important; margin:0px ">{{categorylist.0}}</h3>
-                              </div>
-                          </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--11-col" align="left">
+                        <h3 style=" color:#A5AACB !important; margin:0px ">{{categorylist.0}}</h3>
+                    </div>
+                </div>
 
-                          <div class="mdl-grid" style="width:100%; height:100%; padding: 0px 0px">
-                              <div class="item" style="width:100%; height:100%; center;">
-                                  <ul id="content-slider{{forloop.counter}}" class="content-slider " >
-                                      {% for bookObj in categorylist.1|slice:":10" %}
-                                      <li>
-                                          <div class="mdl-grid" style="padding:0px;">
-                                              <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
-                                                  <b style="font-size: 20px; color:#008CBA;">
+                <div class="mdl-grid" style="width:100%; height:100%; padding: 0px 0px">
+                    <div class="item" style="width:100%; height:100%; center;">
+                        <ul id="content-slider{{forloop.counter}}" class="content-slider ">
+                            {% for bookObj in categorylist.1|slice:":10" %}
+                            <li>
+                                <div class="mdl-grid" style="padding:0px;">
+                                    <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                        <b style="font-size: 20px; color:#008CBA;">
                                                                         {{forloop.counter}}
 
                                                                         {% if forloop.counter == 1 %}
@@ -121,32 +121,31 @@
                                                                         {% endif %}
                                                                       </b>
 
-                                                  <br>
-                                              </div>
-                                              <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
-                                                  <div align="center">
-                                                      {% if bookObj.1.1.picture %}
-                                                      <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="height:200px; "> {% else %}
-                                                      <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
-                                                  </div>
-                                              </div>
-                                              <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
-                                                  <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
-                                              </div>
-                                          </div>
-                                      </li>
-                                      {% endfor %}
-                                  </ul>
-                              </div>
-                          </div>
-                      
-                  </div>
+                                        <br>
+                                    </div>
+                                    <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
+                                        <div align="center">
+                                            {% if bookObj.1.1.picture %}
+                                            <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="height:200px; "> {% else %}
+                                            <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                        <h1 style="font-size: 14px;color:#008CBA; margin:0px;"><a href="/lib/catalog/{{bookObj.1.1.id}}">{{bookObj.1.1.name}}</a></h1> {{bookObj.1.1.author}}<br> Borrowed:{{bookObj.1.0}} {% if bookObj.1.0 > 1%} times {% else %} time {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end for -->
+        {% endfor %}
 
-              </div> <!-- end for -->
-         {% endfor %}
 
 
-       
     </div>
 </div>
 {% endblock %}

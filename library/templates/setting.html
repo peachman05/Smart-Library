@@ -36,17 +36,13 @@
 
 		.footerWeb {
 			background-color: #1565C0;
-			position: absolute;
-			width: 100%;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			padding: 1rem;
+			/*padding:10px;*/
 		}
 	</style>
 </head>
 
 <body>
+	<div class="mdl-layout__container">
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header mdl-shadow--6dp header-background">
 			<div class="mdl-layout__header-row">
@@ -133,16 +129,17 @@
 					</div>
 				</div>
 			</div>
-			<footer class="mdl-mini-footer footerWeb">
-				<div class="mdl-mini-footer__left-section">
-					<div class="mdl-logo" style="font-size:20px;">Smart Library</div>
-					<ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
-						<li><a href="#">About Us</a></li>
-					</ul>
-				</div>
-			</footer>
 		</main>
+		<footer class="mdl-mini-footer footerWeb">
+			<div class="mdl-mini-footer__left-section">
+				<div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+				<ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+					<li><a href="#">About Us</a></li>
+				</ul>
+			</div>
+		</footer>
 	</div>
+</div>
 </body>
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
