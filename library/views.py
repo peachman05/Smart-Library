@@ -136,7 +136,29 @@ def borrowBook(request):
 def backend_home(request):
 	data = {'page': 'Dashboard'}
 	data['user'] = request.user
-	transactions = Transaction.objects.all().filter(~Q(status = 'DL'))
+	start_date = datetime.now()
+	stop_date = datetime.now()-timedelta(days=30)
+	range_transactions = Transaction.objects.all().filter(date__range=(stop_date, start_date))
+	cates = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
+	graph = {'name':[], 'amount':[]} #Total Book <Catagories>
+	graph2 = {'name':['At Library', 'Borrowed'], 'amount':[]} #Total Book <Status>
+	graph3 = {'name':[], 'amount':[]} #Total Borrowed Book last 30 days
+	graph4 = {'name':['Borrow', 'Return'], 'amount':[]}
+	graph2['amount'] = [len(Book.objects.all().filter(status='AL')),len(Book.objects.all().filter(status='BW'))]
+	graph4['amount'] = [len(range_transactions.filter(status='BR')),len(range_transactions.filter(status='RT'))]
+	for cate in cates:
+		graph['name'].append(cate.name)
+		graph3['name'].append(cate.name)
+		graph['amount'].append(len(Book.objects.all().filter(category=cate)))
+		count = 0
+		for transactions in range_transactions.filter(status = 'BR'):
+			if(transactions.book.category == cate):
+				count += 1
+		graph3['amount'].append(count)
+	data['graph'] = graph
+	data['graph2'] = graph2
+	data['graph3'] = graph3
+	data['graph4'] = graph4
 	try:
 		data['transactions'] = Transaction.objects.order_by('-date')[:30]
 	except:
@@ -229,7 +251,7 @@ def backend_editBook(request, book_id):
 			book_edit.isbn = request.POST.get('add_isbn', False)
 			book_edit.address = request.POST.get('add_address', False)
 			post_category = request.POST.get('ab_category', False)
-			book_editcategory = BookCategories.objects.get(name = post_category)
+			book_edit.category = BookCategories.objects.get(name = post_category)
 			book_edit.student = Student.objects.get(student_ID = 'libraryStore')
 			try:
 				upload_file = request.FILES['book_image']

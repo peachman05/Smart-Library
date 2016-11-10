@@ -77,7 +77,7 @@ class Book(models.Model):
 			del_cata = BookCategories(name = 'DeleteCat')
 			del_cata.save()
 		libStudent = Student.objects.get(student_ID = 'libraryStore')
-		new_Transaction = Transaction(date = datetime.datetime.now(), status='DL', student = libStudent, book=self)
+		new_Transaction = Transaction(date = datetime.now(), status='DL', student = libStudent, book=self)
 		new_Transaction.save()
 		self.category = del_cata
 		self.save()

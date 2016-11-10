@@ -1,10 +1,44 @@
 {% extends "backend.html" %}
+{% load staticfiles %}
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
 <div class="mdl-grid">
 	<h2>Dashboard</h2>
-	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid">
+	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+	  <div class="mdl-tabs__tab-bar">
+	      <a href="#graph-panel" class="mdl-tabs__tab is-active">Summary</a>
+	      <a href="#transaction-panel" class="mdl-tabs__tab">Transaction</a>
+	  </div>
+	  <div class="mdl-tabs__panel is-active" id="graph-panel">
+
+		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+			<div class="mdl-cell mdl-cell--12-col mdl-grid" style="padding-top:0px;padding-bottom:0px;margin:0px;">
+				<h3>Total Book</h3>
+			</div>
+			<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
+				<canvas id="totalBook"></canvas>
+			</div>
+			<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
+				<p style="margin-left:20px; font-size:1.4em;">At Library: {{graph2.amount.0}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Borrowed: {{graph2.amount.1}}</p>
+				<canvas id="totalBookStatus"></canvas>
+			</div>
+		</div>
+		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+			<div class="mdl-cell mdl-cell--12-col mdl-grid" style="padding-top:0px;padding-bottom:0px;margin:0px;">
+				<h3>Summary of last 30 days</h3>
+			</div>
+			<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
+				<canvas id="topTransaction"></canvas>
+			</div>
+			<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
+				<p style="margin-left:20px; font-size:1.4em;">Borrow: {{graph4.amount.0}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return: {{graph4.amount.1}}</p>
+				<canvas id="topBorrowBook"></canvas>
+			</div>
+		</div>
+	  </div>
+	  <div class="mdl-tabs__panel" id="transaction-panel">
+
 		<h3>Transaction</h3>
 		<div class="mdl-cell mdl-cell--12-col">
 			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -13,6 +47,7 @@
 			    	<th class="mdl-data-table__cell--non-numeric">Date Time</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Student</th>
 			    	<th class="mdl-data-table__cell--non-numeric">Book</th>
+			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
 			    	<th class="mdl-data-table__cell--non-numeric">action</th>
 			    </tr>
 			  </thead>
@@ -22,12 +57,136 @@
 			    	<td>{{transaction.date}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric"><b>{{transaction.student.student_ID}}</b> {{transaction.student.user.first_name}} </td>
 			    	<td>{{transaction.book.name}}</td>
+			    	<td><b>{{transaction.book.code}}</b></td>
 			    	<td>{{transaction.status}}</td>
 			    </tr>
 			    {% endfor %}
 			  </tbody>
 			</table>
 		</div>
+
+	  </div>
 	</div>
-</div>
+<div>
+
+{% endblock %}
+{% block script %}
+	<script src="{% static 'library/js/Chart.min.js' %}"></script>
+	<script type="text/javascript">
+		Chart.defaults.global.responsive = true;
+		Chart.defaults.global.legend.display = false;
+		var ctxq1 = document.getElementById("totalBook");
+		var myChart = new Chart(ctxq1, {
+		    type: 'radar',
+		    data: {
+		        labels: {{graph.name|safe}},
+		        datasets: [{
+		            data: {{graph.amount}},
+		            backgroundColor: "rgba(255,99,132,0.2)",
+		            borderColor: "rgba(255,99,132,1)",
+		            pointBackgroundColor: "rgba(255,99,132,1)",
+		            pointBorderColor: "#fff",
+		            pointHoverBackgroundColor: "#fff",
+		            pointHoverBorderColor: "rgba(255,99,132,1)",
+		        }]
+		    },
+		    options: {responsive: true,}
+		});
+
+		var ctxq2 = document.getElementById("totalBookStatus");
+		var myChart = new Chart(ctxq2, {
+		    type: 'doughnut',
+		    data: {
+		        labels: {{graph2.name|safe}},
+		        datasets: [{
+		            data: {{graph2.amount}},
+		            backgroundColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		            borderColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		        }]
+		    },
+		    options: {responsive: true,}
+		});
+
+		var ctxq3 = document.getElementById("topTransaction");
+		var myChart = new Chart(ctxq3, {
+		    type: 'bar',
+		    data: {
+		        labels: {{graph3.name|safe}},
+		        datasets: [{
+		            data: {{graph3.amount}},
+		            backgroundColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		            borderColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		        }]
+		    },
+		    options: {responsive: true,}
+		});
+
+		var ctxq4 = document.getElementById("topBorrowBook");
+		var myChart = new Chart(ctxq4, {
+		    type: 'doughnut',
+		    data: {
+		        labels: {{graph4.name|safe}},
+		        datasets: [{
+		            data: {{graph4.amount}},
+		            backgroundColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		            borderColor: [
+		                "#1abc9c",
+		                "#f39c12",
+		                "#9b59b6",
+		                "#34495e",
+		                "#27ae60",
+		                "#95a5a6",
+		                "#e74c3c",
+		                "#e67e22"
+		            ],
+		        }]
+		    },
+		    options: {responsive: true,}
+		});
+	</script>
 {% endblock %}
