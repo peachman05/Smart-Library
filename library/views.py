@@ -28,6 +28,7 @@ def home(request):
 
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
+	listShow = []
 	for index in range(len(cataCountDict_Sort)) : #[i][0]->key ,[i][1] ->value(count)
 		if cataCountDict_Sort[index][0] !='DeleteCat': # ignore 'DeleteCat' category
 			bookArr = Book.objects.filter(category__name = cataCountDict_Sort[index][0]) # find bookAll from category
@@ -37,25 +38,30 @@ def home(request):
 				if countValue > 0:
 					temp[bookObj.name] = (countValue,bookObj)
 
-			temp_sort = list(temp.items()) # output: [('CategoryName',(countValue,BookObj) ),(...)]
+			temp_sort = list(temp.items()) # output: [('BookName',(countValue,BookObj) ),(...)]
 			temp_sort.sort(key=lambda x:x[1][0],reverse=True)
-			data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
-			data['catValue'+str(index+1)] = temp_sort
+			# data['catName'+str(index+1)] = cataCountDict_Sort[index][0]
+			# data['catValue'+str(index+1)] = temp_sort
+			tempTuple = ( cataCountDict_Sort[index][0] ,temp_sort)
+			if len(temp) > 0:
+				listShow.append( tempTuple ) #output:[('CategoryName', temp_sort),(...)]
 
 
 
 	data['user'] = request.user
-
+	data['listShow'] = listShow
 	data['test'] = datetime.now() - timedelta(days=30)
 	return render(request, 'homepage.html', data )
 
 @login_required(login_url='/login/')
 def setting(request):
 	data = {'user': request.user}
+	user = request.user
+	if user.is_superuser:
+		return HttpResponseRedirect("/lib/")
 	student = Student.objects.get(user = request.user)
 	data['student'] = student
 	if request.method == 'POST':
-		user = request.user
 		if 'general' in request.POST:
 			fname = request.POST.get('fname')
 			lname = request.POST.get('lname')
@@ -70,16 +76,7 @@ def setting(request):
 			newpass2 = request.POST.get('new-pass2')
 			if user.check_password(oldpass) == True:
 				if newpass1 == newpass2:
-					user.set_password(newpass1)
-					user.save()
-					mail_message = 'Dear '+user.first_name+' '+user.last_name+'\n\n\n\t Your Account\'s Password is Changed. (Account: '+user.username+')\n\n\nThank, \nSmart-Library Teams.'
-					send_mail(
-						'Your Password Is Changed!',
-						mail_message,
-						settings.EMAIL_HOST_USER,
-						[user.email],
-						fail_silently=True,
-					)
+					student.setNewPassword(newpass1)
 					return HttpResponseRedirect('/login/')
 				else:
 					data['error_message'] = 'New password isn\'t match'
@@ -96,6 +93,8 @@ def setting(request):
 def borrowBook(request):
 	data = {}
 	user = request.user
+	if user.is_superuser:
+		return HttpResponseRedirect("/lib/")
 	student = Student.objects.get(user=user)
 	data['student'] = student
 	book_list = Book.objects.all().filter(student = student)
@@ -176,20 +175,7 @@ def backend_addbook(request):
 			cata = BookCategories.objects.get(name = cata_name)
 			books = Book.objects.all().filter(category = cata)
 			for book in books:
-				book.status = 'DL'
-				try:
-					del_cata = BookCategories.objects.get(name = 'DeleteCat')
-				except:
-					del_cata = BookCategories(name = 'DeleteCat')
-					del_cata.save()
-
-				libStudent = Student.objects.get(student_ID = 'libraryStore')
-				new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
-											  student = libStudent, book=book)
-				new_Transaction.save()
-
-				book.category = del_cata
-				book.save()
+				book.deleteBook()
 			cata.delete()
 		elif 'add_book' in request.POST:
 			ab_name = request.POST.get('add_name', False)
@@ -213,20 +199,7 @@ def backend_addbook(request):
 			for book_selected in request.POST.getlist('bookTable'):
 				try:
 					b = Book.objects.get(pk = book_selected[9:])
-					b.status = 'DL'
-					try:
-						del_cata = BookCategories.objects.get(name = 'DeleteCat')
-					except:
-						del_cata = BookCategories(name = 'DeleteCat')
-						del_cata.save()
-
-					libStudent = Student.objects.get(student_ID = 'libraryStore')
-					new_Transaction = Transaction(date = datetime.datetime.now(), status='DL',
-											  student = libStudent, book=b)
-					new_Transaction.save()
-
-					b.category = del_cata
-					b.save()
+					b.deleteBook()
 				except:
 					print("Can't Delete Book")
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
@@ -236,7 +209,7 @@ def backend_addbook(request):
 		del_cata = BookCategories(name = 'DeleteCat')
 		del_cata.save()
 	data['book_list'] = Book.objects.all().filter(~Q(category = del_cata))
-	data['Categories_list'] = BookCategories.objects.all()
+	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)
 

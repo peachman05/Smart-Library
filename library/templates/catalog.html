@@ -11,6 +11,24 @@
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.1/material.min.js"></script>
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 <style type="text/css">
+    body {
+        position: relative;
+        margin: 0;
+    }
+    html,body {
+       margin:0;
+       padding:0;
+       height:100%;
+    }
+    .footerWeb {
+      background-color: #1565C0;
+      position:absolute;
+      width:100%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 1rem;
+    }
     .search_Tab_ForHomePage {
         height: 300px;
         size: 100% 100%;
@@ -156,7 +174,8 @@
             <nav class="mdl-navigation">
                 <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
                 <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
+                {% if not user.is_superuser %}
+                <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
                 <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
                 <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
             </nav>
@@ -243,6 +262,14 @@
             </div>
         </div>
     </main>
+                <footer class="mdl-mini-footer footerWeb">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo" style="font-size:20px;">Smart Library</div>
+                    <ul class="mdl-mini-footer__link-list" style="color:#FFFFFF">
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+            </footer>
 </div>
 
 </html>

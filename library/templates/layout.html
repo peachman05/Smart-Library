@@ -25,13 +25,19 @@
             position: relative;
             margin: 0;
         }
-
+        html,body {
+           margin:0;
+           padding:0;
+           height:100%;
+        }
         .footerWeb {
-            background-color: #1565C0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: 1rem;
+          background-color: #1565C0;
+          position:absolute;
+          width:100%;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          padding: 1rem;
         }
 
         .header-background {
@@ -96,7 +102,8 @@
                 <nav class="mdl-navigation">
                     <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
                     <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
-                    <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>
+                    {% if not user.is_superuser %}
+                    <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
                     <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
                     <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
                 </nav>

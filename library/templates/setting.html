@@ -5,8 +5,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-	<title>{% block title %}{% endblock %}</title>
-	{% block head%}{% endblock%}
+	<title>Setting</title>
 	<style type="text/css">
 		html {
 			height: 100%;
@@ -19,18 +18,20 @@
 			box-sizing: inherit;
 		}
 
-		body {
-			position: relative;
-			margin: 0;
+		html,body {
+		   margin:0;
+		   padding:0;
+		   height:100%;
 		}
-
-		.footerWeb {
-			background-color: #1565C0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			padding: 1rem;
-		}
+        .footerWeb {
+          background-color: #1565C0;
+          position:absolute;
+          width:100%;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          padding: 1rem;
+        }
 	</style>
 </head>
 
@@ -43,19 +44,18 @@
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
-            <nav class="mdl-navigation">
-              <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
-              <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a>
-              {% if user.is_active %}
-              <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a>
-              {% else %}
-              <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a>
-              {% endif %}
-            </nav>
+                <nav class="mdl-navigation">
+                    <a href="/lib/" class="mdl-navigation__link" style="margin: 0px;">Home</a>
+                    <a href="/lib/catalog/" class="mdl-navigation__link" style="margin: 0px;">Catalog</a> {% if user.is_active %}
+                    {% if not user.is_superuser %}
+                    <a href="/lib/setting/" class="mdl-navigation__link" style="margin: 0px;">Setting</a>{% endif %}
+                    <a href="/logout/" class="mdl-navigation__link" style="margin: 0px;">Log Out</a> {% else %}
+                    <a href="/login/" class="mdl-navigation__link" style="margin: 0px;">Log In</a> {% endif %}
+                </nav>
         </div>
     </header>
 		<main class="mdl-layout__content">
-			<div class="mdl-grid" style="min-height:870px;">
+			<div class="mdl-grid">
 				<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--1-offset-desktop mdl-grid">
 					<h2 style="margin-left:30px;">Setting</h2>
 					<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
@@ -134,49 +134,33 @@
 		</main>
 	</div>
 </body>
-
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 <dialog class="mdl-dialog" id="error_message">
-	<h4 class="mdl-dialog__title">Error!</h4>
-	<div class="mdl-dialog__content">
-		<p>
-			{{error_message}}
-		</p>
-	</div>
-	<div class="mdl-dialog__actions">
-		<button type="button" class="mdl-button close">No</button>
-	</div>
+    <h4 class="mdl-dialog__title">Error!</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        {{error_message}}
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button close">No</button>
+    </div>
 </dialog>
 
-<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-<script type="text/javascript">
-	{ %
-		if error_message %
-	}
-	var dialog0 = document.querySelector('#error_message');
-	dialog0.showModal();
-	if (!dialog0.showModal) {
-		dialogPolyfill.registerDialog(dialog0);
-	}
-	dialog0.querySelector('.close').addEventListener('click', function() {
-		dialog0.close();
-	}); { % endif %
-	}
-</script>
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script type="text/javascript">
+      {% if error_message %}
+        var dialog0 = document.querySelector('#error_message');
+        dialog0.showModal();
+        if (! dialog0.showModal) {
+          dialogPolyfill.registerDialog(dialog0);
+        }
+        dialog0.querySelector('.close').addEventListener('click', function() {
+          dialog0.close();
+        });
+      {% endif %}
+    </script>
 
-<script type="text/javascript">
-	{ %
-		if error_message %
-	}
-	var dialog0 = document.querySelector('#error_message');
-	dialog0.showModal();
-	if (!dialog0.showModal) {
-		dialogPolyfill.registerDialog(dialog0);
-	}
-	dialog0.querySelector('.close').addEventListener('click', function() {
-		dialog0.close();
-	}); { % endif %
-	}
-</script>
 
 </html>
