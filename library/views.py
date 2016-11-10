@@ -87,6 +87,24 @@ def setting(request):
 	return render(request, 'setting.html', data)
 
 
+@login_required(login_url='/login/')
+def borrowBookByCode(request, book_code):
+	data = {}
+	user = request.user
+	if user.is_superuser:
+		return HttpResponseRedirect("/lib/")
+	student = Student.objects.get(user=user)
+	data['student'] = student
+	book_list = Book.objects.all().filter(student = student)
+	books = []
+	book_amount = len(book_list)
+	for book in book_list:
+		book.borrow_date += timedelta(days=BOOK_DUE_DATE)
+		books.append(book)
+	data['book_list'] = books	
+	data['book_code'] = book_code
+	return render(request, 'borrowbook.html', data)
+
 
 @login_required(login_url='/login/')
 def borrowBook(request):
