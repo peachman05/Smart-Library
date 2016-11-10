@@ -129,7 +129,10 @@ def borrowBook(request):
 			except:
 				data['error_message'] = 'Book Not Found!'
 				return render(request, 'borrowbook.html', data)
-			if book_borrow.status == 'BW':
+			if book_borrow.student == student:
+				data['error_message'] = 'You\'re already borrow this book'
+				return render(request, 'borrowbook.html', data)
+			elif book_borrow.status == 'BW':
 				data['error_message'] = 'Book is not available'
 				return render(request, 'borrowbook.html', data)
 			elif book_amount >= BOOK_LIMIT:
