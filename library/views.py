@@ -155,10 +155,13 @@ def backend_home(request):
 			if(transactions.book.category == cate):
 				count += 1
 		graph3['amount'].append(count)
+	color_list = ['#607D8B','#FFEB3B','#FFC107','#FF5722','#795548','#CDDC39','#8BC34A','#4CAF50','#009688','#00BCD4','#03A9F4','#2196F3','#3F51B5','#673AB7','#9C27B0','#E91E63','#F44336']
+	random.shuffle(color_list)
 	data['graph'] = graph
 	data['graph2'] = graph2
 	data['graph3'] = graph3
 	data['graph4'] = graph4
+	data['shuffle_color_list'] = color_list
 	try:
 		data['transactions'] = Transaction.objects.order_by('-date')[:30]
 	except:
