@@ -20,7 +20,7 @@
 		<button id="show-dialog3" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:#4caf50;">Add category</button>
 		<button id="show-dialog4" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color:rgb(255, 152, 0);">Delete category</button>
 	</div>
-	<div style="margin-left:20px;">
+	<div class="mdl-cell mdl-cell--12-col" style="margin-left:20px;">
 		<form action='/lib/librarian/backend_addbook/' class="well" method="post">
 			{% csrf_token %}
 			<label>category</label>
@@ -40,6 +40,14 @@
 	        <button type="submit" name="book_search" style="margin-left:10px;">Go!</button>
     	</form>
     </div>
+    <div class="mdl-cell mdl-cell--12-col" style="margin-left:20px;">
+		<form action='/lib/librarian/backend_addbook/' class="well" method="post">
+			{% csrf_token %}
+			<label>Book detail by book's Code&nbsp;&nbsp;</label>
+			<input type="text" name="book_code">
+	        <button type="submit" name="edit_searchBook" style="margin-left:10px;">Enter !</button>
+    	</form>
+    </div>	
 	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid">
 		<form id="bookform" action='/lib/librarian/backend_addbook/' method="post">
 			{% csrf_token %}
@@ -62,7 +70,7 @@
 			    			<input name="bookTable" type="checkbox" id="checkbox-{{book.pk}}" value="checkbox-{{book.pk}}" class="mdl-checkbox__input">
 			    		</label>
 			    	</td>
-			    	<td class="mdl-data-table__cell--non-numeric"><a href="/lib/librarian/backend_addbook/edit/{{book.pk}}/"><b>{{book.code}}</b></a></td>
+			    	<td class="mdl-data-table__cell--non-numeric"><a href="/lib/librarian/backend_addbook/edit/{{book.code}}/"><b>{{book.code}}</b></a></td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.name}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.author}}</td>
 			    	<td class="mdl-data-table__cell--non-numeric">{{book.category}}</td>
@@ -79,6 +87,7 @@
 			</table>
 		</form>
 	</div>
+
 </div>
 
 

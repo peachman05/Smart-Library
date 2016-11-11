@@ -218,8 +218,24 @@ def backend_home(request):
 def backend_addbook(request):
 	data = {'page': 'BookManager'}
 	data['user'] = request.user
+	try:
+		del_cata = BookCategories.objects.get(name = 'DeleteCat')
+	except:
+		del_cata = BookCategories(name = 'DeleteCat')
+		del_cata.save()
 	if request.method == 'POST':
-		if 'book_search' in request.POST:
+		if 'edit_searchBook' in request.POST:
+			book_code = request.POST.get('book_code', False)
+			try:
+				Book.objects.get(code = book_code)
+				return HttpResponseRedirect("/lib/librarian/backend_addbook/edit/"+book_code+'/')
+			except:
+				data['error_message'] = "Book Code Not Found"
+				data['book_list'] = Book.objects.all().filter(~Q(category = del_cata))
+				data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
+				data['form'] = bookImgFileForm()
+				return render(request, 'backend_addbook.html', data)
+		elif 'book_search' in request.POST:
 			s_status = request.POST.get('status', False)
 			s_category = request.POST.get('category_name', False)
 			del_cata = BookCategories.objects.get(name = 'DeleteCat')
@@ -274,25 +290,21 @@ def backend_addbook(request):
 				except:
 					print("Can't Delete Book")
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
-	try:
-		del_cata = BookCategories.objects.get(name = 'DeleteCat')
-	except:
-		del_cata = BookCategories(name = 'DeleteCat')
-		del_cata.save()
 	data['book_list'] = Book.objects.all().filter(~Q(category = del_cata))
 	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	data['form'] = bookImgFileForm()
 	return render(request, 'backend_addbook.html', data)
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
-def backend_editBook(request, book_id):
+def backend_editBook(request, book_code):
 	data = {'page': 'BookManager'}
-	data['book'] = Book.objects.get(pk = book_id)
+	print(book_code)
+	data['book'] = Book.objects.get(code = book_code)
 	data['form'] = bookImgFileForm()
 	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	if request.method == 'POST':
 		if 'edit_book' in request.POST:
-			book_edit = Book.objects.get(pk = book_id)
+			book_edit = Book.objects.get(code = book_code)
 			book_edit.name = request.POST.get('add_name', False)
 			book_edit.author = request.POST.get('add_author', False)
 			book_edit.code = request.POST.get('add_code', False)

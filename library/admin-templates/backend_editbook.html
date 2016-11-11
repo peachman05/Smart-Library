@@ -6,7 +6,7 @@
 	<div class="mdl-cell mdl-cell--12-col">
 		<h2>Edit Book</h2>
 		<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid" style="padding:30px;">
-			<form action='/lib/librarian/backend_addbook/edit/{{book.pk}}/' class="well" method="post" enctype="multipart/form-data">
+			<form action='/lib/librarian/backend_addbook/edit/{{book.code}}/' class="well" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
