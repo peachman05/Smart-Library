@@ -18,6 +18,7 @@ FINE_RATE = 3
 
 def home(request):
 
+	## popular catalog book
 
 	cataAll = BookCategories.objects.all()
 	cataCountDict = {} # key is category name
@@ -46,10 +47,34 @@ def home(request):
 				listShow.append( tempTuple ) #output:[('CategoryName', temp_sort),(...)]
 
 
+	## newly Transaction
 
+	newlyTransaction = Transaction.objects.order_by('-date')[:6]
+
+	# popular book
+	bookAll = Book.objects.all()
+	for bookObj in bookAll:
+		countValue = Transaction.booknameCount(bookObj.name)
+		if countValue > 0:
+			temp[bookObj.name] = (countValue,bookObj)
+
+	popularBooks = list(temp.items()) # output: [('BookName',(countValue,BookObj) ),(...)]
+	popularBooks.sort(key=lambda x:x[1][0],reverse=True)
+
+	# newly book
+
+	newlyBook = Book.objects.order_by('-id')[:10]
+
+	# set data
+					
 	data['user'] = request.user
 	data['listShow'] = listShow
 	data['test'] = datetime.now() - timedelta(days=30)
+	data['newlyTransaction'] = newlyTransaction
+	data['popularBooks'] = popularBooks
+	data['newlyBook'] = newlyBook
+
+
 	return render(request, 'homepage.html', data )
 
 @login_required(login_url='/login/')
