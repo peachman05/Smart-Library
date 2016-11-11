@@ -209,9 +209,9 @@
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
                                                 <div align="center">
-                                                    {% if bookObj.picture %}
+                                                    {% if bookObj.picture == '/media/False'  %}
                                                     <img class="article-image" src="{{bookObj.picture.url}}" alt="" border="2" style="height:200px; "> {% else %}
-                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" border="2" style="height:200px; "> {% endif %}
                                                 </div>
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
@@ -281,9 +281,9 @@
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
                                                 <div align="center">
-                                                    {% if bookObj.1.1.picture %}
+                                                    {% if bookObj.1.1.picture == '/media/False' %}
                                                     <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="height:200px; "> {% else %}
-                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" border="2" style="height:200px; "> {% endif %}
                                                 </div>
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
@@ -359,9 +359,9 @@
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
                                                 <div align="center">
-                                                    {% if bookObj.1.1.picture %}
+                                                    {% if bookObj.1.1.picture == '/media/False' %}
                                                     <img class="article-image" src="{{bookObj.1.1.picture.url}}" alt="" border="2" style="height:200px; "> {% else %}
-                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                                    <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" border="2" style="height:200px; "> {% endif %}
                                                 </div>
                                             </div>
                                             <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
