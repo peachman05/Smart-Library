@@ -74,3 +74,9 @@ img {
         margin: auto;
         background-color: #FFF;
     }
+
+
+@font-face {
+    font-family: supermarket;
+    src: url(../static/library/font/supermarket.ttf);
+}
