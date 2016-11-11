@@ -24,8 +24,8 @@ def home(request):
 	cataCountDict = {} # key is category name
 	for cataObj in cataAll:
 		cataCountDict[cataObj.name] = Transaction.categoryCount(cataObj.name) #Transaction.objects.filter(book__category__name = cataObj.name ).count
-
-
+	
+	temp = {}
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
 	listShow = []
