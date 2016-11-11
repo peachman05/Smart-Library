@@ -1,7 +1,15 @@
 {% extends "backend.html" %}
 {% load staticfiles %}
 {% block title %}Dashboard{% endblock %}
-
+{% block head %}
+	<style type="text/css">
+	th:hover{
+     cursor:pointer;
+    background:#AAA;
+    
+}
+	</style>
+{% endblock %}
 {% block content %}
 <div class="mdl-grid">
 	<h2>Dashboard</h2>
@@ -41,14 +49,14 @@
 
 		<h3>Transaction</h3>
 		<div class="mdl-cell mdl-cell--12-col">
-			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<table id="transtable" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 			  <thead>
 			    <tr>
-			    	<th class="mdl-data-table__cell--non-numeric">Date Time</th>
-			    	<th class="mdl-data-table__cell--non-numeric">Student</th>
-			    	<th class="mdl-data-table__cell--non-numeric">Book</th>
-			    	<th class="mdl-data-table__cell--non-numeric">Code</th>
-			    	<th class="mdl-data-table__cell--non-numeric">action</th>
+			    	<th  id="sort-date" class="mdl-data-table__cell--non-numeric">Date Time</th>
+			    	<th  id="sort-student" class="mdl-data-table__cell--non-numeric">Student</th>
+			    	<th  id="sort-book" class="mdl-data-table__cell--non-numeric">Book</th>
+			    	<th  id="sort-bookcode" class="mdl-data-table__cell--non-numeric">Code</th>
+			    	<th  id="sort-status" class="mdl-data-table__cell--non-numeric">action</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -71,6 +79,7 @@
 
 {% endblock %}
 {% block script %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="{% static 'library/js/Chart.min.js' %}"></script>
 	<script type="text/javascript">
 		Chart.defaults.global.responsive = true;
@@ -146,5 +155,70 @@
 		    },
 		    options: {responsive: true,}
 		});
+
+function sortTable(f,n){
+	var rows = $('#transtable tbody  tr').get();
+
+	rows.sort(function(a, b) {
+
+		var A = getVal(a);
+		var B = getVal(b);
+
+		if(A < B) {
+			return -1*f;
+		}
+		if(A > B) {
+			return 1*f;
+		}
+		return 0;
+	});
+
+	function getVal(elm){
+		var v = $(elm).children('td').eq(n).text().toUpperCase();
+		if($.isNumeric(v)){
+			v = parseInt(v,10);
+		}
+		return v;
+	}
+
+	$.each(rows, function(index, row) {
+		$('#transtable').children('tbody').append(row);
+	});
+}
+var f_date = 1;
+var f_student = 1;
+var f_book = 1;
+var f_bookcode = 1;
+var f_status = 1;
+
+$("#sort-date").click(function(){
+    f_date *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_date, n);
+});
+$("#sort-student").click(function(){
+    f_student *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_student, n);
+});
+$("#sort-book").click(function(){
+    f_book *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_book, n);
+});
+$("#sort-bookcode").click(function(){
+    f_bookcode *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_bookcode, n);
+});
+$("#sort-status").click(function(){
+    f_status *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_status, n);
+});
+
+
+
+
 	</script>
 {% endblock %}

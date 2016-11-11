@@ -1,6 +1,15 @@
 {% extends "backend.html" %}
+{% load staticfiles %}
 {% block title %}User{% endblock %}
-
+{% block head %}
+	<style type="text/css">
+	th:hover{
+     cursor:pointer;
+    background:#AAA;
+    
+}
+	</style>
+{% endblock %}
 {% block content %}	
 <div class="mdl-grid">
 	<div class="mdl-cell mdl-cell--12-col">
@@ -13,13 +22,13 @@
 	<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--11-col mdl-grid">
 		<form id="studentform" action='/lib/librarian/backend_user/' method="post">
 			{% csrf_token %}
-			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<table id="userTable" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 			  <thead>
 			    <tr>
 			    	<th>#</th>
-			    	<th style="text-align: center;">Student ID</th>
-			    	<th class="mdl-data-table__cell--non-numeric">Name</th>
-			    	<th>Quantity</th>
+			    	<th id="sortStudent" style="text-align: center;">Student ID</th>
+			    	<th id="sortName" class="mdl-data-table__cell--non-numeric">Name</th>
+			    	<th id="sortQuantity">Quantity</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -97,7 +106,7 @@
 	</div>
 	</dialog>
 
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
     var dialog = document.querySelector('#addStudentDialog');
     var showDialogButton = document.querySelector('#show-dialog');
@@ -133,5 +142,56 @@
     	dialog.close();
     	dialog2.close();
     });
+
+function sortTable(f,n){
+	var rows = $('#userTable tbody  tr').get();
+
+	rows.sort(function(a, b) {
+
+		var A = getVal(a);
+		var B = getVal(b);
+
+		if(A < B) {
+			return -1*f;
+		}
+		if(A > B) {
+			return 1*f;
+		}
+		return 0;
+	});
+
+function getVal(elm){
+		var v = $(elm).children('td').eq(n).text().toUpperCase();
+		if($.isNumeric(v)){
+			v = parseInt(v,10);
+		}
+		return v;
+	}
+
+	$.each(rows, function(index, row) {
+		$('#userTable').children('tbody').append(row);
+	});
+}
+var f_student = 1;
+var f_name = 1;
+var f_quantity = 1;
+
+$("#sortStudent").click(function(){
+    f_student *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_student, n);
+});
+$("#sortName").click(function(){
+    f_name *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_name, n);
+});
+$("#sortQuantity").click(function(){
+    f_quantity *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_quantity, n);
+});
+
+
   </script>
 {% endblock %}

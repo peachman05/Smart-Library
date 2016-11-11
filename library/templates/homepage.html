@@ -6,7 +6,12 @@
 
 <!-- <link rel="stylesheet" href="{% static 'library/css/catalog.css' %}">  -->
 
-
+<style type="text/css">
+  th:hover{
+    cursor:pointer;
+    background:#AAA;
+  }
+</style>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -118,14 +123,14 @@
                       </div>
 
                       <div class="mdl-grid " style="  width:100% ; margin-top:10px;" >
-                            <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" >
+                            <table id="lastUpdateTable" class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" >
                                   <thead >
                                     <tr >
-                                      <th> </th>
-                                      <th style="font-weight: bold; font-size: 120% !important;">Username</th>
-                                      <th style="font-weight: bold; font-size: 120% !important;">Book Name</th>
-                                      <th style="font-weight: bold; font-size: 120% !important;">Status</th>
-                                      <th style="font-weight: bold; font-size: 120% !important;  text-align: center; " >Date</th>
+                                      <th id="sortX"> </th>
+                                      <th id="sortUser" style="font-weight: bold; font-size: 120% !important;">Username</th>
+                                      <th id="sortBookName" style="font-weight: bold; font-size: 120% !important;">Book Name</th>
+                                      <th id="sortStatus" style="font-weight: bold; font-size: 120% !important;">Status</th>
+                                      <th id="sortDate" style="font-weight: bold; font-size: 120% !important;  text-align: center; " >Date</th>
                                     </tr>
                                   </thead>
 
@@ -379,3 +384,66 @@
     </div>
 </div>
 {% endblock %}
+{% block script %}
+<script type="text/javascript">
+    function sortTable(f,n){
+      var rows = $('#lastUpdateTable tbody  tr').get();
+
+      rows.sort(function(a, b) {
+
+        var A = getVal(a);
+        var B = getVal(b);
+
+        if(A < B) {
+          return -1*f;
+        }
+        if(A > B) {
+          return 1*f;
+        }
+        return 0;
+      });
+
+      function getVal(elm){
+        var v = $(elm).children('td').eq(n).text().toUpperCase();
+        if($.isNumeric(v)){
+          v = parseInt(v,10);
+        }
+        return v;
+      }
+
+      $.each(rows, function(index, row) {
+        $('#lastUpdateTable').children('tbody').append(row);
+      });
+    }
+    var f_X = 1;
+    var f_user = 1;
+    var f_bookName = 1;
+    var f_status = 1;
+    var f_date = 1;
+    $("#sortX").click(function(){
+        f_X *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_X, n);
+    }); 
+    $("#sortUser").click(function(){
+        f_user *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_user, n);
+    });
+    $("#sortBookName").click(function(){
+        f_bookName *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_bookName, n);
+    });
+    $("#sortStatus").click(function(){
+        f_status *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_status, n);
+    });
+    $("#sortDate").click(function(){
+        f_date *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_date, n);
+    });
+</script>
+{% endblock%}
