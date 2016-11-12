@@ -308,6 +308,7 @@ def backend_editBook(request, book_code):
 	data = {'page': 'BookManager'}
 	print(book_code)
 	data['book'] = Book.objects.get(code = book_code)
+	book = Book.objects.get(code = book_code)
 	data['form'] = bookImgFileForm()
 	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	if request.method == 'POST':
