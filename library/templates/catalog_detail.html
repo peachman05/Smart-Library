@@ -190,13 +190,13 @@
                             <div class="mdl-grid article-content-width">
                                 <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-phone" style="padding-left:10px;padding-top:20px;">
                                     <!-- <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0"> -->
-                                    {% if book.picture == '/media/False' %}
+                                    {% if book.picture != 'False' %}
                                     <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
                                     <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
                                 </div>
                                 <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-desktop">
                                     <!-- <img class="article-image" src="{% static 'library/images/book_1.jpg' %}" alt="" border="0"> -->
-                                    {% if book.picture == '/media/False' %}
+                                    {% if book.picture != 'False' %}
                                     <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
                                     <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
                                 </div>
