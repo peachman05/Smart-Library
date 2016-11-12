@@ -19,7 +19,6 @@ FINE_RATE = 3
 def home(request):
 
 	## popular catalog book
-
 	cataAll = BookCategories.objects.all()
 	cataCountDict = {} # key is category name
 	for cataObj in cataAll:
