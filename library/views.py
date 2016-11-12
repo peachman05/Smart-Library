@@ -24,7 +24,7 @@ def home(request):
 	cataCountDict = {} # key is category name
 	for cataObj in cataAll:
 		cataCountDict[cataObj.name] = Transaction.categoryCount(cataObj.name) #Transaction.objects.filter(book__category__name = cataObj.name ).count
-	
+
 	temp = {}
 	cataCountDict_Sort = sorted(cataCountDict.items(), key=operator.itemgetter(1) ,reverse=True)
 	data = {}
@@ -66,7 +66,7 @@ def home(request):
 	newlyBook = Book.objects.order_by('-id')[:10]
 
 	# set data
-					
+
 	data['user'] = request.user
 	data['listShow'] = listShow
 	data['test'] = datetime.now() - timedelta(days=30)
@@ -126,7 +126,7 @@ def borrowBookByCode(request, book_code):
 	for book in book_list:
 		book.borrow_date += timedelta(days=BOOK_DUE_DATE)
 		books.append(book)
-	data['book_list'] = books	
+	data['book_list'] = books
 	data['book_code'] = book_code
 	return render(request, 'borrowbook.html', data)
 
@@ -281,7 +281,7 @@ def backend_addbook(request):
 				data['form'] = bookImgFileForm()
 				data['error_message'] = "That book code is already exist please use another code!"
 				return render(request, 'backend_addbook.html', data)
-			except:			
+			except:
 				try:
 					upload_file = request.FILES['book_image']
 				except:
@@ -316,26 +316,27 @@ def backend_editBook(request, book_code):
 			book_edit.name = request.POST.get('add_name', False)
 			book_edit.author = request.POST.get('add_author', False)
 			book_edit.code = request.POST.get('add_code', False)
-
-			try:
-				b_book = Book.objects.get(code = book_edit.code)
-				data['error_message'] = "That book code is already exist please use another code!"
-				return render(request, 'backend_editbook.html', data)
-			except:	
-				book_edit.date = request.POST.get('add_date', False)
-				book_edit.isbn = request.POST.get('add_isbn', False)
-				book_edit.address = request.POST.get('add_address', False)
-				post_category = request.POST.get('ab_category', False)
-				book_edit.category = BookCategories.objects.get(name = post_category)
-				book_edit.student = Student.objects.get(student_ID = 'libraryStore')
+			if(book.code != book_edit.code):
 				try:
-					upload_file = request.FILES['book_image']
+					b_book = Book.objects.get(code = book_edit.code)
+					data['error_message'] = "That book code is already exist please use another code!"
+					return render(request, 'backend_editbook.html', data)
 				except:
-					upload_file = False
-				book_edit.picture = upload_file
-				book_edit.save()
+					print('Book\'s code is valid')
+			book_edit.date = request.POST.get('add_date', False)
+			book_edit.isbn = request.POST.get('add_isbn', False)
+			book_edit.address = request.POST.get('add_address', False)
+			post_category = request.POST.get('ab_category', False)
+			book_edit.category = BookCategories.objects.get(name = post_category)
+			book_edit.student = Student.objects.get(student_ID = 'libraryStore')
+			try:
+				upload_file = request.FILES['book_image']
+			except:
+				upload_file = False
+			book_edit.picture = upload_file
+			book_edit.save()
 		return HttpResponseRedirect("/lib/librarian/backend_addbook/")
-	return render(request, 'backend_editbook.html', data)	
+	return render(request, 'backend_editbook.html', data)
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
