@@ -153,7 +153,10 @@ def borrowBook(request):
 			except:
 				data['error_message'] = 'Book Not Found!'
 				return render(request, 'borrowbook.html', data)
-			if book_borrow.student == student:
+			if book_borrow.category == 'DeleteCat':
+				data['error_message'] = 'You can\'t borrow the deleted book'
+				return render(request, 'borrowbook.html', data)
+			elif book_borrow.student == student:
 				data['error_message'] = 'You\'re already borrow this book'
 				return render(request, 'borrowbook.html', data)
 			elif book_borrow.status == 'BW':
