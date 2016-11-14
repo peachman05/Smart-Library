@@ -19,7 +19,6 @@ FINE_RATE = 3
 def home(request):
 
 	## popular catalog book
-
 	cataAll = BookCategories.objects.all()
 	cataCountDict = {} # key is category name
 	for cataObj in cataAll:
@@ -154,7 +153,10 @@ def borrowBook(request):
 			except:
 				data['error_message'] = 'Book Not Found!'
 				return render(request, 'borrowbook.html', data)
-			if book_borrow.student == student:
+			if book_borrow.category == 'DeleteCat':
+				data['error_message'] = 'You can\'t borrow the deleted book'
+				return render(request, 'borrowbook.html', data)
+			elif book_borrow.student == student:
 				data['error_message'] = 'You\'re already borrow this book'
 				return render(request, 'borrowbook.html', data)
 			elif book_borrow.status == 'BW':
@@ -308,6 +310,7 @@ def backend_editBook(request, book_code):
 	data = {'page': 'BookManager'}
 	print(book_code)
 	data['book'] = Book.objects.get(code = book_code)
+	book = Book.objects.get(code = book_code)
 	data['form'] = bookImgFileForm()
 	data['Categories_list'] = BookCategories.objects.all().filter(~Q(name = 'DeleteCat'))
 	if request.method == 'POST':

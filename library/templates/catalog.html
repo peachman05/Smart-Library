@@ -232,9 +232,9 @@
                             <div class="mdl-grid mdl-grid--no-spacing mdl-cell mdl-cell--12-col">
                                 <div class="mdl-cell mdl-cell--12-col" style="margin:0px; margin-bottom:6px;" align="center">
                                     <div align="center">
-                                        {% if book.picture == '/media/False' %}
-                                        <img class="article-image" src="{{book.picture.url}}" alt="" border="0"> {% else %}
-                                        <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0"> {% endif %}
+                                        {% if book.picture != 'False' %}
+                                        <img class="article-image" src="{{book.picture.url}}" alt="" border="0" style="width: 150px; height: 200px;"> {% else %}
+                                        <img class="article-image" src="{% static 'library/images/no_cover_thumnail.jpg' %}" alt="" border="0" style="width: 150px; height: 200px;"> {% endif %}
                                     </div>
                                 </div>
                                 <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
