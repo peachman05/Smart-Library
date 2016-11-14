@@ -50,7 +50,8 @@
 			    <tr style="background-color: #d9dde8;">
 			    	<td></td>
 			    	<td></td>
-			    	<td><button type="submit" style="margin-left:20px; background-color:rgb(33,150,243);" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="return_book">Return!</button></td>
+			    	<td><button type="submit" style="margin-left:20px; background-color:rgb(33,150,243);" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent loading-dis
+" name="return_book">Return!</button></td>
 			    	<td><b>Total Price</b></td>
 			    	<td><div id="total">0</div></td>
 			    </tr>
@@ -81,13 +82,9 @@
     }
     showDialogButton4.addEventListener('click', function() {
     	dialogLoad.showModal();
-    	dialog.close();
-    	dialog2.close();
-    	dialog3.close();
-    	dialog4.close();
     });
 
-	$('.box').change(function(){
+$('.box').change(function(){
        var total = 0;
        $('.box:checked').each(function(){
             total+=parseFloat($(this).parent().parent().next('td').next('td').next('td').next('td').find('.amount').text());

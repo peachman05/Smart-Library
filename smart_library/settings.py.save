@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'Aod1tiy1bqxy#(0*yj6mepfq=h1=rkl=0&%f01px)f_x@vg*j9'
+SECRET_KEY = 'god1tiy1bqxy#(0*yj6mepfq=h1=rkl=0&%f01px)f_x@vg*j9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.161.255.20', 'smartlib.isara.kmi.tl']
+ALLOWED_HOSTS = ['35.161.255.2035.161.2550]
 
 
 # Application definition
@@ -101,6 +101,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'library/static'),
 )
 

@@ -18,5 +18,5 @@ application = get_wsgi_application()
 
 # For Heroku
 
-# from whitenoise.django import DjangoWhiteNoise
-# application = DjangoWhiteNoise(application)
+from whitenoise.django import DjangoWhiteNoise
+application = DjangoWhiteNoise(application)

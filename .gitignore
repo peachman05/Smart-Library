@@ -3,5 +3,6 @@ media/
 library/migrations/
 db.sqlite3
 *.pyc
+settings.py
 local_settings.py
 staticfiles
