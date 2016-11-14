@@ -33,7 +33,7 @@
     }
 
     .content-slider {
-        height: 300px;
+        height: 100%;
     }
 
     .content-slider h3 {
@@ -216,10 +216,10 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
-                                            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px;">
+                                            <div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text" style="text-align: center; margin:0px; padding-top:0px; padding-bottom:0px; word-wrap: break-word; ">
                                                 <h1 style="font-size: 14px;color:#008CBA; margin:0px;">
-                                                    <a href="/lib/catalog/{{bookObj.1.1.id}}">
-                                                      {{bookObj.name}}
+                                                    <a href="/lib/catalog/{{bookObj.id}}">
+                                                      {{bookObj.name}} 
                                                     </a>
                                                 </h1>
                                                 {{bookObj.author}}<br>
