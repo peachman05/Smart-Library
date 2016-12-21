@@ -1,11 +1,11 @@
 # Smart Library
 
-Smart Library is library management system
-Using
+Smart Library is a library management system
+using
 - Python 3.5.2 *(Programming Language)*
 - Django 1.10.2 *(Web Framework)*
 
-This is project submitted to **Software Engineering subject, CE KMITL 2016**
+This project was submitted to **Software Engineering subject, CE KMITL 2016**
 
 **Contributors**
 * Supawit Kansompoj
